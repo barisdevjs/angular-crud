@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import {RouterModule} from '@angular/router';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -10,7 +11,7 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EmployeeService} from './services/employee.service'
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { TabMenuModule } from 'primeng/tabmenu';
 import {TableModule} from 'primeng/table';
 import {ToastModule} from 'primeng/toast';
@@ -23,6 +24,13 @@ import {ButtonModule} from 'primeng/button';
 import {DropdownModule} from 'primeng/dropdown';
 import {ProgressBarModule} from 'primeng/progressbar';
 import {InputTextModule} from 'primeng/inputtext';
+import {ToolbarModule} from 'primeng/toolbar';
+import {FileUploadModule} from 'primeng/fileupload';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService, MessageService } from 'primeng/api';
+
+
+
 
 @NgModule({
   declarations: [
@@ -45,12 +53,17 @@ import {InputTextModule} from 'primeng/inputtext';
     ToastModule,
     InputTextModule,
     ProgressBarModule,
+    ConfirmDialogModule,
     FormsModule,
-    NgbModule,
     TabMenuModule,
+    FileUploadModule,
+    ToolbarModule,
+    RouterModule.forRoot([
+      {path:'',component: AppComponent},
+  ])
 
   ],
-  providers: [EmployeeService],
+  providers: [EmployeeService, MessageService, ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
