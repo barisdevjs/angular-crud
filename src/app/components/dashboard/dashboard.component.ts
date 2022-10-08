@@ -18,46 +18,20 @@ export class DashboardComponent implements OnInit {
 
   employeeDialog: boolean = false;
   employee: Employee = {}
-/*   {
-    id: 'sd',
-    code: 'string',
-    name: 'str',
-    description: 'string',
-    price: 2323,
-    quantity: 323,
-    inventoryStatus: 'string',
-    category: 'string',
-    image: 'string',
-    rating: 222
-  } */
-
   employees: Employee[] = [];
   selectedEmployees: Employee[] = [];
   submitted: boolean = false;
-
-
   statuses: any[] = []
-  loading: boolean = false;
-  activityValues: number[] = [0, 100]
-  items: MenuItem[] = [];
-  activeItem: MenuItem = {};
+
+
+
 
   constructor(private employeeService: EmployeeService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
-    // move items to main app 
-    this.items = [
-      { label: 'Home', icon: 'pi pi-fw pi-home' },
-      { label: 'Calendar', icon: 'pi pi-fw pi-calendar' },
-      { label: 'Edit', icon: 'pi pi-fw pi-pencil' },
-      { label: 'Documentation', icon: 'pi pi-fw pi-file' },
-      { label: 'Settings', icon: 'pi pi-fw pi-cog' }
-    ];
 
-    this.activeItem = this.items[0];
-    // ///////////////////////
 
     this.employeeService.getEmployees().subscribe(data => this.employees = data)
   }
@@ -86,31 +60,44 @@ export class DashboardComponent implements OnInit {
     this.employeeDialog = true;
   }
 
+  deleteEmployee(employee: Employee) {
+    this.confirmationService.confirm({
+        message: 'Are you sure you want to delete ' + employee.name + '?',
+        header: 'Confirm',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+            this.employees = this.employees.filter(val => val.id !== employee.id);
+            this.employee = {};
+            this.messageService.add({severity:'success', summary: 'Successful', detail: 'employee Deleted', life: 3000});
+        }
+    });
+}
+
   hideDialog() {
     this.employeeDialog = false;
     this.submitted = false;
-}
+  }
 
-saveEmployee() {
+  saveEmployee() {
     this.submitted = true;
 
     if (this?.employee?.name?.trim()) {
-        if (this.employee.id) {
-            this.employees[this.findIndexById(this.employee.id)] = this.employee;                
-            this.messageService.add({severity:'success', summary: 'Successful', detail: 'Employee Updated', life: 3000});
-        }
-        else {
-            this.employee.id = this.createId();
-            this.employee.image = 'employee-placeholder.svg';
-            this.employees.push(this.employee);
-            this.messageService.add({severity:'success', summary: 'Successful', detail: 'Employee Created', life: 3000});
-        }
+      if (this.employee.id) {
+        this.employees[this.findIndexById(this.employee.id)] = this.employee;
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Employee Updated', life: 3000 });
+      }
+      else {
+        this.employee.id = this.createId();
+        this.employee.image = 'employee-placeholder.svg';
+        this.employees.push(this.employee);
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Employee Created', life: 3000 });
+      }
 
-        this.employees = [...this.employees];
-        this.employeeDialog = false;
-        this.employee = {};
+      this.employees = [...this.employees];
+      this.employeeDialog = false;
+      this.employee = {};
     }
-}
+  }
 
 
   findIndexById(id: string): number {
