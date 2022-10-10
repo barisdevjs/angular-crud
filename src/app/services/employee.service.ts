@@ -2,6 +2,7 @@ import { HttpClient, HttpHandler, HttpHeaders, HttpRequest, HttpInterceptor } fr
 import { Injectable } from '@angular/core';
 import { Employee } from '../types/employee-type';
 import { Observable, firstValueFrom } from 'rxjs'
+import { MessageService, ConfirmationService} from 'primeng/api';
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -17,14 +18,14 @@ export class EmployeeService implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler) {
         const authReq = req.clone({
             setHeaders: {
-                'Cache-Control': 'no-cache',
+                'Cache-Control': 'no-cache, no-store, must-revalidate', ///
                 Pragma: 'no-cache'
             }
         });
         return next.handle(authReq);
     }
 
-    private apiUrl = 'http://localhost:5000/tasks' // replace it with sth reliable
+    public apiUrl = 'http://localhost:5000/employees' 
 
     status: string[] = ['WORKING', 'ANNUAL-LEAVE', 'SICKNESS'];
 
@@ -62,10 +63,36 @@ export class EmployeeService implements HttpInterceptor {
     ];
 
 
-    constructor(private http: HttpClient) { }
+    constructor(
+        private http: HttpClient,
+        private messageService: MessageService,
+        private confirmationService: ConfirmationService
+        ) { }
 
     getEmployees(): Observable<Employee[]> {
-        return this.http.get<Employee[]>(this.apiUrl)
+        return this.http.get<Employee[]>(this.apiUrl, httpOptions)
+    }
+
+    deleteEmployee(employee: Employee): Observable<Employee> {
+        const url = `${this.apiUrl}/${employee.id}`;
+        this.confirmationService.confirm({
+            message: 'Are you sure you want to delete ?',
+            header: 'Confirm',
+            icon: 'pi pi-exclamation-triangle',
+            accept: () => {
+              this.messageService.add({ severity: 'success', summary: 'Successful', detail: `${employee.name} deleted`, life: 3000 })
+            }
+        })
+        return this.http.delete<Employee>(url);
+    }
+
+    editEmployee(employee: Employee): Observable<Employee> {
+        const url = `${this.apiUrl}/${employee.id}`;
+        return this.http.put<Employee>(url, employee, httpOptions);
+    }
+
+    addEmployee(employee: Employee): Observable<Employee> {
+        return this.http.post<Employee>(this.apiUrl,employee, httpOptions)
     }
 
     getProductsSmall() {
@@ -93,35 +120,26 @@ export class EmployeeService implements HttpInterceptor {
         const employee: Employee = {
             id: this.generateId(),
             name: this.generateName(),
-            description: "Employee Description",
-            price: this.generatePrice(),
-            quantity: this.generateQuantity(),
+            wage: this.generateWage(),
             category: "Employee Category",
             inventoryStatus: this.generateStatus(),
             rating: this.generateRating()
         };
-        if ( employee.name) {
+/*         if ( employee.name) {
             employee.image = employee.name.toLocaleLowerCase().split(/[ ,]+/).join('-') + ".jpg";;
-        }
+        } */
         return employee;
     }
 
     generateId() {
-        let text = "";
-        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-        for (var i = 0; i < 5; i++) {
-            text += possible.charAt(Math.floor(Math.random() * possible.length));
-        }
-
-        return text;
+        return Math.floor(Math.random() * 100000).toString()
     }
 
     generateName() {
         return this.employeeNames[Math.floor(Math.random() * Math.floor(30))]; // array of strings of names
     }
 
-    generatePrice() {
+    generateWage() {
         return Math.floor(Math.random() * Math.floor(2299) + 1);
     }
 

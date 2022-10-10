@@ -5,7 +5,7 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Routes = [ 
-    {path: '', component : AppComponent },
+    {path: '', redirectTo: 'home', pathMatch: 'full'},
     { path: 'home',  component :DashboardComponent },
     { path: 'calendar', component : CalendarComponent},
   { path: '**', redirectTo: 'home', pathMatch: 'full', }

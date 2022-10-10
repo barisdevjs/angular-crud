@@ -1,0 +1,39 @@
+{
+  "employees": [
+    {
+      "name": "John",
+      "email": "xxx@gmail.com",
+      "category": "Backend",
+      "wage": 2323,
+      "rating": 5,
+      "id": "ePN5N"
+    },
+    {
+      "name": "Someone",
+      "email": "smn@gmail.com",
+      "category": "Full-Stack",
+      "wage": 3000,
+      "rating": 2,
+      "id": "QvKZm"
+    },
+    {
+      "name": "John",
+      "email": "xxx@gmail.com",
+      "category": "Backend",
+      "wage": 2323,
+      "rating": 5,
+      "id": "ePN25N"
+    },
+    {
+      "name": "Someone",
+      "email": "smn@gmail.com",
+      "category": "Full-Stack",
+      "wage": 3000,
+      "rating": 2,
+      "id": "QvK44Zm"
+    }
+  ],
+  "uploads": [
+    {}
+  ]
+}

@@ -1,38 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from "../../services/employee.service";
-import { MessageService } from "primeng/api";
-import { MenuItem } from 'primeng/api';
+import { MessageService, ConfirmationService } from "primeng/api";
 import { Employee } from 'src/app/types/employee-type';
-import { ConfirmationService } from 'primeng/api';
 
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
-  providers: [MessageService]
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
-  /* Start of the main logic's variables */
 
   employeeDialog: boolean = false;
   employee: Employee = {}
   employees: Employee[] = [];
   selectedEmployees: Employee[] = [];
   submitted: boolean = false;
-  statuses: any[] = []
+  // statuses: any[] = []
 
-
-
-
-  constructor(private employeeService: EmployeeService,
-    private messageService: MessageService,
-    private confirmationService: ConfirmationService) { }
+  constructor(
+    public employeeService: EmployeeService,
+    public messageService: MessageService,
+    public confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
-
-
     this.employeeService.getEmployees().subscribe(data => this.employees = data)
   }
 
@@ -42,7 +33,7 @@ export class DashboardComponent implements OnInit {
     this.employeeDialog = true;
   }
 
-  deleteSelectedEmployees(): void {
+  deleteSelectedEmployees() {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete ?',
       header: 'Confirm',
@@ -55,23 +46,21 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  editEmployee(employee: Employee) {
+  async editEmployee(employee: Employee) {
     this.employee = { ...employee };
     this.employeeDialog = true;
+    this.employeeService.editEmployee(employee).subscribe(data => data = this.employee)
   }
 
-  deleteEmployee(employee: Employee) {
-    this.confirmationService.confirm({
-        message: 'Are you sure you want to delete ' + employee.name + '?',
-        header: 'Confirm',
-        icon: 'pi pi-exclamation-triangle',
-        accept: () => {
-            this.employees = this.employees.filter(val => val.id !== employee.id);
-            this.employee = {};
-            this.messageService.add({severity:'success', summary: 'Successful', detail: 'employee Deleted', life: 3000});
-        }
-    });
-}
+  async deleteEmployee(employee: Employee) {
+    // we may use the Event emitter if we need that info smwhere in the app ( parent of this one )
+
+    this.employeeService.deleteEmployee(employee).subscribe(() => {
+      this.employees = this.employees.filter(val => val.id !== employee.id);
+    })
+    this.messageService.add({ severity: 'warning', summary: 'Successful', detail: `${employee.name} is successfully deleted`, life: 3000 });
+
+  }
 
   hideDialog() {
     this.employeeDialog = false;
@@ -85,11 +74,14 @@ export class DashboardComponent implements OnInit {
       if (this.employee.id) {
         this.employees[this.findIndexById(this.employee.id)] = this.employee;
         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Employee Updated', life: 3000 });
+
       }
       else {
         this.employee.id = this.createId();
-        this.employee.image = 'employee-placeholder.svg';
-        this.employees.push(this.employee);
+        // this.employees.push(this.employee);
+        this.employeeService.addEmployee(this.employee).subscribe(data => (
+          this.employees.push(data)
+        ))
         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Employee Created', life: 3000 });
       }
 
@@ -98,7 +90,6 @@ export class DashboardComponent implements OnInit {
       this.employee = {};
     }
   }
-
 
   findIndexById(id: string): number {
     let index = -1;

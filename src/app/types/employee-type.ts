@@ -2,12 +2,10 @@ export interface Employee {
   id?:string;
   code?:string;
   name?:string;
-  description?:string;
-  price?:number;
-  quantity?:number;
-  inventoryStatus?:string;
+  wage?:number;
+  inventoryStatus?:string; // replace with Status
   category?:string;
-  image?:string;
   rating?:number;
+  email?:string;
 }
   

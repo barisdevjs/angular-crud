@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
@@ -12,7 +12,6 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EmployeeService } from './services/employee.service'
 
 
-import { TabMenuModule } from 'primeng/tabmenu';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { CalendarModule } from 'primeng/calendar';
@@ -24,11 +23,19 @@ import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { InputTextModule } from 'primeng/inputtext';
-import { ToolbarModule } from 'primeng/toolbar';
 import { FileUploadModule } from 'primeng/fileupload';
+import { ToolbarModule } from 'primeng/toolbar';
+import { RatingModule } from 'primeng/rating';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { RatingModule } from 'primeng/rating';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { MessagesModule } from 'primeng/messages';
+
+
+
 
 
 @NgModule({
@@ -47,23 +54,31 @@ import { RatingModule } from 'primeng/rating';
     DialogModule,
     MultiSelectModule,
     ContextMenuModule,
+    InputNumberModule,
     DropdownModule,
     ButtonModule,
     ToastModule,
     InputTextModule,
     ProgressBarModule,
+    RadioButtonModule,
     ConfirmDialogModule,
     FormsModule,
     TabMenuModule,
     FileUploadModule,
     RatingModule,
     ToolbarModule,
+    InputTextareaModule,
+    MessagesModule,
     RouterModule.forRoot([
       { path: '', component: AppComponent },
     ])
 
   ],
-  providers: [EmployeeService, MessageService, ConfirmationService],
+  providers: [MessageService, ConfirmationService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: EmployeeService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
