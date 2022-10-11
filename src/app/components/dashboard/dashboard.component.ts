@@ -33,26 +33,27 @@ export class DashboardComponent implements OnInit {
     this.employeeDialog = true;
   }
 
-  deleteSelectedEmployees() {
+   deleteSelectedEmployees() {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete ?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.employees = this.employees.filter(e => !this.selectedEmployees.includes(e)); // e.id maybe
+       accept:  () => {
+        const willDeleted =  this.selectedEmployees
+        willDeleted.forEach( e =>  this.deleteEmployee(e))
         this.selectedEmployees = [];
         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Employees Deleted', life: 3000 });
       }
     })
   }
 
-  async editEmployee(employee: Employee) {
+   editEmployee(employee: Employee) {
     this.employee = { ...employee };
     this.employeeDialog = true;
     this.employeeService.editEmployee(employee).subscribe(data => data = this.employee)
   }
 
-  async deleteEmployee(employee: Employee) {
+   deleteEmployee(employee: Employee) {
     // we may use the Event emitter if we need that info smwhere in the app ( parent of this one )
 
     this.employeeService.deleteEmployee(employee).subscribe(() => {
@@ -74,7 +75,6 @@ export class DashboardComponent implements OnInit {
       if (this.employee.id) {
         this.employees[this.findIndexById(this.employee.id)] = this.employee;
         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Employee Updated', life: 3000 });
-
       }
       else {
         this.employee.id = this.createId();

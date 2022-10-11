@@ -95,6 +95,7 @@ export class EmployeeService implements HttpInterceptor {
         return this.http.post<Employee>(this.apiUrl,employee, httpOptions)
     }
 
+
     getProductsSmall() {
         return this.http.get<any>('assets/products-small.json')
             .toPromise()
