@@ -1,11 +1,13 @@
+import { Observable } from "rxjs";
+
 export interface Employee {
   id?:string;
-  code?:string;
   name?:string;
   wage?:number;
-  inventoryStatus?:string; // replace with Status
+  status?:string;
   category?:string;
   rating?:number;
   email?:string;
+  image?:Observable<string>;
 }
   

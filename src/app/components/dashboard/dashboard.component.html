@@ -36,7 +36,7 @@
                 <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
                 <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th>
                 <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
-                <th></th>
+                <th>Action</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-employee>
@@ -50,6 +50,8 @@
 				<td>{{employee.wage | currency:'USD'}}</td>
                 <td>{{employee.category}}</td>
                 <td><p-rating [ngModel]="employee.rating" [readonly]="true" [cancel]="false"></p-rating></td>
+                <!-- Make sure we can edit the stars by clicking on them  // we need to do add  status for each of them-->
+                <td>{{employee.status |json}}</td>
                 <!-- <td><span [class]="'employee-badge status-' + (employee.inventoryStatus ? employee.inventoryStatus.toLowerCase() : '')">{{employee.inventoryStatus}}</span></td> -->
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editEmployee(employee)"></button>
