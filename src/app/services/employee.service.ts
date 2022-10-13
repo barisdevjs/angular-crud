@@ -88,8 +88,8 @@ export class EmployeeService implements HttpInterceptor {
         return Math.floor(Math.random() * Math.floor(2299) + 1);
     }
 
-    generateStatus() {
-        return statusArr[Math.floor(Math.random() * Math.floor(3))];
+    generateStatus() : Object {
+        return statusArr[(Math.floor(Math.random() * Math.floor(statusArr.length)) + 1)]
     }
 
     generateRating() :number {
@@ -97,7 +97,7 @@ export class EmployeeService implements HttpInterceptor {
     }
 
     generateImage() {
-        return this.http.get<string>(`https://xsgames.co/randomusers/avatar.php?g=${this.getRandomGenders}`, httpOptions)
+        return this.http.get<string>(`https://xsgames.co/randomusers/avatar.php?g=${this.getRandomGenders()}`, httpOptions)
     }
 
     generateName() : string {
@@ -106,7 +106,7 @@ export class EmployeeService implements HttpInterceptor {
         return first + '  ' + last
     }
 
-    generateCategory() : string {
+    generateCategory() : Object {
         return statusArr[Math.floor(Math.random() * Math.floor(statusArr.length))];
     }
 

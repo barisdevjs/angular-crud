@@ -1,36 +1,44 @@
 {
   "employees": [
     {
-      "name": "John",
-      "email": "xxx@gmail.com",
-      "category": "Backend",
+      "name": "Leanne Graham",
+      "email": "Sincere@april.biz",
+      "category": "Frontend",
       "wage": 2323,
       "rating": 5,
       "id": "ePN5N"
     },
     {
-      "name": "Someone",
-      "email": "smn@gmail.com",
+      "name": "Ervin Howell",
+      "email": "Shanna@melissa.tv",
       "category": "Full-Stack",
       "wage": 3000,
       "rating": 2,
       "id": "QvKZm"
     },
     {
-      "name": "John",
-      "email": "xxx@gmail.com",
+      "name": "Leanne Graham",
+      "email": "anastasia.net",
       "category": "Backend",
       "wage": 2323,
       "rating": 5,
       "id": "ePN25N"
     },
     {
-      "name": "Someone",
-      "email": "smn@gmail.com",
+      "name": "Clementine Bauch",
+      "email": "Nathan@yesenia.net",
       "category": "Full-Stack",
       "wage": 3000,
       "rating": 2,
       "id": "QvK44Zm"
+    },
+    {
+      "name": "Denise Winchester",
+      "email": "denise@gmail.com",
+      "category": "Devops",
+      "wage": 1000,
+      "rating": 4,
+      "id": "AEAYS"
     }
   ],
   "uploads": [

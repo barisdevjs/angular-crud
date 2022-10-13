@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from "../../services/employee.service";
 import { MessageService, ConfirmationService } from "primeng/api";
 import { Employee } from 'src/app/types/employee-type';
+import  { statusArr } from "../../../assets/variables"
 
 
 @Component({
@@ -16,7 +17,7 @@ export class DashboardComponent implements OnInit {
   employees: Employee[] = [];
   selectedEmployees: Employee[] = [];
   submitted: boolean = false;
-  // statuses: any[] = []
+  statuses = statusArr
 
   constructor(
     public employeeService: EmployeeService,

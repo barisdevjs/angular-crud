@@ -13,7 +13,7 @@
     </p-toolbar>
 
     <p-table #dt [value]="employees" [rows]="10" [paginator]="true" [globalFilterFields]="['categorty','name', 'wage']" responsiveLayout="scroll"
-        [(selection)]="selectedEmployees" [rowHover]="true" dataKey="id"
+        [(selection)]="selectedEmployees" [rowHover]="true" dataKey="id" 
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
             <div class="flex align-items-center justify-content-between">
@@ -35,7 +35,18 @@
                 <th pSortableColumn="wage">Wage <p-sortIcon field="wage"></p-sortIcon></th>
                 <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
                 <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th>
-                <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+                <th ><div class="flex justify-content-center align-items-center">
+                    Status
+                    <p-columnFilter field="status" matchMode="equals" display="menu">
+                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                            <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
+                                <ng-template let-option pTemplate="item">
+                                    <span [class]="'customer-badge status-' + option.value">{{option.label}}</span>
+                                </ng-template>
+                            </p-dropdown>
+                        </ng-template>
+                    </p-columnFilter>
+                </div></th>
                 <th>Action</th>
             </tr>
         </ng-template>
@@ -51,8 +62,7 @@
                 <td>{{employee.category}}</td>
                 <td><p-rating [ngModel]="employee.rating" [readonly]="true" [cancel]="false"></p-rating></td>
                 <!-- Make sure we can edit the stars by clicking on them  // we need to do add  status for each of them-->
-                <td>{{employee.status |json}}</td>
-                <!-- <td><span [class]="'employee-badge status-' + (employee.inventoryStatus ? employee.inventoryStatus.toLowerCase() : '')">{{employee.inventoryStatus}}</span></td> -->
+                <td><span [class]="'customer-badge status-' + employee.status">{{employee.status}}</span></td>
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editEmployee(employee)"></button>
                     <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteEmployee(employee)"></button>

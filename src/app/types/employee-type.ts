@@ -4,7 +4,7 @@ export interface Employee {
   id?:string;
   name?:string;
   wage?:number;
-  status?:string;
+  status?:Object;
   category?:string;
   rating?:number;
   email?:string;
