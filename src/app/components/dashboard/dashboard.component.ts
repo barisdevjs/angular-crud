@@ -19,6 +19,9 @@ export class DashboardComponent implements OnInit {
   submitted: boolean = false;
   statuses = statusArr
 
+  badges : Map<string, string> = new Map([ ['Working', 'success'],['Annual-leave', 'info'],
+  ['Sickness', 'warning'],['Other', 'danger']]);
+
   constructor(
     public employeeService: EmployeeService,
     public messageService: MessageService,
@@ -52,6 +55,12 @@ export class DashboardComponent implements OnInit {
     this.employee = { ...employee };
     this.employeeDialog = true;
     this.employeeService.editEmployee(employee).subscribe(data => data = this.employee)
+  }
+
+  editEmployeeRating (employee: Employee) {
+    this.employee = { ...employee };
+    this.employeeService.editEmployee(employee).subscribe(data => data = this.employee)
+    // fix this one 
   }
 
   deleteEmployee(employee: Employee) {

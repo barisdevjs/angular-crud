@@ -33,7 +33,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { MessagesModule } from 'primeng/messages';
-
+import { BadgeModule } from 'primeng/badge';
 
 
 
@@ -69,6 +69,7 @@ import { MessagesModule } from 'primeng/messages';
     ToolbarModule,
     InputTextareaModule,
     MessagesModule,
+    BadgeModule,
     RouterModule.forRoot([
       { path: '', component: AppComponent },
     ])

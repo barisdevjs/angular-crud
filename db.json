@@ -6,39 +6,53 @@
       "category": "Frontend",
       "wage": 2323,
       "rating": 5,
-      "id": "ePN5N"
+      "id": "ePN5N",
+      "status": "Other"
     },
     {
       "name": "Ervin Howell",
       "email": "Shanna@melissa.tv",
       "category": "Full-Stack",
       "wage": 3000,
-      "rating": 2,
-      "id": "QvKZm"
+      "rating": 3,
+      "id": "QvKZm",
+      "status": "Sickness"
     },
     {
-      "name": "Leanne Graham",
+      "name": "Anastasia Workend",
       "email": "anastasia.net",
       "category": "Backend",
       "wage": 2323,
-      "rating": 5,
-      "id": "ePN25N"
+      "rating": 4,
+      "id": "ePN2as",
+      "status": "Working"
     },
     {
       "name": "Clementine Bauch",
       "email": "Nathan@yesenia.net",
       "category": "Full-Stack",
       "wage": 3000,
-      "rating": 2,
-      "id": "QvK44Zm"
+      "rating": 4,
+      "id": "QvK44Zm",
+      "status": "Annual-leave"
     },
     {
       "name": "Denise Winchester",
       "email": "denise@gmail.com",
       "category": "Devops",
       "wage": 1000,
-      "rating": 4,
-      "id": "AEAYS"
+      "rating": 1,
+      "id": "AEAYS",
+      "status": "Other"
+    },
+    {
+      "name": "Sarah",
+      "email": "sarah@hotmail.com",
+      "category": "Devops",
+      "wage": 1000,
+      "rating": 3,
+      "id": "rDwKF",
+      "status": "Sickness"
     }
   ],
   "uploads": [

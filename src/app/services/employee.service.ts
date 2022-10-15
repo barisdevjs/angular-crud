@@ -67,7 +67,7 @@ export class EmployeeService implements HttpInterceptor {
             id: this.generateId(),
             name: this.generateName(),
             wage: this.generateWage(),
-            category: "Employee Category",
+            category: "Employee Category", // update here
             rating: this.generateRating(),
             status: this.generateStatus(),
             image : this.generateImage()
@@ -88,7 +88,7 @@ export class EmployeeService implements HttpInterceptor {
         return Math.floor(Math.random() * Math.floor(2299) + 1);
     }
 
-    generateStatus() : Object {
+    generateStatus() : string {
         return statusArr[(Math.floor(Math.random() * Math.floor(statusArr.length)) + 1)]
     }
 

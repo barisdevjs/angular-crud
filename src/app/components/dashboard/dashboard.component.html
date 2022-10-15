@@ -1,6 +1,6 @@
 <p-toast></p-toast>
 <div class="card">
-    <p-toolbar styleClass="mb-4">
+    <p-toolbar styleClass="mb-1">
         <ng-template pTemplate="left">
             <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
             <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedEmployees()" [disabled]="!selectedEmployees || !selectedEmployees.length"></button>
@@ -12,7 +12,7 @@
         </ng-template>
     </p-toolbar>
 
-    <p-table #dt [value]="employees" [rows]="10" [paginator]="true" [globalFilterFields]="['categorty','name', 'wage']" responsiveLayout="scroll"
+    <p-table #dt [value]="employees" [rows]="5" [paginator]="true" [globalFilterFields]="['categorty','name', 'wage']" responsiveLayout="scroll"
         [(selection)]="selectedEmployees" [rowHover]="true" dataKey="id" 
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
@@ -35,18 +35,18 @@
                 <th pSortableColumn="wage">Wage <p-sortIcon field="wage"></p-sortIcon></th>
                 <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
                 <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th>
-                <th ><div class="flex justify-content-center align-items-center">
+                <th >
                     Status
                     <p-columnFilter field="status" matchMode="equals" display="menu">
                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                            <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
+                            <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Choose">
                                 <ng-template let-option pTemplate="item">
-                                    <span [class]="'customer-badge status-' + option.value">{{option.label}}</span>
+                                    <span>{{option}}</span> 
                                 </ng-template>
                             </p-dropdown>
                         </ng-template>
                     </p-columnFilter>
-                </div></th>
+                </th>
                 <th>Action</th>
             </tr>
         </ng-template>
@@ -60,9 +60,11 @@
                 <!-- <td><img [src]="'assets/showcase/images/demo/employee/' + employee.image" [alt]="employee.name" width="100" class="shadow-4" /></td> -->
 				<td>{{employee.wage | currency:'USD'}}</td>
                 <td>{{employee.category}}</td>
-                <td><p-rating [ngModel]="employee.rating" [readonly]="true" [cancel]="false"></p-rating></td>
+                <td><p-rating [(ngModel)]="employee.rating" name="rating" [readonly]="false" [cancel]="false" (click)="editEmployeeRating(employee)"></p-rating></td>
                 <!-- Make sure we can edit the stars by clicking on them  // we need to do add  status for each of them-->
-                <td><span [class]="'customer-badge status-' + employee.status">{{employee.status}}</span></td>
+                <td>
+                    <span>{{employee.status}}</span>
+                </td>
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editEmployee(employee)"></button>
                     <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteEmployee(employee)"></button>
@@ -77,18 +79,41 @@
     </p-table>
 </div>
 
-<p-dialog [(visible)]="employeeDialog" [style]="{width: '400px'}" header="Employee Details" [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="employeeDialog" [style]="{width: '400px'}" header="{{employee.name}}" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
         <!-- <img [src]="'assets/showcase/images/demo/product/' + employee.image" [alt]="employee.image" class="employee-image" *ngIf="employee.image"> -->
-        <div class="field">
+        <div class="formgrid grid">
+        <div class="field col-5">
             <label for="name">Name</label>
             <input type="text" pInputText id="name" [(ngModel)]="employee.name" required autofocus />
             <small class="p-invalid" *ngIf="submitted && !employee.name">Name is required.</small>
         </div>
-        <div class="field">
+        <div class="field col-7">
             <label for="email">Email</label>
             <input type="email" pInputText id="email" [(ngModel)]="employee.email" required autofocus />
-            <small class="p-invalid" *ngIf="submitted && !employee.name">Name is required.</small>
+            <small class="p-invalid" *ngIf="submitted && !employee.email">Email is required.</small>
+        </div>
+        </div>
+        <div class="field">
+            <label class="p-mb-3">Status</label>
+            <div class="formgrid grid">
+                <div class="field-radiobutton col-6">
+                    <p-radioButton id="category1" name="category" value="Working" [(ngModel)]="employee.status"></p-radioButton>
+                    <label for="category1">Working</label>
+                </div>
+                <div class="field-radiobutton col-6">
+                    <p-radioButton id="category2" name="category" value="Annual-leave" [(ngModel)]="employee.status"></p-radioButton>
+                    <label for="category2">Annual-leave</label>
+                </div>
+                <div class="field-radiobutton col-6">
+                    <p-radioButton id="category3" name="category" value="Sickness" [(ngModel)]="employee.status"></p-radioButton>
+                    <label for="category3">Sickness</label>
+                </div>
+                <div class="field-radiobutton col-6">
+                    <p-radioButton id="category3" name="category" value="Other" [(ngModel)]="employee.status"></p-radioButton>
+                    <label for="category3">Other</label>
+                </div>
+            </div>
         </div>
         <div class="field">
             <label class="p-mb-3">Category</label>
@@ -115,11 +140,11 @@
         <div class="formgrid grid">
             <div class="field col-6">
                 <label for="wage">Wage</label>
-                <p-inputNumber id="wage" [(ngModel)]="employee.wage" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
+                <p-inputNumber id="wage" name="wage" [(ngModel)]="employee.wage" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
             </div>
             <div class="field col-6">
                 <label for="rating">Rating</label>
-                <p-inputNumber id="rating" [(ngModel)]="employee.rating"></p-inputNumber>
+                <p-inputNumber id="rating" name="rating" [(ngModel)]="employee.rating"></p-inputNumber>
             </div>
         </div>
     </ng-template>

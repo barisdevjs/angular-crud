@@ -6,12 +6,13 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 
 
 
+
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
     DialogModule,
-    InputTextareaModule
+    InputTextareaModule,
   ],
   providers: [
     ConfirmationService, MessageService

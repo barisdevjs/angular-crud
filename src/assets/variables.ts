@@ -32,11 +32,7 @@ export const firstNames: string[] = [
     "Shirley"
 ]
 
-export const statusArr: Object[] = [
-    { label :'WORKING', value : 'working'},
-    { label :'ANNUAL-LEAVE', value : 'annual-leave'},
-    { label :'SICKNESS', value:'sickness'}
-];
+export const statusArr: string[] = [ 'Working','Annual-leave','Sickness','Other']
 
 export const categoryArr: string[] = [
 'Frontend', 'Backend', 'FullStack', 'DevOps', 'Android', 'DBA', 'Blockchain', 'QA', 'Software Architect']
