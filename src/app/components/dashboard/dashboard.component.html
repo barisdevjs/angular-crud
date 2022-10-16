@@ -3,18 +3,12 @@
     <p-toolbar styleClass="mb-1">
         <ng-template pTemplate="left">
             <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
-            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedEmployees()" [disabled]="!selectedEmployees || !selectedEmployees.length"></button>
-        </ng-template>
-
-        <ng-template pTemplate="right">
-            <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
-            <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger mr-2" (click)="deleteSelectedEmployees(selectedEmployees)" [disabled]="!selectedEmployees || !selectedEmployees.length"></button>
         </ng-template>
     </p-toolbar>
-
     <p-table #dt [value]="employees" [rows]="5" [paginator]="true" [globalFilterFields]="['categorty','name', 'wage']" responsiveLayout="scroll"
         [(selection)]="selectedEmployees" [rowHover]="true" dataKey="id" 
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        currentPageReportTemplate="Showing {first} to {last} of {{employees.length}} entries" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
             <div class="flex align-items-center justify-content-between">
                 <h5 class="m-0">Manage Employees</h5>
@@ -62,9 +56,7 @@
                 <td>{{employee.category}}</td>
                 <td><p-rating [(ngModel)]="employee.rating" name="rating" [readonly]="false" [cancel]="false" (click)="editEmployeeRating(employee)"></p-rating></td>
                 <!-- Make sure we can edit the stars by clicking on them  // we need to do add  status for each of them-->
-                <td>
-                    <span>{{employee.status}}</span>
-                </td>
+                <td><span>{{employee.status}}</span></td> 
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editEmployee(employee)"></button>
                     <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteEmployee(employee)"></button>
@@ -157,3 +149,22 @@
 
 <p-confirmDialog [style]="{width: '400px'}"></p-confirmDialog>
 
+<!-- use this in the other components -->
+<!-- <p-fileUpload name="myfile[]" [customUpload]="true"  (uploadHandler)="fileSelected($event)" uploadLabel="Process Files" >
+    <ng-template let-file pTemplate="file">
+        <div class="p-fileupload-row ng-star-inserted">
+            <div class="p-fileupload-filename">
+                {{ file.name }}
+            </div>
+            <div>
+                {{ (file.size / 1024).toFixed(2) }} KB
+            </div>
+            <div>
+                <button type="button" icon="pi pi-times" class="p-button p-component p-button-icon-only">
+                    <span class="p-button-icon pi pi-times" aria-hidden="true">
+                    </span><span aria-hidden="true" class="p-button-label">&nbsp;</span>
+                </button>
+            </div>
+        </div>
+    </ng-template>
+    </p-fileUpload> -->

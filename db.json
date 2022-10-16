@@ -3,11 +3,11 @@
     {
       "name": "Leanne Graham",
       "email": "Sincere@april.biz",
-      "category": "Frontend",
+      "category": "FrontEnd",
       "wage": 2323,
-      "rating": 5,
+      "rating": 2,
       "id": "ePN5N",
-      "status": "Other"
+      "status": "Working"
     },
     {
       "name": "Ervin Howell",
@@ -16,21 +16,21 @@
       "wage": 3000,
       "rating": 3,
       "id": "QvKZm",
-      "status": "Sickness"
+      "status": "Working"
     },
     {
       "name": "Anastasia Workend",
       "email": "anastasia.net",
-      "category": "Backend",
+      "category": "FrontEnd",
       "wage": 2323,
       "rating": 4,
       "id": "ePN2as",
-      "status": "Working"
+      "status": "Other"
     },
     {
       "name": "Clementine Bauch",
       "email": "Nathan@yesenia.net",
-      "category": "Full-Stack",
+      "category": "FrontEnd",
       "wage": 3000,
       "rating": 4,
       "id": "QvK44Zm",
@@ -41,7 +41,7 @@
       "email": "denise@gmail.com",
       "category": "Devops",
       "wage": 1000,
-      "rating": 1,
+      "rating": 4,
       "id": "AEAYS",
       "status": "Other"
     },
@@ -53,9 +53,26 @@
       "rating": 3,
       "id": "rDwKF",
       "status": "Sickness"
+    },
+    {
+      "name": "David  Sandlord",
+      "email": "dsland@yahoo.com",
+      "status": "Sickness",
+      "category": "Devops",
+      "wage": 1550,
+      "rating": 4,
+      "id": "covlb"
+    },
+    {
+      "name": "Hanna Augsbern",
+      "email": "haugsberg@yandex.com",
+      "status": "Working",
+      "category": "FrontEnd",
+      "wage": 1800,
+      "rating": 4,
+      "id": "jijtN"
     }
   ],
   "uploads": [
-    {}
   ]
 }

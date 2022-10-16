@@ -9,7 +9,8 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { EmployeeService } from './services/employee.service'
+import { EmployeeService } from './services/employee.service';
+import { UploadService } from './services/upload.service';
 
 
 import { TableModule } from 'primeng/table';
@@ -75,11 +76,17 @@ import { BadgeModule } from 'primeng/badge';
     ])
 
   ],
-  providers: [MessageService, ConfirmationService, {
-    provide: HTTP_INTERCEPTORS,
-    useClass: EmployeeService,
-    multi: true
-  }],
+  providers: [MessageService, ConfirmationService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: EmployeeService,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UploadService,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

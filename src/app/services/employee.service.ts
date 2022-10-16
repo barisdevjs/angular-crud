@@ -51,6 +51,10 @@ export class EmployeeService implements HttpInterceptor {
         return this.http.delete<Employee>(url);
     }
 
+    deleteMultiple(id:any) {
+        return this.http.delete(this.apiUrl+'/' +id)
+    }
+
     editEmployee(employee: Employee): Observable<Employee> {
         const url = `${this.apiUrl}/${employee.id}`;
         return this.http.put<Employee>(url, employee, httpOptions);
@@ -70,7 +74,7 @@ export class EmployeeService implements HttpInterceptor {
             category: "Employee Category", // update here
             rating: this.generateRating(),
             status: this.generateStatus(),
-            image : this.generateImage()
+            image : this.generateImage(),
         };
 
         return employee;
