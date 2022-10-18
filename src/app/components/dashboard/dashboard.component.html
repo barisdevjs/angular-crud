@@ -49,13 +49,15 @@
                 <td>
                     <p-tableCheckbox [value]="employee"></p-tableCheckbox>
                 </td>
-                <td>{{employee.name}}</td>
+                <td style="width:15vw">
+                <img id="employeeImg" [src]="'https://randomuser.me/api/portraits/men/45.jpg'" 
+                [alt]="employee.name" width="100" class="shadow-4"/>
+                {{employee.name}}
+                </td>
                 <td>{{employee.email}}</td>
-                <!-- <td><img [src]="'assets/showcase/images/demo/employee/' + employee.image" [alt]="employee.name" width="100" class="shadow-4" /></td> -->
 				<td>{{employee.wage | currency:'USD'}}</td>
                 <td>{{employee.category}}</td>
                 <td><p-rating [(ngModel)]="employee.rating" name="rating" [readonly]="false" [cancel]="false" (click)="editEmployeeRating(employee)"></p-rating></td>
-                <!-- Make sure we can edit the stars by clicking on them  // we need to do add  status for each of them-->
                 <td><span>{{employee.status}}</span></td> 
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editEmployee(employee)"></button>

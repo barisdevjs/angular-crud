@@ -20,17 +20,25 @@ export class DashboardComponent implements OnInit {
   submitted: boolean = false;
   statuses = statusArr
   uploadedFiles : any[] = [];
+  img:any
 
   constructor(
     public employeeService: EmployeeService,
     public messageService: MessageService,
     public confirmationService: ConfirmationService,
-    public uploadService: UploadService
+    public uploadService: UploadService,
     ) { }
 
   ngOnInit(): void {
     this.employeeService.getEmployees().subscribe(data => this.employees = data)
+    console.log(this.img)
   }
+
+  getImg()  {
+    this.employeeService.getRandomImage().subscribe((user:any) => {
+      this.img = user.results[0]
+    })
+  } 
 
   openNew() {
     this.employee = {};
