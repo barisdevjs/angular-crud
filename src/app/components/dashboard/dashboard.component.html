@@ -2,19 +2,24 @@
 <div class="card">
     <p-toolbar styleClass="mb-1">
         <ng-template pTemplate="left">
-            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
-            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger mr-2" (click)="deleteSelectedEmployees(selectedEmployees)" [disabled]="!selectedEmployees || !selectedEmployees.length"></button>
+            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
+                (click)="openNew()"></button>
+            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger mr-2"
+                (click)="deleteSelectedEmployees(selectedEmployees)"
+                [disabled]="!selectedEmployees || !selectedEmployees.length"></button>
         </ng-template>
     </p-toolbar>
-    <p-table #dt [value]="employees" [rows]="5" [paginator]="true" [globalFilterFields]="['categorty','name', 'wage']" responsiveLayout="scroll"
-        [(selection)]="selectedEmployees" [rowHover]="true" dataKey="id" 
-        currentPageReportTemplate="Showing {first} to {last} of {{employees.length}} entries" [showCurrentPageReport]="true">
+    <p-table #dt [value]="employees" [rows]="5" [paginator]="true" [globalFilterFields]="['categorty','name', 'wage']"
+        responsiveLayout="scroll" [(selection)]="selectedEmployees" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {{employees.length}} entries"
+        [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
             <div class="flex align-items-center justify-content-between">
                 <h5 class="m-0">Manage Employees</h5>
                 <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
-                    <input pInputText #textInput type="text" (input)="dt.filterGlobal(textInput.value, 'contains')" placeholder="Search..." />
+                    <input pInputText #textInput type="text" (input)="dt.filterGlobal(textInput.value, 'contains')"
+                        placeholder="Search..." />
                 </span>
             </div>
         </ng-template>
@@ -23,19 +28,25 @@
                 <th style="width: 3rem">
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
-                <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-				<th pSortableColumn="email">Email <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon>
+                </th>
+                <th pSortableColumn="email">Email <p-sortIcon field="name"></p-sortIcon>
+                </th>
                 <!-- <th>Image</th> -->
-                <th pSortableColumn="wage">Wage <p-sortIcon field="wage"></p-sortIcon></th>
-                <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
-                <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th>
-                <th >
+                <th pSortableColumn="wage">Wage <p-sortIcon field="wage"></p-sortIcon>
+                </th>
+                <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon>
+                </th>
+                <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon>
+                </th>
+                <th>
                     Status
                     <p-columnFilter field="status" matchMode="equals" display="menu">
                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                            <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Choose">
+                            <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)"
+                                placeholder="Choose">
                                 <ng-template let-option pTemplate="item">
-                                    <span>{{option}}</span> 
+                                    <span>{{option}}</span>
                                 </ng-template>
                             </p-dropdown>
                         </ng-template>
@@ -50,18 +61,22 @@
                     <p-tableCheckbox [value]="employee"></p-tableCheckbox>
                 </td>
                 <td style="width:15vw">
-                <img id="employeeImg" [src]="'https://randomuser.me/api/portraits/men/45.jpg'" 
-                [alt]="employee.name" width="100" class="shadow-4"/>
-                {{employee.name}}
+                    <img id="employeeImg" [(src)]="employee.image" [alt]="employee.name" width="100" class="shadow-4" />
+                    {{employee.name}}
                 </td>
                 <td>{{employee.email}}</td>
-				<td>{{employee.wage | currency:'USD'}}</td>
+                <td>{{employee.wage | currency:'USD'}}</td>
                 <td>{{employee.category}}</td>
-                <td><p-rating [(ngModel)]="employee.rating" name="rating" [readonly]="false" [cancel]="false" (click)="editEmployeeRating(employee)"></p-rating></td>
-                <td><span>{{employee.status}}</span></td> 
                 <td>
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editEmployee(employee)"></button>
-                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteEmployee(employee)"></button>
+                    <p-rating [(ngModel)]="employee.rating" name="rating" [readonly]="false" [cancel]="false"
+                        (click)="editEmployeeRating(employee)"></p-rating>
+                </td>
+                <td><span>{{employee.status}}</span></td>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+                        (click)="editEmployee(employee)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                        (click)="deleteEmployee(employee)"></button>
                 </td>
             </tr>
         </ng-template>
@@ -73,38 +88,49 @@
     </p-table>
 </div>
 
-<p-dialog [(visible)]="employeeDialog" [style]="{width: '400px'}" header="{{employee.name}}" [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="employeeDialog" [style]="{width: '400px'}" header="{{employee.name}}" [modal]="true"
+    styleClass="p-fluid">
     <ng-template pTemplate="content">
-        <!-- <img [src]="'assets/showcase/images/demo/product/' + employee.image" [alt]="employee.image" class="employee-image" *ngIf="employee.image"> -->
-        <div class="formgrid grid">
-        <div class="field col-5">
-            <label for="name">Name</label>
-            <input type="text" pInputText id="name" [(ngModel)]="employee.name" required autofocus />
-            <small class="p-invalid" *ngIf="submitted && !employee.name">Name is required.</small>
-        </div>
-        <div class="field col-7">
+            <div class="formgrid grid">
+                    <div class="field col-6">
+                        <label for="name">Name</label>
+                        <input type="text" pInputText id="name" [(ngModel)]="employee.name" required autofocus />
+                        <small class="p-invalid" *ngIf="submitted && !employee.name">Name is required.</small>
+                    </div>
+                    <div class="field col-6">
+                        <label for="xx">Image</label>
+                        <p-dropdown [options]="uploadedFiles" [(ngModel)]="employee.image" placeholder="Image"
+                            optionLabel="pic" [showClear]="true" id="xx">
+                            <img src="{{employee.image}}" alt="{{employee.image}}" />
+                        </p-dropdown>
+                    </div>
+            </div>
+        <div class="field col-12">
             <label for="email">Email</label>
             <input type="email" pInputText id="email" [(ngModel)]="employee.email" required autofocus />
             <small class="p-invalid" *ngIf="submitted && !employee.email">Email is required.</small>
-        </div>
         </div>
         <div class="field">
             <label class="p-mb-3">Status</label>
             <div class="formgrid grid">
                 <div class="field-radiobutton col-6">
-                    <p-radioButton id="category1" name="category" value="Working" [(ngModel)]="employee.status"></p-radioButton>
+                    <p-radioButton id="category1" name="category" value="Working" [(ngModel)]="employee.status">
+                    </p-radioButton>
                     <label for="category1">Working</label>
                 </div>
                 <div class="field-radiobutton col-6">
-                    <p-radioButton id="category2" name="category" value="Annual-leave" [(ngModel)]="employee.status"></p-radioButton>
+                    <p-radioButton id="category2" name="category" value="Annual-leave" [(ngModel)]="employee.status">
+                    </p-radioButton>
                     <label for="category2">Annual-leave</label>
                 </div>
                 <div class="field-radiobutton col-6">
-                    <p-radioButton id="category3" name="category" value="Sickness" [(ngModel)]="employee.status"></p-radioButton>
+                    <p-radioButton id="category3" name="category" value="Sickness" [(ngModel)]="employee.status">
+                    </p-radioButton>
                     <label for="category3">Sickness</label>
                 </div>
                 <div class="field-radiobutton col-6">
-                    <p-radioButton id="category3" name="category" value="Other" [(ngModel)]="employee.status"></p-radioButton>
+                    <p-radioButton id="category3" name="category" value="Other" [(ngModel)]="employee.status">
+                    </p-radioButton>
                     <label for="category3">Other</label>
                 </div>
             </div>
@@ -113,19 +139,23 @@
             <label class="p-mb-3">Category</label>
             <div class="formgrid grid">
                 <div class="field-radiobutton col-6">
-                    <p-radioButton id="category1" name="category" value="FrontEnd" [(ngModel)]="employee.category"></p-radioButton>
+                    <p-radioButton id="category1" name="category" value="FrontEnd" [(ngModel)]="employee.category">
+                    </p-radioButton>
                     <label for="category1">Frontend</label>
                 </div>
                 <div class="field-radiobutton col-6">
-                    <p-radioButton id="category2" name="category" value="Backend" [(ngModel)]="employee.category"></p-radioButton>
+                    <p-radioButton id="category2" name="category" value="Backend" [(ngModel)]="employee.category">
+                    </p-radioButton>
                     <label for="category2">Backend</label>
                 </div>
                 <div class="field-radiobutton col-6">
-                    <p-radioButton id="category3" name="category" value="Devops" [(ngModel)]="employee.category"></p-radioButton>
+                    <p-radioButton id="category3" name="category" value="Devops" [(ngModel)]="employee.category">
+                    </p-radioButton>
                     <label for="category3">Devops</label>
                 </div>
                 <div class="field-radiobutton col-6">
-                    <p-radioButton id="category4" name="category" value="Full-Stack" [(ngModel)]="employee.category"></p-radioButton>
+                    <p-radioButton id="category4" name="category" value="Full-Stack" [(ngModel)]="employee.category">
+                    </p-radioButton>
                     <label for="category4">Full-Stack</label>
                 </div>
             </div>
@@ -134,7 +164,8 @@
         <div class="formgrid grid">
             <div class="field col-6">
                 <label for="wage">Wage</label>
-                <p-inputNumber id="wage" name="wage" [(ngModel)]="employee.wage" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
+                <p-inputNumber id="wage" name="wage" [(ngModel)]="employee.wage" mode="currency" currency="USD"
+                    locale="en-US"></p-inputNumber>
             </div>
             <div class="field col-6">
                 <label for="rating">Rating</label>

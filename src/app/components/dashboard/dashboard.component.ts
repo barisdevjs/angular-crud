@@ -19,8 +19,7 @@ export class DashboardComponent implements OnInit {
   selectedEmployees: Employee[] = [];
   submitted: boolean = false;
   statuses = statusArr
-  uploadedFiles : any[] = [];
-  img:any
+  uploadedFiles : string[] = ['Sd'];
 
   constructor(
     public employeeService: EmployeeService,
@@ -31,12 +30,12 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.employeeService.getEmployees().subscribe(data => this.employees = data)
-    console.log(this.img)
+    this.getImg()
   }
 
-  getImg()  {
-    this.employeeService.getRandomImage().subscribe((user:any) => {
-      this.img = user.results[0]
+    getImg() {
+      this.employeeService.getRandomImage().subscribe((response:any) => {
+      this.uploadedFiles = response.results.map((e:any) => e.picture.thumbnail)
     })
   } 
 
@@ -118,6 +117,7 @@ export class DashboardComponent implements OnInit {
       }
       else {
         this.employee.id = this.createId();
+        this.employee.image = this.randomImg();
         this.employeeService.addEmployee(this.employee).subscribe(data => (
           this.employees.push(data)
         ))
@@ -149,5 +149,9 @@ export class DashboardComponent implements OnInit {
       id += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     return id;
+  }
+
+  randomImg() : string | undefined {
+   return this.uploadedFiles.at(Math.floor ( Math.random() * this.uploadedFiles.length) + 1)
   }
 }

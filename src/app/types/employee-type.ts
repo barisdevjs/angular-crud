@@ -8,6 +8,6 @@ export interface Employee {
   category?:string;
   rating?:number;
   email?:string;
-  image?:any;
+  image?:string;
 }
   
