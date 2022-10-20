@@ -2,9 +2,33 @@ import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from "../../services/employee.service";
 import { MessageService, ConfirmationService } from "primeng/api";
 import { Employee } from 'src/app/types/employee-type';
-import { statusArr } from "../../../assets/variables";
+import { statusArr, userImages } from "../../../assets/variables";
 import { UploadService }  from "../../services/upload.service";
 
+
+/*  const imgArr: object[] = [
+  { img:"https://randomuser.me/api/portraits/thumb/men/3.jpg"},
+  { img:"https://randomuser.me/api/portraits/thumb/women/59.jpg"},
+  { img:"https://randomuser.me/api/portraits/thumb/men/16.jpg"},
+  { img:"https://randomuser.me/api/portraits/thumb/men/25.jpg"},
+  { img:"https://randomuser.me/api/portraits/thumb/women/40.jpg"},
+  { img:"https://randomuser.me/api/portraits/thumb/women/65.jpg"},
+  { img:"https://randomuser.me/api/portraits/thumb/men/12.jpg"},
+  { img:"https://randomuser.me/api/portraits/thumb/men/45.jpg"},
+  { img:"https://randomuser.me/api/portraits/thumb/men/34.jpg"},
+  { img:"https://randomuser.me/api/portraits/thumb/women/62.jpg"},
+  { img:"https://randomuser.me/api/portraits/thumb/men/22.jpg"},
+  { img:"https://randomuser.me/api/portraits/thumb/men/63.jpg"},
+  { img:"https://randomuser.me/api/portraits/thumb/women/86.jpg"},
+  { img:"https://randomuser.me/api/portraits/thumb/men/24.jpg"},
+  { img:"https://randomuser.me/api/portraits/thumb/women/16.jpg"},
+  { img:"https://randomuser.me/api/portraits/thumb/women/6.jpg"},
+  { img:"https://randomuser.me/api/portraits/thumb/women/52.jpg"},
+  { img:"https://randomuser.me/api/portraits/thumb/women/95.jpg"},
+  { img:"https://randomuser.me/api/portraits/thumb/women/45.jpg"},
+  { img:"https://randomuser.me/api/portraits/thumb/men/73.jpg"}
+]
+ */
 
 @Component({
   selector: 'app-dashboard',
@@ -19,7 +43,7 @@ export class DashboardComponent implements OnInit {
   selectedEmployees: Employee[] = [];
   submitted: boolean = false;
   statuses = statusArr
-  uploadedFiles : string[] = ['Sd'];
+  uploadedFiles : object[] = [];
 
   constructor(
     public employeeService: EmployeeService,
@@ -117,7 +141,7 @@ export class DashboardComponent implements OnInit {
       }
       else {
         this.employee.id = this.createId();
-        this.employee.image = this.randomImg();
+        this.employee.image = this.randomImg()
         this.employeeService.addEmployee(this.employee).subscribe(data => (
           this.employees.push(data)
         ))
@@ -151,7 +175,7 @@ export class DashboardComponent implements OnInit {
     return id;
   }
 
-  randomImg() : string | undefined {
-   return this.uploadedFiles.at(Math.floor ( Math.random() * this.uploadedFiles.length) + 1)
+  randomImg() : string {
+   return this.uploadedFiles[Math.floor ( Math.random() * this.uploadedFiles.length) + 1]
   }
 }
