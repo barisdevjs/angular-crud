@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ConfirmationService, MessageService } from 'primeng/api';
-
+import { DropdownModule } from 'primeng/dropdown';
 
 
 
@@ -13,6 +13,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     CommonModule,
     DialogModule,
     InputTextareaModule,
+    DropdownModule
   ],
   providers: [
     ConfirmationService, MessageService

@@ -92,24 +92,17 @@
     styleClass="p-fluid">
     <ng-template pTemplate="content">
             <div class="formgrid grid">
-                    <div class="field col-6">
+                    <div class="field col-5">
                         <label for="name">Name</label>
                         <input type="text" pInputText id="name" [(ngModel)]="employee.name" required autofocus />
                         <small class="p-invalid" *ngIf="submitted && !employee.name">Name is required.</small>
                     </div>
-                    <div class="field col-6">
-                        <label for="xx">Image</label>
-                        <p-dropdown [options]="uploadedFiles" [(ngModel)]="employee.image" placeholder="Image"
-                            optionLabel="pic" [showClear]="true" id="xx">
-                            <img src="{{employee.image}}" alt="{{employee.image}}" />
-                        </p-dropdown>
+                    <div class="field col-7">
+                        <label for="email">Email</label>
+                        <input type="email" pInputText id="email" [(ngModel)]="employee.email" required autofocus />
+                        <small class="p-invalid" *ngIf="submitted && !employee.email">Email is required.</small>
                     </div>
             </div>
-        <div class="field col-12">
-            <label for="email">Email</label>
-            <input type="email" pInputText id="email" [(ngModel)]="employee.email" required autofocus />
-            <small class="p-invalid" *ngIf="submitted && !employee.email">Email is required.</small>
-        </div>
         <div class="field">
             <label class="p-mb-3">Status</label>
             <div class="formgrid grid">

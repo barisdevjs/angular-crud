@@ -3,31 +3,7 @@ import { EmployeeService } from "../../services/employee.service";
 import { MessageService, ConfirmationService } from "primeng/api";
 import { Employee } from 'src/app/types/employee-type';
 import { statusArr, userImages } from "../../../assets/variables";
-import { UploadService }  from "../../services/upload.service";
-
-
-/*  const imgArr: object[] = [
-  { img:"https://randomuser.me/api/portraits/thumb/men/3.jpg"},
-  { img:"https://randomuser.me/api/portraits/thumb/women/59.jpg"},
-  { img:"https://randomuser.me/api/portraits/thumb/men/16.jpg"},
-  { img:"https://randomuser.me/api/portraits/thumb/men/25.jpg"},
-  { img:"https://randomuser.me/api/portraits/thumb/women/40.jpg"},
-  { img:"https://randomuser.me/api/portraits/thumb/women/65.jpg"},
-  { img:"https://randomuser.me/api/portraits/thumb/men/12.jpg"},
-  { img:"https://randomuser.me/api/portraits/thumb/men/45.jpg"},
-  { img:"https://randomuser.me/api/portraits/thumb/men/34.jpg"},
-  { img:"https://randomuser.me/api/portraits/thumb/women/62.jpg"},
-  { img:"https://randomuser.me/api/portraits/thumb/men/22.jpg"},
-  { img:"https://randomuser.me/api/portraits/thumb/men/63.jpg"},
-  { img:"https://randomuser.me/api/portraits/thumb/women/86.jpg"},
-  { img:"https://randomuser.me/api/portraits/thumb/men/24.jpg"},
-  { img:"https://randomuser.me/api/portraits/thumb/women/16.jpg"},
-  { img:"https://randomuser.me/api/portraits/thumb/women/6.jpg"},
-  { img:"https://randomuser.me/api/portraits/thumb/women/52.jpg"},
-  { img:"https://randomuser.me/api/portraits/thumb/women/95.jpg"},
-  { img:"https://randomuser.me/api/portraits/thumb/women/45.jpg"},
-  { img:"https://randomuser.me/api/portraits/thumb/men/73.jpg"}
-] */
+import { UploadService } from "../../services/upload.service";
 
 
 @Component({
@@ -43,46 +19,47 @@ export class DashboardComponent implements OnInit {
   selectedEmployees: Employee[] = [];
   submitted: boolean = false;
   statuses = statusArr
-  uploadedFiles : object[] = [
-    { img:"https://randomuser.me/api/portraits/thumb/men/3.jpg"},
-    { img:"https://randomuser.me/api/portraits/thumb/women/59.jpg"},
-    { img:"https://randomuser.me/api/portraits/thumb/men/16.jpg"},
-    { img:"https://randomuser.me/api/portraits/thumb/men/25.jpg"},
-    { img:"https://randomuser.me/api/portraits/thumb/women/40.jpg"},
-    { img:"https://randomuser.me/api/portraits/thumb/women/65.jpg"},
-    { img:"https://randomuser.me/api/portraits/thumb/men/12.jpg"},
-    { img:"https://randomuser.me/api/portraits/thumb/men/45.jpg"},
-    { img:"https://randomuser.me/api/portraits/thumb/men/34.jpg"},
-    { img:"https://randomuser.me/api/portraits/thumb/women/62.jpg"},
-    { img:"https://randomuser.me/api/portraits/thumb/men/22.jpg"},
-    { img:"https://randomuser.me/api/portraits/thumb/men/63.jpg"},
-    { img:"https://randomuser.me/api/portraits/thumb/women/86.jpg"},
-    { img:"https://randomuser.me/api/portraits/thumb/men/24.jpg"},
-    { img:"https://randomuser.me/api/portraits/thumb/women/16.jpg"},
-    { img:"https://randomuser.me/api/portraits/thumb/women/6.jpg"},
-    { img:"https://randomuser.me/api/portraits/thumb/women/52.jpg"},
-    { img:"https://randomuser.me/api/portraits/thumb/women/95.jpg"},
-    { img:"https://randomuser.me/api/portraits/thumb/women/45.jpg"},
-    { img:"https://randomuser.me/api/portraits/thumb/men/73.jpg"}
+  uploadedFiles: object[] = [
+    { img: "https://randomuser.me/api/portraits/thumb/men/3.jpg" },
+    { img: "https://randomuser.me/api/portraits/thumb/women/59.jpg" },
+    { img: "https://randomuser.me/api/portraits/thumb/men/16.jpg" },
+    { img: "https://randomuser.me/api/portraits/thumb/men/25.jpg" },
+    { img: "https://randomuser.me/api/portraits/thumb/women/40.jpg" },
+    { img: "https://randomuser.me/api/portraits/thumb/women/65.jpg" },
+    { img: "https://randomuser.me/api/portraits/thumb/men/12.jpg" },
+    { img: "https://randomuser.me/api/portraits/thumb/men/45.jpg" },
+    { img: "https://randomuser.me/api/portraits/thumb/men/34.jpg" },
+    { img: "https://randomuser.me/api/portraits/thumb/women/62.jpg" },
+    { img: "https://randomuser.me/api/portraits/thumb/men/22.jpg" },
+    { img: "https://randomuser.me/api/portraits/thumb/men/63.jpg" },
+    { img: "https://randomuser.me/api/portraits/thumb/women/86.jpg" },
+    { img: "https://randomuser.me/api/portraits/thumb/men/24.jpg" },
+    { img: "https://randomuser.me/api/portraits/thumb/women/16.jpg" },
+    { img: "https://randomuser.me/api/portraits/thumb/women/6.jpg" },
+    { img: "https://randomuser.me/api/portraits/thumb/women/52.jpg" },
+    { img: "https://randomuser.me/api/portraits/thumb/women/95.jpg" },
+    { img: "https://randomuser.me/api/portraits/thumb/women/45.jpg" },
+    { img: "https://randomuser.me/api/portraits/thumb/men/73.jpg" }
   ]
+
 
   constructor(
     public employeeService: EmployeeService,
     public messageService: MessageService,
     public confirmationService: ConfirmationService,
     public uploadService: UploadService,
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.employeeService.getEmployees().subscribe(data => this.employees = data)
     this.getImg()
   }
 
-    getImg() {
-      this.employeeService.getRandomImage().subscribe((response:any) => {
-      this.uploadedFiles = response.results.map((e:any) => e.picture.thumbnail)
+  getImg() {
+    this.employeeService.getRandomImage().subscribe((response: any) => {
+      this.uploadedFiles = response.results.map((e: any) => e.picture.thumbnail)
     })
-  } 
+  }
 
   openNew() {
     this.employee = {};
@@ -90,13 +67,13 @@ export class DashboardComponent implements OnInit {
     this.employeeDialog = true;
   }
 
-  fileSelected(event :any) {
-    for(let file of event.files) {
-        this.uploadedFiles.push(file);
-        this.uploadService.uploadFile(file)
+  fileSelected(event: any) {
+    for (let file of event.files) {
+      this.uploadedFiles.push(file);
+      this.uploadService.uploadFile(file)
     }
-    this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: `${this.uploadedFiles} uploaded`});
-}
+    this.messageService.add({ severity: 'info', summary: 'File Uploaded', detail: `${this.uploadedFiles} uploaded` });
+  }
 
   deleteSelectedEmployees(employees: Employee[]) {
     employees = this.selectedEmployees
@@ -112,10 +89,10 @@ export class DashboardComponent implements OnInit {
           );
         }
         this.selectedEmployees = [];
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail:`Employees deleted `, life: 3000 });
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: `Employees deleted `, life: 3000 });
       },
       reject: () => {
-        this.messageService.add({ severity: 'info', summary: 'Terminated', life: 1000})
+        this.messageService.add({ severity: 'info', summary: 'Terminated', life: 1000 })
         this.selectedEmployees = [];
       }
     })
@@ -197,8 +174,9 @@ export class DashboardComponent implements OnInit {
     return id;
   }
 
-  randomImg() : string {
-   const el = this.uploadedFiles[Math.floor ( Math.random() * this.uploadedFiles.length) + 1]
-   return Object.values(el)[0]
+  randomImg(): string {
+    const el = this.uploadedFiles[Math.floor(Math.random() * this.uploadedFiles.length) + 1]
+    return Object.values(el).join('')
   }
+
 }

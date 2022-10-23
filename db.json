@@ -8,7 +8,7 @@
       "rating": 2,
       "id": "ePN5N",
       "status": "Annual-leave",
-      "image": "https://randomuser.me/api/portraits/thumb/women/1.jpg"
+      "image": "https://randomuser.me/api/portraits/thumb/men/16.jpg"
     },
     {
       "name": "Ervin Howell",
@@ -28,7 +28,7 @@
       "rating": 4,
       "id": "ePN2as",
       "status": "Other",
-      "image": "https://randomuser.me/api/portraits/thumb/women/49.jpg"
+      "image": "https://randomuser.me/api/portraits/thumb/men/12.jpg"
     },
     {
       "name": "Clementine Bauch",
@@ -38,7 +38,7 @@
       "rating": 4,
       "id": "QvK44Zm",
       "status": "Annual-leave",
-      "image": "https://randomuser.me/api/portraits/thumb/women/49.jpg"
+      "image": "https://randomuser.me/api/portraits/thumb/women/86.jpg"
     },
     {
       "name": "Denise Winchester",
@@ -48,7 +48,7 @@
       "rating": 4,
       "id": "AEAYS",
       "status": "Other",
-      "image": "https://randomuser.me/api/portraits/thumb/women/49.jpg"
+      "image": "https://randomuser.me/api/portraits/thumb/women/95.jpg"
     },
     {
       "name": "Sarah Donovan",
@@ -58,7 +58,7 @@
       "rating": 3,
       "id": "rDwKF",
       "status": "Sickness",
-      "image": "https://randomuser.me/api/portraits/thumb/women/49.jpg"
+      "image": "https://randomuser.me/api/portraits/thumb/men/24.jpg"
     },
     {
       "name": "David  Sandlord",
@@ -68,7 +68,7 @@
       "wage": 1550,
       "rating": 4,
       "id": "covlb",
-      "image": "https://randomuser.me/api/portraits/thumb/women/49.jpg"
+      "image": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
     },
     {
       "name": "Hanna Augsbern",
@@ -78,7 +78,7 @@
       "wage": 1800,
       "rating": 4,
       "id": "jijtN",
-      "image": "https://randomuser.me/api/portraits/thumb/women/49.jpg"
+      "image": "https://randomuser.me/api/portraits/thumb/men/22.jpg"
     },
     {
       "name": "Jason Serall",
@@ -88,7 +88,17 @@
       "wage": 789,
       "rating": 1,
       "id": "qaf6o",
-      "image": "https://randomuser.me/api/portraits/thumb/women/49.jpg"
+      "image": "https://randomuser.me/api/portraits/thumb/women/62.jpg"
+    },
+    {
+      "name": "Amy Ground",
+      "email": "amyground@mail.com",
+      "status": "Working",
+      "category": "Backend",
+      "wage": 777,
+      "rating": 1,
+      "id": "ULyak",
+      "image": "https://randomuser.me/api/portraits/thumb/men/36.jpg"
     }
   ],
   "uploads": []
