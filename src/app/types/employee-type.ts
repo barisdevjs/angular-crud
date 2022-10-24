@@ -10,3 +10,15 @@ export interface Employee {
   image?:string;
 }
   
+
+export interface EmployeeCell {
+  ID?:string;
+  NAME?:string;
+  WAGE?:number;
+  STATUS?:string;
+  CATEGORY?:string;
+  RATING?:number;
+  EMAIL?:string;
+  IMAGE?:string;
+}
+  

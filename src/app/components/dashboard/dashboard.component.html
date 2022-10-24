@@ -7,6 +7,8 @@
             <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger mr-2"
                 (click)="deleteSelectedEmployees(selectedEmployees)"
                 [disabled]="!selectedEmployees || !selectedEmployees.length"></button>
+            <button pButton pRipple label="download" icon="pi pi-download" class="p-button-secondary mr-2"
+            (click)="exportToExcel()"></button>
         </ng-template>
     </p-toolbar>
     <p-table #dt [value]="employees" [rows]="5" [paginator]="true" [globalFilterFields]="['categorty','name', 'wage']"
