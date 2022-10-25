@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
 import {imgBase64} from './logo'
+import { EmployeeService } from './employee.service';
 
 
 @Injectable({
@@ -9,7 +10,14 @@ import {imgBase64} from './logo'
 })
 export class ExportExcelService {
 
-  constructor() { }
+  list : any[] = [];
+
+  constructor( public service: EmployeeService) { }
+
+  call() {
+    this.service.getEmployees().subscribe(data => this.list = data)
+  }
+
 
   exportExcel(excelData: { title: any; data: any; headers: any }) {
     //Title, Header & Data
@@ -19,11 +27,11 @@ export class ExportExcelService {
 
     //Create a workbook with a worksheet
     let workbook = new Workbook();
-    let worksheet = workbook.addWorksheet('Employee DATA');
+    let worksheet = workbook.addWorksheet('Employee DATA'); // TAB oF the excel file
 
     //Add Row and formatting
-    worksheet.mergeCells('C1', 'F4');
-    let titleRow = worksheet.getCell('C1');
+    worksheet.mergeCells('D1', 'G3');
+    let titleRow = worksheet.getCell('D1');
     titleRow.value = title;
     titleRow.font = {
       name: 'Calibri',
@@ -35,10 +43,10 @@ export class ExportExcelService {
     titleRow.alignment = { vertical: 'middle', horizontal: 'center' };
 
     // Date
-    worksheet.mergeCells('G1:H4');
+    worksheet.mergeCells('D4:G6');
     let d = new Date();
     let date = d.getDate() + '-' + d.getMonth() + '-' + d.getFullYear();
-    let dateCell = worksheet.getCell('G1');
+    let dateCell = worksheet.getCell('D4');
     dateCell.value = date;
     dateCell.font = {
       name: 'Calibri',
@@ -52,8 +60,8 @@ export class ExportExcelService {
       base64: imgBase64,
       extension: 'jpeg',
     });
-    worksheet.mergeCells('A1:B4');
-    worksheet.addImage(myLogoImage, 'A1:B4');
+    worksheet.mergeCells('A1:C6');
+    worksheet.addImage(myLogoImage, 'A1:C6');
 
     //Blank Row
     worksheet.addRow([]);
@@ -74,40 +82,69 @@ export class ExportExcelService {
       };
     });
 
+    worksheet.columns = [
+      { header: 'Name', key: 'name', width: 25  },
+      { header: 'Email', key: 'email', width: 25 },
+      { header: 'Category', key: 'category', width: 15 },
+      { header: 'Wage', key: 'wage', width: 10 },
+      { header: 'Rating', key: 'rating', width: 10 },
+      { header: 'ID', key: 'id', width: 10 },
+      { header: 'Status', key: 'status', width: 15 },
+      { header: 'Image', key: 'image', width: 60 },
+    ]
+
+     worksheet.addRows(this.list)
+
     // Adding Data with Conditional Formatting
     data.forEach((d: any) => {
       let row = worksheet.addRow(Object.values(d));
 
-      let sales = row.getCell(6);
+      let rating = row.getCell(5);
       let color = 'FF99FF99';
-      let sales_val = sales.value || 0;
+      let rating_val = rating.value || 0;
       // Conditional fill color
-      if (sales_val < 200000) {
+      if (rating_val > 4) {
         color = 'FF9999';
       }
+      if (rating_val > 3 && rating_val <5) {
+        color = 'E1EB34';
+      }
+      if (rating_val < 3) {
+        color = 'EB4034';
+      }
 
-      sales.fill = {
+      rating.fill = {
         type: 'pattern',
         pattern: 'solid',
         fgColor: { argb: color },
       };
     });
 
-    worksheet.getColumn(3).width = 20;
+/*     worksheet.getColumn(1).width = 25;
+    worksheet.getColumn(2).width = 25;
+    worksheet.getColumn(3).width = 15;
+    worksheet.getColumn(4).width = 15;
+    worksheet.getColumn(5).width = 10;
+    worksheet.getColumn(6).width = 25;
+    worksheet.getColumn(7).width = 30;
+    worksheet.getColumn(8).width = 100; */
+
+
     worksheet.addRow([]);
 
     //Footer Row
     let footerRow = worksheet.addRow([
-      'Employee Sales Report Generated from example.com at ' + date,
+      'Employee Status Report Generated  at ' + date,
     ]);
     footerRow.getCell(1).fill = {
       type: 'pattern',
       pattern: 'solid',
       fgColor: { argb: 'FFB050' },
     };
+    footerRow.alignment = { vertical: 'middle', horizontal: 'center' };
 
     //Merge Cells
-    worksheet.mergeCells(`A${footerRow.number}:F${footerRow.number}`);
+    worksheet.mergeCells(`A${footerRow.number}:H${footerRow.number}`);
 
     //Generate & Save Excel File
     workbook.xlsx.writeBuffer().then((data) => {

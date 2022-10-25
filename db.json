@@ -5,7 +5,7 @@
       "email": "Sincere@april.biz",
       "category": "FrontEnd",
       "wage": 2323,
-      "rating": 2,
+      "rating": 5,
       "id": "ePN5N",
       "status": "Annual-leave",
       "image": "https://randomuser.me/api/portraits/thumb/men/16.jpg"
@@ -63,41 +63,41 @@
     {
       "name": "David  Sandlord",
       "email": "dsland@yahoo.com",
-      "status": "Sickness",
       "category": "Devops",
       "wage": 1550,
       "rating": 4,
       "id": "covlb",
+      "status": "Sickness",
       "image": "https://randomuser.me/api/portraits/thumb/men/25.jpg"
     },
     {
       "name": "Hanna Augsbern",
       "email": "haugsberg@yandex.com",
-      "status": "Working",
       "category": "FrontEnd",
       "wage": 1800,
       "rating": 4,
       "id": "jijtN",
+      "status": "Working",
       "image": "https://randomuser.me/api/portraits/thumb/men/22.jpg"
     },
     {
       "name": "Jason Serall",
       "email": "Jsearal@yahoo.com",
-      "status": "Working",
       "category": "Backend",
       "wage": 789,
       "rating": 1,
       "id": "qaf6o",
+      "status": "Working",
       "image": "https://randomuser.me/api/portraits/thumb/women/62.jpg"
     },
     {
       "name": "Amy Ground",
       "email": "amyground@mail.com",
-      "status": "Working",
       "category": "Backend",
       "wage": 777,
       "rating": 1,
       "id": "ULyak",
+      "status": "Working",
       "image": "https://randomuser.me/api/portraits/thumb/men/36.jpg"
     }
   ],
