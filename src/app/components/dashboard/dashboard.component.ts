@@ -188,10 +188,12 @@ export class DashboardComponent implements OnInit {
       this.dataForExcel.push(employee as Employee);
     });
 
-    let reportData = {
-      title: 'Employee Status - Jan 2022',
+    const d = new Date();
+    const date = d.getMonth() + '-' + d.getFullYear();
+    const reportData = {
+      title: `Employee Status - ${date}`,
       data: this.dataForExcel,
-      headers: Object.keys(this.employees[0]),
+      headers: Object.keys(this.employees[0]).map(e => e[0].toUpperCase() + e.slice(1))
     };
 
     this.ete.exportExcel(reportData);

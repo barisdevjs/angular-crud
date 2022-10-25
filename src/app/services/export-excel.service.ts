@@ -10,24 +10,25 @@ import { EmployeeService } from './employee.service';
 })
 export class ExportExcelService {
 
-  list : any[] = [];
-
   constructor( public service: EmployeeService) { }
-
-  call() {
-    this.service.getEmployees().subscribe(data => this.list = data)
-  }
-
 
   exportExcel(excelData: { title: any; data: any; headers: any }) {
     //Title, Header & Data
     const title = excelData.title;
-    const header = excelData.headers;
     const data = excelData.data;
+    const header = excelData.headers;
 
     //Create a workbook with a worksheet
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Employee DATA'); // TAB oF the excel file
+
+    //Add Image
+    let myLogoImage = workbook.addImage({
+      base64: imgBase64,
+      extension: 'jpeg',
+    });
+    worksheet.mergeCells('A1:C6');
+    worksheet.addImage(myLogoImage, 'A1:C6');
 
     //Add Row and formatting
     worksheet.mergeCells('D1', 'G3');
@@ -35,7 +36,7 @@ export class ExportExcelService {
     titleRow.value = title;
     titleRow.font = {
       name: 'Calibri',
-      size: 16,
+      size: 14,
       underline: 'single',
       bold: true,
       color: { argb: '0085A3' },
@@ -55,13 +56,18 @@ export class ExportExcelService {
     };
     dateCell.alignment = { vertical: 'middle', horizontal: 'center' };
 
-    //Add Image
-    let myLogoImage = workbook.addImage({
-      base64: imgBase64,
-      extension: 'jpeg',
-    });
-    worksheet.mergeCells('A1:C6');
-    worksheet.addImage(myLogoImage, 'A1:C6');
+    // Your Notes 
+
+    worksheet.mergeCells('H1:H6');
+    let notesRow = worksheet.getCell('H1');
+    notesRow.value = 'YOUR NOTES :';
+    notesRow.font = {
+      name: 'Calibri',
+      size: 14,
+      bold: true,
+      color: { argb: '95F2F5' },
+    };
+    notesRow.alignment = { vertical: 'top', horizontal: 'left' }
 
     //Blank Row
     worksheet.addRow([]);
@@ -80,6 +86,7 @@ export class ExportExcelService {
         color: { argb: 'FFFFFF' },
         size: 12,
       };
+      cell.alignment = { vertical: 'middle', horizontal: 'center' };
     });
 
     worksheet.columns = [
@@ -92,8 +99,6 @@ export class ExportExcelService {
       { header: 'Status', key: 'status', width: 15 },
       { header: 'Image', key: 'image', width: 60 },
     ]
-
-     worksheet.addRows(this.list)
 
     // Adding Data with Conditional Formatting
     data.forEach((d: any) => {
@@ -118,17 +123,8 @@ export class ExportExcelService {
         pattern: 'solid',
         fgColor: { argb: color },
       };
+      row.alignment = { vertical: 'middle', horizontal: 'center' };
     });
-
-/*     worksheet.getColumn(1).width = 25;
-    worksheet.getColumn(2).width = 25;
-    worksheet.getColumn(3).width = 15;
-    worksheet.getColumn(4).width = 15;
-    worksheet.getColumn(5).width = 10;
-    worksheet.getColumn(6).width = 25;
-    worksheet.getColumn(7).width = 30;
-    worksheet.getColumn(8).width = 100; */
-
 
     worksheet.addRow([]);
 
