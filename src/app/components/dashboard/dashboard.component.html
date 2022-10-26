@@ -7,24 +7,23 @@
             <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger mr-2"
                 (click)="deleteSelectedEmployees(selectedEmployees)"
                 [disabled]="!selectedEmployees || !selectedEmployees.length"></button>
-            <button pButton pRipple label="download" icon="pi pi-download" class="p-button-secondary mr-2"
-            (click)="exportToExcel()"></button>
+            <button pButton pRipple label="Save to Excel" icon="pi pi-file-excel" class="p-button-secondary mr-2"
+                (click)="exportToExcel()"></button>
         </ng-template>
-    </p-toolbar>
-    <p-table #dt [value]="employees" [rows]="5" [paginator]="true" [globalFilterFields]="['categorty','name', 'wage']"
-        responsiveLayout="scroll" [(selection)]="selectedEmployees" [rowHover]="true" dataKey="id"
-        currentPageReportTemplate="Showing {first} to {last} of {{employees.length}} entries"
-        [showCurrentPageReport]="true">
-        <ng-template pTemplate="caption">
-            <div class="flex align-items-center justify-content-between">
-                <h5 class="m-0">Manage Employees</h5>
-                <span class="p-input-icon-left">
+        <ng-template pTemplate="right">
+            <div class="flex align-items-center justify-content-between" >
+                <span class="p-input-icon-left p-mr-2">
                     <i class="pi pi-search"></i>
                     <input pInputText #textInput type="text" (input)="dt.filterGlobal(textInput.value, 'contains')"
                         placeholder="Search..." />
                 </span>
             </div>
         </ng-template>
+    </p-toolbar>
+    <p-table #dt [value]="employees" [rows]="5" [paginator]="true" [globalFilterFields]="['categorty','name', 'wage']"
+        responsiveLayout="scroll" [(selection)]="selectedEmployees" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {{employees.length}} entries"
+        [showCurrentPageReport]="true">
         <ng-template pTemplate="header">
             <tr>
                 <th style="width: 3rem">
@@ -62,7 +61,7 @@
                 <td>
                     <p-tableCheckbox [value]="employee"></p-tableCheckbox>
                 </td>
-                <td >
+                <td>
                     <img id="employeeImg" [(src)]="employee.image" [alt]="employee.name" width="100" class="shadow-4" />
                     {{employee.name}}
                 </td>
@@ -93,18 +92,18 @@
 <p-dialog [(visible)]="employeeDialog" [style]="{width: '400px'}" header="{{employee.name}}" [modal]="true"
     styleClass="p-fluid">
     <ng-template pTemplate="content">
-            <div class="formgrid grid">
-                    <div class="field col-5">
-                        <label for="name">Name</label>
-                        <input type="text" pInputText id="name" [(ngModel)]="employee.name" required autofocus />
-                        <small class="p-invalid" *ngIf="submitted && !employee.name">Name is required.</small>
-                    </div>
-                    <div class="field col-7">
-                        <label for="email">Email</label>
-                        <input type="email" pInputText id="email" [(ngModel)]="employee.email" required autofocus />
-                        <small class="p-invalid" *ngIf="submitted && !employee.email">Email is required.</small>
-                    </div>
+        <div class="formgrid grid">
+            <div class="field col-5">
+                <label for="name">Name</label>
+                <input type="text" pInputText id="name" [(ngModel)]="employee.name" required autofocus />
+                <small class="p-invalid" *ngIf="submitted && !employee.name">Name is required.</small>
             </div>
+            <div class="field col-7">
+                <label for="email">Email</label>
+                <input type="email" pInputText id="email" [(ngModel)]="employee.email" required autofocus />
+                <small class="p-invalid" *ngIf="submitted && !employee.email">Email is required.</small>
+            </div>
+        </div>
         <div class="field">
             <label class="p-mb-3">Status</label>
             <div class="formgrid grid">
