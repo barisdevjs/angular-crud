@@ -35,6 +35,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { MessagesModule } from 'primeng/messages';
 import { BadgeModule } from 'primeng/badge';
+import { TooltipModule} from 'primeng/tooltip'
 
 
 
@@ -70,6 +71,7 @@ import { BadgeModule } from 'primeng/badge';
     ToolbarModule,
     InputTextareaModule,
     MessagesModule,
+    TooltipModule,
     BadgeModule,
     RouterModule.forRoot([
       { path: '', component: AppComponent },

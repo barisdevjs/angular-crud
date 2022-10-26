@@ -15,7 +15,7 @@
                 <span class="p-input-icon-left p-mr-2">
                     <i class="pi pi-search"></i>
                     <input pInputText #textInput type="text" (input)="dt.filterGlobal(textInput.value, 'contains')"
-                        placeholder="Search..." />
+                        placeholder="Search..." pTooltip="Name, Email..." tooltipPosition="left" />
                 </span>
             </div>
         </ng-template>
