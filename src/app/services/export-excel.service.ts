@@ -17,7 +17,6 @@ export class ExportExcelService {
     const title = excelData.title;
     const data = excelData.data;
     const header = excelData.headers;
-
     //Create a workbook with a worksheet
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Employee DATA'); // TAB oF the excel file
@@ -31,7 +30,7 @@ export class ExportExcelService {
     worksheet.addImage(myLogoImage, 'A1:C6');
 
     //Add Row and formatting
-    worksheet.mergeCells('D1', 'G3');
+    worksheet.mergeCells('D1:G3');
     let titleRow = worksheet.getCell('D1');
     titleRow.value = title;
     titleRow.font = {
@@ -60,6 +59,7 @@ export class ExportExcelService {
 
     worksheet.mergeCells('H1:H6');
     let notesRow = worksheet.getCell('H1');
+    
     notesRow.value = 'YOUR NOTES :';
     notesRow.font = {
       name: 'Calibri',
@@ -90,14 +90,14 @@ export class ExportExcelService {
     });
 
     worksheet.columns = [
-      { header: 'Name', key: 'name', width: 25  },
-      { header: 'Email', key: 'email', width: 25 },
-      { header: 'Category', key: 'category', width: 15 },
-      { header: 'Wage', key: 'wage', width: 10 },
-      { header: 'Rating', key: 'rating', width: 10 },
-      { header: 'ID', key: 'id', width: 10 },
-      { header: 'Status', key: 'status', width: 15 },
-      { header: 'Image', key: 'image', width: 60 },
+      { key: 'name', width: 25  },
+      { key: 'email', width: 25 },
+      { key: 'category', width: 15 },
+      { key: 'wage', width: 10 },
+      { key: 'rating', width: 10 },
+      { key: 'id', width: 10 },
+      { key: 'status', width: 15 },
+      { key: 'image', width: 60 },
     ]
 
     // Adding Data with Conditional Formatting
