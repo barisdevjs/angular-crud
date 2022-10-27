@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { EmployeeService } from "../../services/employee.service";
 import { MessageService, ConfirmationService } from "primeng/api";
 import { Employee } from 'src/app/types/employee-type';
 import { statusArr, userImages } from "../../../assets/variables";
 import { UploadService } from "../../services/upload.service";
 import { ExportExcelService } from '../../services/export-excel.service';
-
+import { NgxCaptureService } from 'ngx-capture';
+import { tap } from 'rxjs'
 
 
 @Component({
@@ -15,48 +16,31 @@ import { ExportExcelService } from '../../services/export-excel.service';
 })
 export class DashboardComponent implements OnInit {
 
+  @ViewChild('screen', { static: true }) screen: any;
+
   employeeDialog: boolean = false;
   employee: Employee = {}
   employees: Employee[] = [];
   selectedEmployees: Employee[] = [];
   submitted: boolean = false;
   statuses = statusArr
-  uploadedFiles: object[] = [
-    { img: "https://randomuser.me/api/portraits/thumb/men/3.jpg" },
-    { img: "https://randomuser.me/api/portraits/thumb/women/59.jpg" },
-    { img: "https://randomuser.me/api/portraits/thumb/men/16.jpg" },
-    { img: "https://randomuser.me/api/portraits/thumb/men/25.jpg" },
-    { img: "https://randomuser.me/api/portraits/thumb/women/40.jpg" },
-    { img: "https://randomuser.me/api/portraits/thumb/women/65.jpg" },
-    { img: "https://randomuser.me/api/portraits/thumb/men/12.jpg" },
-    { img: "https://randomuser.me/api/portraits/thumb/men/45.jpg" },
-    { img: "https://randomuser.me/api/portraits/thumb/men/34.jpg" },
-    { img: "https://randomuser.me/api/portraits/thumb/women/62.jpg" },
-    { img: "https://randomuser.me/api/portraits/thumb/men/22.jpg" },
-    { img: "https://randomuser.me/api/portraits/thumb/men/63.jpg" },
-    { img: "https://randomuser.me/api/portraits/thumb/women/86.jpg" },
-    { img: "https://randomuser.me/api/portraits/thumb/men/24.jpg" },
-    { img: "https://randomuser.me/api/portraits/thumb/women/16.jpg" },
-    { img: "https://randomuser.me/api/portraits/thumb/women/6.jpg" },
-    { img: "https://randomuser.me/api/portraits/thumb/women/52.jpg" },
-    { img: "https://randomuser.me/api/portraits/thumb/women/95.jpg" },
-    { img: "https://randomuser.me/api/portraits/thumb/women/45.jpg" },
-    { img: "https://randomuser.me/api/portraits/thumb/men/73.jpg" }
-  ]
-
+  uploadedFiles: object[] = userImages
   dataForExcel: Employee[] = [];
+  imgBase64: any = ''
 
   constructor(
     public employeeService: EmployeeService,
     public messageService: MessageService,
     public confirmationService: ConfirmationService,
     public uploadService: UploadService,
-    public ete: ExportExcelService
+    public ete: ExportExcelService,
+    private captureService: NgxCaptureService
   ) { }
 
   ngOnInit(): void {
-    this.employeeService.getEmployees().subscribe(data => this.employees = data)
-    this.getImg()
+    this.employeeService.getEmployees().subscribe(data => this.employees = data);
+    this.getImg();
+    this.saveScreen();
   }
 
   getImg() {
@@ -188,15 +172,43 @@ export class DashboardComponent implements OnInit {
       this.dataForExcel.push(employee as Employee);
     });
 
+
     const d = new Date();
     const date = d.getMonth() + '-' + d.getFullYear();
     const reportData = {
       title: `Employee Status - ${date}`,
       data: this.dataForExcel,
-      headers: Object.keys(this.employees[0]).map(e => e[0].toUpperCase() + e.slice(1))
+      headers: Object.keys(this.employees[0]).map(e => e[0].toUpperCase() + e.slice(1)),
+      img : this.imgBase64
     };
 
     this.ete.exportExcel(reportData);
+  }
+
+  saveScreen() {
+    this.captureService.getImage(this.screen.nativeElement, true)
+      .pipe(
+        tap(img => {
+          console.log(img);
+          this.imgBase64 = img
+        })
+      ).subscribe((img: any) => {
+        this.imgBase64 = img
+      })
+  }
+
+  // base 64 to image 
+  DataURIToBlob(dataURI: string) {
+    const splitDataURI = dataURI.split(',')
+    const byteString = splitDataURI[0].indexOf('base64') >= 0 ? Buffer.from(splitDataURI[1], 'base64') : decodeURI(splitDataURI[1])
+    const mimeString = splitDataURI[0].split(':')[1].split(';')[0]
+
+    const ia = new Uint8Array(byteString.length)
+    for (let i = 0; i < byteString.length; i++)
+      ia[i] = Number(byteString[i].toString())
+    console.log(typeof ia)
+
+    return new Blob([ia], { type: mimeString })
   }
 
 }

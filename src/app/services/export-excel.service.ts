@@ -3,7 +3,7 @@ import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
 import {imgBase64} from './logo'
 import { EmployeeService } from './employee.service';
-
+import { screenShot } from '../components/utils/base64';
 
 @Injectable({
   providedIn: 'root'
@@ -12,18 +12,19 @@ export class ExportExcelService {
 
   constructor( public service: EmployeeService) { }
 
-  exportExcel(excelData: { title: any; data: any; headers: any }) {
+  exportExcel(excelData: { title: any; data: any; headers: any ; img: any;}) {
     //Title, Header & Data
     const title = excelData.title;
     const data = excelData.data;
     const header = excelData.headers;
+    const img = excelData.img;
     //Create a workbook with a worksheet
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Employee DATA'); // TAB oF the excel file
 
     //Add Image
     let myLogoImage = workbook.addImage({
-      base64: imgBase64,
+      base64: img,
       extension: 'jpeg',
     });
     worksheet.mergeCells('A1:C6');
