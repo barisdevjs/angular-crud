@@ -7,6 +7,7 @@ import { UploadService } from "../../services/upload.service";
 import { ExportExcelService } from '../../services/export-excel.service';
 import { NgxCaptureService } from 'ngx-capture';
 import { tap } from 'rxjs'
+import { saveAs } from 'file-saver';
 
 
 @Component({
@@ -40,7 +41,9 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.employeeService.getEmployees().subscribe(data => this.employees = data);
     this.getImg();
-    this.saveScreen();
+    setTimeout(() => {
+      this.saveScreen()
+    }, 5000)
   }
 
   getImg() {
@@ -179,7 +182,7 @@ export class DashboardComponent implements OnInit {
       title: `Employee Status - ${date}`,
       data: this.dataForExcel,
       headers: Object.keys(this.employees[0]).map(e => e[0].toUpperCase() + e.slice(1)),
-      img : this.imgBase64
+      img: this.imgBase64
     };
 
     this.ete.exportExcel(reportData);
@@ -197,18 +200,9 @@ export class DashboardComponent implements OnInit {
       })
   }
 
-  // base 64 to image 
-  DataURIToBlob(dataURI: string) {
-    const splitDataURI = dataURI.split(',')
-    const byteString = splitDataURI[0].indexOf('base64') >= 0 ? Buffer.from(splitDataURI[1], 'base64') : decodeURI(splitDataURI[1])
-    const mimeString = splitDataURI[0].split(':')[1].split(';')[0]
-
-    const ia = new Uint8Array(byteString.length)
-    for (let i = 0; i < byteString.length; i++)
-      ia[i] = Number(byteString[i].toString())
-    console.log(typeof ia)
-
-    return new Blob([ia], { type: mimeString })
+  // base 64 to image and download image
+  DataURIToBlob(dataURI: string, name: string) {
+    saveAs(dataURI, name + '.png')
   }
 
 }

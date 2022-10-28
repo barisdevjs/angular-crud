@@ -7,10 +7,10 @@
             <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger mr-2"
                 (click)="deleteSelectedEmployees(selectedEmployees)"
                 [disabled]="!selectedEmployees || !selectedEmployees.length"></button>
-            <button pButton pRipple label="Save to Excel" icon="pi pi-download" class="p-button-secondary mr-2"
+            <button pButton pRipple label="Save to Excel" icon="pi pi-save" class="p-button-secondary mr-2"
                 (click)="exportToExcel()"></button>
             <button  pButton pRipple label="Screenshot" icon="pi pi-camera" class="p-button-info mr-2"
-                (click)="saveScreen()"></button>
+                (click)="DataURIToBlob(imgBase64, 'screen')"></button>
         </div>
         <ng-template pTemplate="right">
             <div class="flex align-items-center justify-content-between" >
@@ -22,6 +22,7 @@
             </div>
         </ng-template>
     </p-toolbar>
+    <!-- <img [src]="imgBase64"/> -->
     <div #screen>
     <p-table #dt [value]="employees" [rows]="5" [paginator]="true" [globalFilterFields]="['categorty','name', 'wage']"
         responsiveLayout="scroll" [(selection)]="selectedEmployees" [rowHover]="true" dataKey="id"
