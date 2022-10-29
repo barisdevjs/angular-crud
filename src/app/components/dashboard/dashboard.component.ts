@@ -6,7 +6,6 @@ import { statusArr, userImages } from "../../../assets/variables";
 import { UploadService } from "../../services/upload.service";
 import { ExportExcelService } from '../../services/export-excel.service';
 import { NgxCaptureService } from 'ngx-capture';
-import { tap } from 'rxjs'
 import { saveAs } from 'file-saver';
 
 
@@ -27,7 +26,7 @@ export class DashboardComponent implements OnInit {
   statuses = statusArr
   uploadedFiles: object[] = userImages
   dataForExcel: Employee[] = [];
-  imgBase64: any = ''
+  imgBase64: any = '';
 
   constructor(
     public employeeService: EmployeeService,
@@ -35,15 +34,15 @@ export class DashboardComponent implements OnInit {
     public confirmationService: ConfirmationService,
     public uploadService: UploadService,
     public ete: ExportExcelService,
-    private captureService: NgxCaptureService
+    private captureService: NgxCaptureService,
   ) { }
 
-  ngOnInit(): void {
+   ngOnInit() {
     this.employeeService.getEmployees().subscribe(data => this.employees = data);
     this.getImg();
     setTimeout(() => {
       this.saveScreen()
-    }, 5000)
+    }, 2500)
   }
 
   getImg() {
@@ -188,21 +187,18 @@ export class DashboardComponent implements OnInit {
     this.ete.exportExcel(reportData);
   }
 
-  saveScreen() {
+   saveScreen() {
     this.captureService.getImage(this.screen.nativeElement, true)
-      .pipe(
-        tap(img => {
-          console.log(img);
+    .subscribe((img: any) => {
           this.imgBase64 = img
-        })
-      ).subscribe((img: any) => {
-        this.imgBase64 = img
+          console.log(this.imgBase64);
       })
   }
 
   // base 64 to image and download image
-  DataURIToBlob(dataURI: string, name: string) {
+  
+   DataURIToBlob(dataURI: string = this.imgBase64, name: string) {
     saveAs(dataURI, name + '.png')
-  }
+   }
 
 }

@@ -7,7 +7,7 @@
       "wage": 2323,
       "rating": 5,
       "id": "ePN5N",
-      "status": "Annual-leave",
+      "status": "Working",
       "image": "https://randomuser.me/api/portraits/thumb/men/16.jpg"
     },
     {
@@ -17,7 +17,7 @@
       "wage": 3000,
       "rating": 3,
       "id": "QvKZm",
-      "status": "Working",
+      "status": "Sickness",
       "image": "https://randomuser.me/api/portraits/thumb/women/49.jpg"
     },
     {

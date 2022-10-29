@@ -22,7 +22,6 @@
             </div>
         </ng-template>
     </p-toolbar>
-    <!-- <img [src]="imgBase64"/> -->
     <div #screen>
     <p-table #dt [value]="employees" [rows]="5" [paginator]="true" [globalFilterFields]="['categorty','name', 'wage']"
         responsiveLayout="scroll" [(selection)]="selectedEmployees" [rowHover]="true" dataKey="id"
