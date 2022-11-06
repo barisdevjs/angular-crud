@@ -27,6 +27,8 @@ export class DashboardComponent implements OnInit {
   uploadedFiles: object[] = userImages
   dataForExcel: Employee[] = [];
   imgBase64: any = '';
+  form : string = '';
+  ratingRangeFlag : boolean = true;
 
   constructor(
     public employeeService: EmployeeService,
@@ -44,6 +46,8 @@ export class DashboardComponent implements OnInit {
       this.saveScreen()
     }, 2500)
   }
+
+  onSubmit() { this.form = 'true'; }
 
   getImg() {
     this.employeeService.getRandomImage().subscribe((response: any) => {
@@ -143,6 +147,10 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  validateRange(num : number): boolean {
+    return num > 5 ||  num < 1 ? this.ratingRangeFlag === true : false
+  }
+
   findIndexById(id: string): number {
     let index = -1;
     for (let i = 0; i < this.employees.length; i++) {
@@ -191,7 +199,6 @@ export class DashboardComponent implements OnInit {
     this.captureService.getImage(this.screen.nativeElement, true)
     .subscribe((img: any) => {
           this.imgBase64 = img
-          console.log(this.imgBase64);
       })
   }
 

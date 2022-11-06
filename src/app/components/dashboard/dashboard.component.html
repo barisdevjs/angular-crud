@@ -41,7 +41,7 @@
                 </th>
                 <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon>
                 </th>
-                <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon>
+                <th pSortableColumn="rating">Rating <p-sortIcon field="rating"></p-sortIcon>
                 </th>
                 <th>
                     Status
@@ -167,14 +167,15 @@
             </div>
             <div class="field col-6">
                 <label for="rating">Rating</label>
-                <p-inputNumber id="rating" name="rating" [(ngModel)]="employee.rating"></p-inputNumber>
+                <p-inputNumber id="rating" name="rating" [min]=1 [max]=5 [(ngModel)]="employee.rating"></p-inputNumber>
+                <small class="p-invalid" *ngIf="submitted && ratingRangeFlag">Value must be 0 between 6.</small>
             </div>
         </div>
     </ng-template>
 
     <ng-template pTemplate="footer">
         <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveEmployee()"></button>
+        <button pButton pRipple label="{{ employee.name ? 'Edit' : 'Save'}}" icon="pi pi-check" class="p-button-text" (click)="saveEmployee()"></button>
     </ng-template>
 </p-dialog>
 

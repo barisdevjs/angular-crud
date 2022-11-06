@@ -4,3 +4,16 @@
     width: 3rem;
     margin-right: 1vw;
 }
+
+:host {
+    ::ng-deep .prime-slider-override {
+        background-color: #26A3D1;
+        background-image:none;
+        border:none;
+        color:white;
+
+        .ui-slider-range {
+            background: red;
+        }
+    }    
+}
