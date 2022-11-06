@@ -7,7 +7,7 @@ import { UploadService } from "../../services/upload.service";
 import { ExportExcelService } from '../../services/export-excel.service';
 import { NgxCaptureService } from 'ngx-capture';
 import { saveAs } from 'file-saver';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 
 
 @Component({
@@ -18,6 +18,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class DashboardComponent implements OnInit {
 
   @ViewChild('screen', { static: true }) screen: any;
+  @ViewChild('contactForm') formMine!: NgForm;
 
   employeeDialog: boolean = false;
   employee: Employee = {}
@@ -52,7 +53,7 @@ export class DashboardComponent implements OnInit {
     }, 2500)
   }
 
-  onSubmit() { console.log(this.validate.value) }
+  onSubmit() { console.log(this.formMine) }
 
   getImg() {
     this.employeeService.getRandomImage().subscribe((response: any) => {
