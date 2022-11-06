@@ -75,7 +75,10 @@
                     <p-rating [(ngModel)]="employee.rating" name="rating" [readonly]="false" [cancel]="false"
                         (click)="editEmployeeRating(employee)"></p-rating>
                 </td>
-                <td><span>{{employee.status}}</span></td>
+                <td>
+                    <p-dropdown [(ngModel)]="employee.status" name="rating" [options]="statuses" [readonly]="false"
+                    (click)="editEmployeeStatus(employee)"></p-dropdown>
+                </td>
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
                         (click)="editEmployee(employee)"></button>
@@ -168,7 +171,6 @@
             <div class="field col-6">
                 <label for="rating">Rating</label>
                 <p-inputNumber id="rating" name="rating" [min]=1 [max]=5 [(ngModel)]="employee.rating"></p-inputNumber>
-                <small class="p-invalid" *ngIf="submitted && ratingRangeFlag">Value must be 0 between 6.</small>
             </div>
         </div>
     </ng-template>

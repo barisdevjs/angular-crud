@@ -7,6 +7,7 @@ import { UploadService } from "../../services/upload.service";
 import { ExportExcelService } from '../../services/export-excel.service';
 import { NgxCaptureService } from 'ngx-capture';
 import { saveAs } from 'file-saver';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -27,8 +28,12 @@ export class DashboardComponent implements OnInit {
   uploadedFiles: object[] = userImages
   dataForExcel: Employee[] = [];
   imgBase64: any = '';
-  form : string = '';
-  ratingRangeFlag : boolean = true;
+  form: string = '';
+  ratingRangeFlag: boolean = true;
+
+  validate = new FormGroup({
+    XXX: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(6)])
+  })
 
   constructor(
     public employeeService: EmployeeService,
@@ -39,7 +44,7 @@ export class DashboardComponent implements OnInit {
     private captureService: NgxCaptureService,
   ) { }
 
-   ngOnInit() {
+  ngOnInit() {
     this.employeeService.getEmployees().subscribe(data => this.employees = data);
     this.getImg();
     setTimeout(() => {
@@ -47,7 +52,7 @@ export class DashboardComponent implements OnInit {
     }, 2500)
   }
 
-  onSubmit() { this.form = 'true'; }
+  onSubmit() { console.log(this.validate.value) }
 
   getImg() {
     this.employeeService.getRandomImage().subscribe((response: any) => {
@@ -117,6 +122,11 @@ export class DashboardComponent implements OnInit {
     this.employeeService.editEmployee(employee).subscribe(data => data = this.employee)
   }
 
+  editEmployeeStatus( employee: Employee) {
+    this.employee = { ...employee };
+    this.employeeService.editEmployee(employee).subscribe(data => data = this.employee)
+  }
+
   hideDialog() {
     this.employeeDialog = false;
     this.submitted = false;
@@ -147,8 +157,9 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  validateRange(num : number): boolean {
-    return num > 5 ||  num < 1 ? this.ratingRangeFlag === true : false
+  validateRange(num: number): boolean {
+    this.employee.rating = num;
+    return num > 5 || num < 1 ? this.ratingRangeFlag === true : false
   }
 
   findIndexById(id: string): number {
@@ -195,17 +206,30 @@ export class DashboardComponent implements OnInit {
     this.ete.exportExcel(reportData);
   }
 
-   saveScreen() {
+  saveScreen() {
     this.captureService.getImage(this.screen.nativeElement, true)
-    .subscribe((img: any) => {
-          this.imgBase64 = img
+      .subscribe((img: any) => {
+        this.imgBase64 = img
       })
   }
 
   // base 64 to image and download image
-  
-   DataURIToBlob(dataURI: string = this.imgBase64, name: string) {
-    saveAs(dataURI, name + '.png')
-   }
 
+  DataURIToBlob(dataURI: string = this.imgBase64, name: string) {
+    saveAs(dataURI, name + '.png')
+  }
+
+  checkInput(event: any) {
+    const inputVal = event.target;
+    const inputData = JSON.parse(inputVal.dataset.ranges);
+    let color = "";
+  
+    for (let i = 0; i < inputData.length; i++) {
+      if (inputVal.value === inputData[i][0]) {
+        color = inputData[i][1];
+        break;
+      }
+    }
+    inputVal.style.backgroundColor = color;
+  }
 }
