@@ -7,7 +7,8 @@ import { UploadService } from "../../services/upload.service";
 import { ExportExcelService } from '../../services/export-excel.service';
 import { NgxCaptureService } from 'ngx-capture';
 import { saveAs } from 'file-saver';
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Table } from 'primeng/table'
+
 
 
 @Component({
@@ -18,7 +19,7 @@ import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 export class DashboardComponent implements OnInit {
 
   @ViewChild('screen', { static: true }) screen: any;
-  @ViewChild('contactForm') formMine!: NgForm;
+  @ViewChild('dt') public table! :Table ;
 
   employeeDialog: boolean = false;
   employee: Employee = {}
@@ -32,9 +33,7 @@ export class DashboardComponent implements OnInit {
   form: string = '';
   ratingRangeFlag: boolean = true;
 
-  validate = new FormGroup({
-    XXX: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(6)])
-  })
+
 
   constructor(
     public employeeService: EmployeeService,
@@ -52,8 +51,6 @@ export class DashboardComponent implements OnInit {
       this.saveScreen()
     }, 2500)
   }
-
-  onSubmit() { console.log(this.formMine) }
 
   getImg() {
     this.employeeService.getRandomImage().subscribe((response: any) => {
@@ -232,5 +229,9 @@ export class DashboardComponent implements OnInit {
       }
     }
     inputVal.style.backgroundColor = color;
+  }
+
+  reset() {
+    this.table.reset();
   }
 }

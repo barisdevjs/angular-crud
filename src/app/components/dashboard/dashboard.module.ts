@@ -4,7 +4,7 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { DropdownModule } from 'primeng/dropdown';
-
+import { TableModule } from 'primeng/table';
 
 
 @NgModule({
@@ -13,7 +13,8 @@ import { DropdownModule } from 'primeng/dropdown';
     CommonModule,
     DialogModule,
     InputTextareaModule,
-    DropdownModule
+    DropdownModule,
+    TableModule
   ],
   providers: [
     ConfirmationService, MessageService
