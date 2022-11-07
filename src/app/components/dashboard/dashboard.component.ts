@@ -30,8 +30,6 @@ export class DashboardComponent implements OnInit {
   uploadedFiles: object[] = userImages
   dataForExcel: Employee[] = [];
   imgBase64: any = '';
-  form: string = '';
-  ratingRangeFlag: boolean = true;
 
 
 
@@ -155,10 +153,6 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  validateRange(num: number): boolean {
-    this.employee.rating = num;
-    return num > 5 || num < 1 ? this.ratingRangeFlag === true : false
-  }
 
   findIndexById(id: string): number {
     let index = -1;
@@ -215,20 +209,6 @@ export class DashboardComponent implements OnInit {
 
   DataURIToBlob(dataURI: string = this.imgBase64, name: string) {
     saveAs(dataURI, name + '.png')
-  }
-
-  checkInput(event: any) {
-    const inputVal = event.target;
-    const inputData = JSON.parse(inputVal.dataset.ranges);
-    let color = "";
-  
-    for (let i = 0; i < inputData.length; i++) {
-      if (inputVal.value === inputData[i][0]) {
-        color = inputData[i][1];
-        break;
-      }
-    }
-    inputVal.style.backgroundColor = color;
   }
 
   reset() {
