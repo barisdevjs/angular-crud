@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
 import { EmployeeService } from './employee.service';
-import { screenShot } from '../components/utils/base64';
 
 @Injectable({
   providedIn: 'root'
