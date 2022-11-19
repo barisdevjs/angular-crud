@@ -11,7 +11,7 @@
                 (click)="exportToExcel()"></button>
             <button pButton pRipple label="Screenshot" icon="pi pi-camera" class="p-button-info mr-2"
                 (click)="DataURIToBlob(imgBase64, 'screen')"></button>
-            <button pButton pRipple label="Reset Sort" icon="pi pi-refresh" class="p-button-var(--pink-400) mr-2" 
+            <button pButton pRipple label="Reset Sort" icon="pi pi-refresh" class="p-button-var(--pink-400) mr-2"
                 (click)="reset()"></button>
         </div>
         <ng-template pTemplate="right">
@@ -29,7 +29,7 @@
             [globalFilterFields]="['categorty','name', 'wage']" responsiveLayout="scroll"
             [(selection)]="selectedEmployees" [rowHover]="true" dataKey="id"
             currentPageReportTemplate="Showing {first} to {last} of {{employees.length}} entries"
-            [showCurrentPageReport]="true" >
+            [showCurrentPageReport]="true">
             <ng-template pTemplate="header">
                 <tr>
                     <th style="width: 3rem">
@@ -43,7 +43,7 @@
                     </th>
                     <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon>
                     </th>
-                    <th pSortableColumn="rating"  >Rating <p-sortIcon field="rating"></p-sortIcon>
+                    <th pSortableColumn="rating">Rating <p-sortIcon field="rating"></p-sortIcon>
                     </th>
                     <th>
                         Status
@@ -105,14 +105,19 @@
         <div class="formgrid grid">
             <div class="field col-5">
                 <label for="name">Name</label>
-                <input type="text" pInputText id="name" name="name" [(ngModel)]="employee.name" required autofocus/>
-                <small class="p-invalid" *ngIf="submitted && !employee.name">Name is required.</small>
+                <input type="text" pInputText id="name" name="name" [(ngModel)]="employee.name" required autofocus
+                    minlength="3" maxlength="16" #nameCheck='ngModel' />
+                <small class="p-invalid" *ngIf="nameCheck.getError('minlength')">Too short</small>
+                <small class="p-invalid" *ngIf="nameCheck.getError('maxlength')">Too long</small>
             </div>
             <div class="field col-7">
                 <label for="email">Email</label>
-                <input type="email" pInputText id="email" name="email" [(ngModel)]="employee.email" required
-                    autofocus />
-                <small class="p-invalid" *ngIf="submitted && !employee.email">Email is required.</small>
+                <input type="email" pInputText id="email" name="email" [(ngModel)]="employee.email" required autofocus
+                    #mailCheck="ngModel"  pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{3}$" />
+                <div *ngIf="mailCheck.errors && (mailCheck.invalid )">
+                    <small class="p-invalid" *ngIf="mailCheck.errors?.['required']">Email is required</small>
+                    <small class="p-invalid" *ngIf="mailCheck.errors?.['pattern']">Format is invalid</small>
+                </div>
             </div>
         </div>
         <div class="field">
@@ -209,7 +214,7 @@
 
     <ng-template pTemplate="footer">
         <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-        <button pButton pRipple label="{{ employee.name ? 'Edit' : 'Save'}}" icon="pi pi-check" class="p-button-text"
+        <button pButton pRipple label="{{ employee.id ? 'Edit' : 'Save'}}" icon="pi pi-check" class="p-button-text"
             (click)="saveEmployee()"></button>
     </ng-template>
 </p-dialog>
