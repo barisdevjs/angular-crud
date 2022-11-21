@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -38,14 +38,14 @@ import { MessagesModule } from 'primeng/messages';
 import { BadgeModule } from 'primeng/badge';
 import { TooltipModule} from 'primeng/tooltip';
 import { NgxCaptureModule } from 'ngx-capture';
-
-
+import { CalendarComponent } from './components/calendar/calendar.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
+    CalendarComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -93,6 +93,8 @@ import { NgxCaptureModule } from 'ngx-capture';
       useClass: UploadService,
       multi: true
     }],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -11,7 +11,6 @@ export class AppComponent implements OnInit {
 
   title = 'angular-crud';
   loading: boolean = false;
-  activityValues: number[] = [0, 100]
   items: MenuItem[] = [];
   activeItem: MenuItem = {};
   routes : string[] = ['home', 'calendar', 'edit', 'documentation', 'settings'];

@@ -5,6 +5,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
+import { DashboardComponent } from './dashboard.component';
 
 
 @NgModule({
@@ -18,6 +19,6 @@ import { TableModule } from 'primeng/table';
   ],
   providers: [
     ConfirmationService, MessageService
-  ]
+  ],
 })
 export class DashboardModule { }
