@@ -1,6 +1,6 @@
 <p-toast></p-toast>
 <div class="card">
-    <p-toolbar styleClass="mb-1">
+    <p-toolbar class="tool">
         <div class="left">
             <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
                 (click)="openNew()"></button>
@@ -24,7 +24,7 @@
             </div>
         </ng-template>
     </p-toolbar>
-    <div #screen>
+    <div #screen class="mytable">
         <p-table #dt [value]="employees" [rows]="5" [paginator]="true" selectionMode="single"
             [globalFilterFields]="['categorty','name', 'wage']" responsiveLayout="scroll"
             [(selection)]="selectedEmployees" [rowHover]="true" dataKey="id"
@@ -89,11 +89,6 @@
                             (click)="deleteEmployee(employee)"></button>
                     </td>
                 </tr>
-            </ng-template>
-            <ng-template pTemplate="summary">
-                <div class="flex align-items-center justify-content-between">
-                    In total there are {{employees ? employees.length : 0 }} employees.
-                </div>
             </ng-template>
         </p-table>
     </div>

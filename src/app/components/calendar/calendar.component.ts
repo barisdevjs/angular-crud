@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CalendarOptions,  defineFullCalendarElement } from '@fullcalendar/web-component';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { INITIAL_EVENTS, createEventId } from 'src/app/utils/calendar-utils';
@@ -6,6 +6,10 @@ import { DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/core';
 import timeGridPlugin from '@fullcalendar/daygrid';
 import listPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/daygrid';
+import Draggable from '@fullcalendar/daygrid';
+import trLocale from '@fullcalendar/core/locales/tr'
+import enLocale from '@fullcalendar/core/locales/en-gb';
+
 
 defineFullCalendarElement();
 
@@ -16,6 +20,8 @@ defineFullCalendarElement();
 })
 export class CalendarComponent implements OnInit {
 
+  @ViewChild('external') external!: ElementRef; // edit here
+  @ViewChild('calendar') calendarComponent!: CalendarOptions; // edit here
   constructor() { }
 
   ngOnInit(): void {
@@ -23,7 +29,7 @@ export class CalendarComponent implements OnInit {
   }
 
   calendarOptions: CalendarOptions = {
-    plugins: [dayGridPlugin],
+    plugins: [dayGridPlugin, interactionPlugin,timeGridPlugin, listPlugin],
     headerToolbar: {
       left: 'prev next today',
       center: 'title',
@@ -36,8 +42,11 @@ export class CalendarComponent implements OnInit {
     selectable: true,
     selectMirror: true,
     dayMaxEvents: true,
-    height: '60vh',
+    height: '80vh',
     droppable : true,
+    locales : [ trLocale, enLocale ], // make an selection to switch between Tr and English
+    locale: trLocale,
+    eventAdd : this.handleDrag.bind(this), // not working
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this),
@@ -48,16 +57,22 @@ export class CalendarComponent implements OnInit {
     */
   };
 
+
   currentEvents: EventApi[] = [];
   calendarVisible = true;
+  // weekendsVisible = this.calendarOptions.weekends
 
   handleCalendarToggle() {
     this.calendarVisible = !this.calendarVisible;
   }
 
+  handleDrag() {
+    
+  }
+
   handleWeekendsToggle() {
-    const { calendarOptions } = this;
-    calendarOptions.weekends = !calendarOptions.weekends;
+    this.calendarOptions.weekends = !this.calendarOptions.weekends
+    console.log(this.calendarOptions.weekends)
   }
 
   handleDateSelect(selectInfo: DateSelectArg) {
@@ -86,5 +101,11 @@ export class CalendarComponent implements OnInit {
   handleEvents(events: EventApi[]) {
     this.currentEvents = events;
   }
+
+  eventClick(model:any) {
+    console.log(model);
+  }
+
+  // EVENT IS AN ARRAY OF events
 
 }
