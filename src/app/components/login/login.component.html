@@ -1,0 +1,122 @@
+<p-dialog [(visible)]="xx" [style]="{width: '400px'}" header="{{xx}}" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="formgrid grid">
+            <div class="field col-5">
+                <label for="name">Name</label>
+                <input type="text" pInputText id="name" name="name" [(ngModel)]="xx" required autofocus minlength="3"
+                    maxlength="16" #nameCheck='ngModel' />
+                <small class="p-invalid" *ngIf="nameCheck.getError('minlength')">Too short</small>
+                <small class="p-invalid" *ngIf="nameCheck.getError('maxlength')">Too long</small>
+            </div>
+            <div class="field col-7">
+                <label for="email">Email</label>
+                <input type="email" pInputText id="email" name="email" [(ngModel)]="xx" required autofocus
+                    #mailCheck="ngModel" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{3}$" />
+                <div *ngIf="mailCheck.errors && (mailCheck.invalid )">
+                    <small class="p-invalid" *ngIf="mailCheck.errors?.['required']">Email is required</small>
+                    <small class="p-invalid" *ngIf="mailCheck.errors?.['pattern']">Format is invalid</small>
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <label class="p-mb-3">Status</label>
+            <div class="formgrid grid">
+                <div class="field-radiobutton col-6">
+                    <p-radioButton id="category1" name="category" value="Working" [(ngModel)]="xx">
+                    </p-radioButton>
+                    <label for="category1">Working</label>
+                </div>
+                <div class="field-radiobutton col-6">
+                    <p-radioButton id="category2" name="category" value="Annual-leave" [(ngModel)]="xx">
+                    </p-radioButton>
+                    <label for="category2">Annual-leave</label>
+                </div>
+                <div class="field-radiobutton col-6">
+                    <p-radioButton id="category3" name="category" value="Sickness" [(ngModel)]="xx">
+                    </p-radioButton>
+                    <label for="category3">Sickness</label>
+                </div>
+                <div class="field-radiobutton col-6">
+                    <p-radioButton id="category4" name="category" value="Other" [(ngModel)]="xx">
+                    </p-radioButton>
+                    <label for="category4">Other</label>
+                </div>
+            </div>
+        </div>
+        <div class="formgrid grid">
+            <div class="field col-6">
+                <label for="wage">Wage</label>
+                <p-inputNumber id="wage" name="wage" [(ngModel)]="xx" mode="currency" currency="USD" locale="en-US">
+                </p-inputNumber>
+            </div>
+            <div class="field col-6">
+                <label for="rating1">Rating</label>
+                <p-inputNumber id="rating1" name="rating1" [min]=1 [max]=5 [(ngModel)]="xx">
+                </p-inputNumber>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple (click)="close()" label="Cancel" icon="pi pi-times" class="p-button-text"></button>
+        <button pButton pRipple label="{{ xx ? 'Edit' : 'Save'}}" icon="pi pi-check" class="p-button-text"></button>
+    </ng-template>
+</p-dialog>
+
+
+
+<!-- <div class="grid">
+<div formGroupName="address" class="card">
+    <h2>Address</h2>
+    
+    <label for="street">Street: </label>
+    <input id="street" type="text" formControlName="street">
+  
+    <label for="city">City: </label>
+    <input id="city" type="text" formControlName="city">
+  
+    <label for="state">State: </label>
+    <input id="state" type="text" formControlName="state">
+  
+    <label for="zip">Zip Code: </label>
+    <input id="zip" type="text" formControlName="zip">
+  </div>
+</div>
+ -->
+
+
+
+
+<!-- <div class="card" style="background-color:yellow; width:50vw">
+    <h5>Advanced</h5>
+    <form>
+    <div class="formgrid grid">
+        <div class="field col-12 ">
+            <label for="firstname6">Firstname</label>
+            <input id="firstname6"  type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+        </div>
+        <div class="field col-12 ">
+            <label for="lastname6">Lastname</label>
+            <input id="lastname6" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+        </div>
+        <div class="field col-12 ">
+            <label for="city">City</label>
+            <input id="city" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+        </div>
+        <div class="field col-12 ">
+            <label for="state">State</label>
+            <select id="state" class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary" style="appearance: auto">
+                <option>Arizona</option>
+                <option>California</option>
+                <option>Florida</option>
+                <option>Ohio</option>
+                <option>Washington</option>
+            </select>
+        </div>
+        <div class="field col-12 ">
+            <label for="zip">Zip</label>
+            <input id="zip" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+        </div>
+    </div>
+</form>
+</div> -->

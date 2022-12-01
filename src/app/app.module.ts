@@ -39,6 +39,8 @@ import { BadgeModule } from 'primeng/badge';
 import { TooltipModule} from 'primeng/tooltip';
 import { NgxCaptureModule } from 'ngx-capture';
 import { CalendarComponent } from './components/calendar/calendar.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 @NgModule({
@@ -46,6 +48,8 @@ import { CalendarComponent } from './components/calendar/calendar.component';
     AppComponent,
     DashboardComponent,
     CalendarComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     AppRoutingModule,
