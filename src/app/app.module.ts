@@ -12,7 +12,9 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EmployeeService } from './services/employee.service';
 import { UploadService } from './services/upload.service';
-
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { LoginComponent } from './components/login/login.component';
 
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
@@ -37,10 +39,11 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { MessagesModule } from 'primeng/messages';
 import { BadgeModule } from 'primeng/badge';
 import { TooltipModule} from 'primeng/tooltip';
+import {CardModule} from 'primeng/card';
+import {AvatarModule} from 'primeng/avatar';
+import {SelectButtonModule} from 'primeng/selectbutton';
 import { NgxCaptureModule } from 'ngx-capture';
-import { CalendarComponent } from './components/calendar/calendar.component';
-import { SignupComponent } from './components/signup/signup.component';
-import { LoginComponent } from './components/login/login.component';
+
 
 
 @NgModule({
@@ -81,6 +84,9 @@ import { LoginComponent } from './components/login/login.component';
     TooltipModule,
     NgxCaptureModule,
     BadgeModule,
+    CardModule,
+    AvatarModule,
+    SelectButtonModule,
     RouterModule.forRoot([
       { path: '', component: AppComponent },
     ])

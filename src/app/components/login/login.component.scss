@@ -1,6 +1,18 @@
+p-avatar {
+    border: .14px dashed black;
+}
 
+:host {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    height:93vh; 
+}
 
-.xx {
-    display:grid;
-    place-items: center;
+:host > p-card {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    height:83vh !important;
+    width: 35vw !important;
 }
