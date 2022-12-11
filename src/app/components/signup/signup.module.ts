@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SignupComponent } from './signup.component';
+import { DialogModule } from 'primeng/dialog';
 
 
 
 @NgModule({
   declarations: [
-    SignupComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    DialogModule,
+
   ]
 })
 export class SignupModule { }

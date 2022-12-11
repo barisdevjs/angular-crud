@@ -1,0 +1,13 @@
+:host {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    height:89vh; 
+    background-image: linear-gradient(to right, lightblue, darkblue)
+}
+
+:host > p-card {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}

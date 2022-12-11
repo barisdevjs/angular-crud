@@ -1,16 +1,22 @@
-
-
 :host {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
-    height:93vh; 
+    height:88vh; 
+    background-image: url('../../../assets/back1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 55;
+    
 }
 
 :host > p-card {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
-    height:90% !important;
-    width: 35% !important;
+}
+
+form {
+    width: 100%;
+    height: 100%;
 }

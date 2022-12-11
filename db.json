@@ -101,5 +101,15 @@
       "image": "https://randomuser.me/api/portraits/thumb/men/36.jpg"
     }
   ],
-  "uploads": []
+  "uploads": [],
+  "signUpUser": [
+    {
+      "firstName": "wer",
+      "lastName": "wer",
+      "mail": "wer",
+      "password1": "111",
+      "password2": "111",
+      "id": 1
+    }
+  ]
 }

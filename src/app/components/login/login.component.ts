@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,29 +10,50 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 })
 export class LoginComponent implements OnInit {
 
-  userForm = this.fb.group({
-    firstName:['', Validators.required],
-    lastName:[''],
-    mail:['', Validators.required],
-    password1:['', Validators.required],
-    password2:['', Validators.required]
+  logForm = this.fb.group({
+    mail: ['', Validators.required],
+    password1: ['', Validators.required],
   })
-  constructor( private fb:FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private http: HttpClient
+    ) { }
 
   stateOptions: any[] = [];
   value1: string = "off";
   uploadedFiles: any[] = [];
-  fileToUpload : any;
-imageUrl:string =''
-
+  fileToUpload: any;
+  imageUrl: string = ''
+  val3 :string = ''
 
 
   ngOnInit(): void {
-    this.stateOptions = [{label: 'SIGN UP', value: 'off'}, {label: 'LOGIN', value: 'on'}];
+    this.stateOptions = [{ label: 'SIGN UP', value: 'on' }, { label: 'LOGIN', value: 'off' }];
   }
 
-  addUser() {
-    console.log(this.userForm.value)
+  logUser() {
+    console.log(this.logForm.value)
+    console.log(this.logForm.value)
+    this.http.get<any>("http://localhost:5000/signUpUser")
+    .subscribe({
+      next: (data: any) => {
+        const user = data.find((a:any) => {
+          return a.mail === this.logForm.value.mail && a.password1 === this.logForm.value.password1
+        });
+        if (user) {
+          alert('User successfully logged in');
+          this.logForm.reset();
+          this.router.navigate(['/home'])
+        } else {
+          alert('User not found ');
+        }    
+      },
+      error: (error: any) =>{
+        console.log(error)
+        alert('Something went wrong')
+      }
+    })  
   }
 
   handleFileInput(file: FileList) {
@@ -45,16 +68,20 @@ imageUrl:string =''
   }
 
 
-  onUpload(event : any) {
+  onUpload(event: any) {
     for (let file of event.files) {
-        this.uploadedFiles.push(file);
+      this.uploadedFiles.push(file);
     }
 
-}
+  }
 
-onBasicUploadAuto(event : any) {
-  console.log(event)
-}
+  onBasicUploadAuto(event: any) {
+    console.log(event)
+  }
+
+  handleRoute() {
+    this.router.navigate(['/signup'])
+  }
 }
 
 

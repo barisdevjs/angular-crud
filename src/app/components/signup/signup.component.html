@@ -1,1 +1,39 @@
-<p>signup works!</p>
+<p-card class="flex justify-content-center align-items-center shadow-8 border-round-lg">
+    <div class="flex justify-content-center align-items-center pb-3">
+    <p-selectButton [options]="stateOptions" [(ngModel)]="value1" optionLabel="label" optionValue="value"
+    (click)="handleRoute()">
+    </p-selectButton >
+    </div>
+    <form [formGroup]="signUpForm" (ngSubmit)="addUser()">
+        <div class="formgrid grid" >
+            <div class="field col-6 flex justify-content-center flex-column">
+                <p-avatar image="../../../assets/111.jpg" shape="circle" size="xlarge" 
+                    [style]="{width:'150px',height:'150px', margin: '20px'}" styleClass="align-self-start">
+                </p-avatar>
+                <button pButton type="reset" label="Reset" class="p-button-info mb-3 mt-3" icon="pi pi-times"
+                    iconPos="left">
+                </button>
+                <button pButton type="submit" label="Submit" icon="pi pi-check" iconPos="left"
+                    [disabled]="signUpForm.invalid"></button>
+            </div>
+            <div class="field col-6">
+                <label for="firstName" class="block">First Name</label>
+                <input type="text" pInputText  formControlName="firstName">
+                <small class="p-error block" *ngIf="signUpForm.get('firstName')?.invalid &&
+                signUpForm.get('firstName')?.dirty">First Name is required</small>
+
+                <label for="lastName" class="block">Last Name</label>
+                <input type="text" pInputText  formControlName="lastName">
+
+                <label for="email" class="block">Email</label>
+                <input type="email" pInputText  formControlName="mail">
+
+                <label for="password1" class="block">Password</label>
+                <input type="password" pInputText  formControlName="password1">
+
+                <label for="password2" class="block">Re-type password</label>
+                <input type="password" pInputText formControlName="password2" class="mb-3">
+            </div>
+        </div>
+    </form>
+</p-card>
