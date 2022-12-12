@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LogUser } from '../../types/user-type';
 
 @Component({
   selector: 'app-login',
@@ -33,12 +34,10 @@ export class LoginComponent implements OnInit {
   }
 
   logUser() {
-    console.log(this.logForm.value)
-    console.log(this.logForm.value)
-    this.http.get<any>("http://localhost:5000/signUpUser")
+    this.http.get<LogUser[]>("http://localhost:5000/signUpUser")
     .subscribe({
-      next: (data: any) => {
-        const user = data.find((a:any) => {
+      next: (data: LogUser[]) => {
+        const user = data.find((a:LogUser) => {
           return a.mail === this.logForm.value.mail && a.password1 === this.logForm.value.password1
         });
         if (user) {
