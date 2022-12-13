@@ -1,6 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import { ThisReceiver } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
@@ -13,25 +11,31 @@ import { SignUser } from '../../types/user-type';
 })
 export class SignupComponent implements OnInit {
 
-    signUpForm = this.fb.group({
-    firstName: ['', Validators.required],
-    lastName: [''],
-    mail: ['', Validators.required],
-    password1: ['', Validators.required],
-    password2: ['', Validators.required]
+    @ViewChild('fileInput') el!: ElementRef ;
+    imageUrl: any = 'https://i.pinimg.com/236x/d6/27/d9/d627d9cda385317de4812a4f7bd922e9--man--iron-man.jpg';
+    editFile: boolean = true;
+    removeUpload: boolean = false;
+
+    signUpForm = this.fb.nonNullable.group({
+    file: [null],
+    firstName: ['' as string, Validators.required],
+    lastName: ['' as string, Validators.required],
+    mail: ['' as string, Validators.required],
+    password1: ['' as string, Validators.required],
+    password2: ['' as string, Validators.required],
   })
   constructor(
     private fb: FormBuilder, 
     private router: Router,
-    private http: HttpClient,
-    public userService: UserService
+    public userService: UserService,
+    private cd: ChangeDetectorRef
     ) { }
 
   stateOptions: any[] = [];
   value1: string = "off";
   uploadedFiles: any[] = [];
   fileToUpload: any;
-  imageUrl: string = ''
+  // imageUrl: string = ''
   userList : SignUser[] = [];
 
 
@@ -43,8 +47,9 @@ export class SignupComponent implements OnInit {
     this.userService.getUsers().subscribe({
       next: (users) => { this.userList = users;},
       error: (error) => console.log(error),
-      complete: () => alert('Success')
+      // complete: () => alert('Users fetched') message service or toaster
     })
+    
   }
 
 /*   addUser() {
@@ -65,13 +70,12 @@ export class SignupComponent implements OnInit {
     this.employees.push(data)
   ))
  */
-  addUser(user: SignUser) {
-    user = this.signUpForm.value
-    this.userService.signUser(user).subscribe({
+  addUser() {
+    this.userService.signUser(this.signUpForm.value).subscribe({
       next : (data: SignUser) => {
         this.userList.push(data);
       },
-      error: (error: any) => console.log('Something went wrong')
+      error: (error: any) =>{ console.log('Something went wrong')}
     })
   }
 
@@ -101,4 +105,34 @@ export class SignupComponent implements OnInit {
   handleRoute() {
     this.router.navigate(['/login'])
   }
+
+  uploadFile(event) {
+    let reader = new FileReader(); // HTML5 FileReader API
+    let file = event.target.files[0];
+    if (event.target.files && event.target.files[0]) {
+      reader.readAsDataURL(file);
+
+      // When file uploads set it to file formcontrol
+      reader.onload = () => {
+        this.imageUrl = reader.result;
+        this.signUpForm.patchValue({
+          file: reader.result
+        });
+        this.editFile = false;
+        this.removeUpload = true;
+      }
+      // ChangeDetectorRef since file is loading outside the zone
+      this.cd.markForCheck();        
+    }
+  }
+
+  removeUploadedFile() {
+    let newFileList = Array.from(this.el.nativeElement.files);
+    this.imageUrl = 'https://i.pinimg.com/236x/d6/27/d9/d627d9cda385317de4812a4f7bd922e9--man--iron-man.jpg';
+    this.editFile = true;
+    this.removeUpload = false;
+    this.signUpForm.patchValue({
+      file: [null]
+    });
+  }  
 }

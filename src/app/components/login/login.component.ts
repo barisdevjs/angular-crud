@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LogUser } from '../../types/user-type';
+import { UserService } from 'src/app/services/user.service';
+import { LogUser, SignUser } from '../../types/user-type';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private userService: UserService
     ) { }
 
   stateOptions: any[] = [];
@@ -33,7 +35,7 @@ export class LoginComponent implements OnInit {
     this.stateOptions = [{ label: 'SIGN UP', value: 'on' }, { label: 'LOGIN', value: 'off' }];
   }
 
-  logUser() {
+/*   logUser() {
     this.http.get<LogUser[]>("http://localhost:5000/signUpUser")
     .subscribe({
       next: (data: LogUser[]) => {
@@ -53,6 +55,27 @@ export class LoginComponent implements OnInit {
         alert('Something went wrong')
       }
     })  
+  } */
+
+  logUser() {
+    this.userService.getUsers().subscribe({
+      next: (data:SignUser[]) => {
+        const user = data.find((a:LogUser) => {
+          return a.mail === this.logForm.value.mail && a.password1 === this.logForm.value.password1
+        });
+        if (user) {
+          alert('User successfully logged in');
+          this.logForm.reset();
+          this.router.navigate(['/home'])
+        } else {
+          alert('User not found ');
+        }    
+      },
+      error: (error: any) => {
+        console.log(error)
+        alert('Something went wrong')
+      }
+    })
   }
 
   handleFileInput(file: FileList) {

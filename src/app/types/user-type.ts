@@ -1,5 +1,5 @@
 export interface SignUser {
-    firstName:string;
+    firstName?:string;
     lastName?:string;
     mail?:string;
     password1?:string;

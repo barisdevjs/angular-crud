@@ -7,8 +7,13 @@
     <form [formGroup]="signUpForm" (ngSubmit)="addUser()">
         <div class="formgrid grid" >
             <div class="field col-6 flex justify-content-center flex-column">
-                <p-avatar image="../../../assets/111.jpg" shape="circle" size="xlarge" 
+                <!-- <p-avatar image="../../../assets/111.jpg" shape="circle" size="xlarge" 
                     [style]="{width:'150px',height:'150px', margin: '20px'}" styleClass="align-self-start">
+                </p-avatar> -->
+                <p-avatar>
+                    <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" #fileInput (change)="uploadFile($event)" />
+                    <label for="imageUpload" *ngIf="editFile" [ngClass]="['custom-label', 'upload-image']"></label>
+                    <label *ngIf="removeUpload" [ngClass]="['custom-label', 'remove-image']" (click)="removeUploadedFile()"></label>
                 </p-avatar>
                 <button pButton type="reset" label="Reset" class="p-button-info mb-3 mt-3" icon="pi pi-times"
                     iconPos="left">
