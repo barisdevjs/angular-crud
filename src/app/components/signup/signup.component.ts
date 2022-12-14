@@ -12,12 +12,12 @@ import { SignUser } from '../../types/user-type';
 export class SignupComponent implements OnInit {
 
     @ViewChild('fileInput') el!: ElementRef ;
-    imageUrl: any = 'https://i.pinimg.com/236x/d6/27/d9/d627d9cda385317de4812a4f7bd922e9--man--iron-man.jpg';
+    imageUrl: any = '../../../assets/111.jpg'
     editFile: boolean = true;
     removeUpload: boolean = false;
 
     signUpForm = this.fb.nonNullable.group({
-    file: [null],
+    file: '',
     firstName: ['' as string, Validators.required],
     lastName: ['' as string, Validators.required],
     mail: ['' as string, Validators.required],
@@ -35,7 +35,6 @@ export class SignupComponent implements OnInit {
   value1: string = "off";
   uploadedFiles: any[] = [];
   fileToUpload: any;
-  // imageUrl: string = ''
   userList : SignUser[] = [];
 
 
@@ -74,6 +73,7 @@ export class SignupComponent implements OnInit {
     this.userService.signUser(this.signUpForm.value).subscribe({
       next : (data: SignUser) => {
         this.userList.push(data);
+        this.router.navigate(['/login']);
       },
       error: (error: any) =>{ console.log('Something went wrong')}
     })
@@ -106,7 +106,7 @@ export class SignupComponent implements OnInit {
     this.router.navigate(['/login'])
   }
 
-  uploadFile(event) {
+  uploadFile(event:any) {
     let reader = new FileReader(); // HTML5 FileReader API
     let file = event.target.files[0];
     if (event.target.files && event.target.files[0]) {
@@ -116,7 +116,7 @@ export class SignupComponent implements OnInit {
       reader.onload = () => {
         this.imageUrl = reader.result;
         this.signUpForm.patchValue({
-          file: reader.result
+          file: reader.result as string
         });
         this.editFile = false;
         this.removeUpload = true;
@@ -128,11 +128,11 @@ export class SignupComponent implements OnInit {
 
   removeUploadedFile() {
     let newFileList = Array.from(this.el.nativeElement.files);
-    this.imageUrl = 'https://i.pinimg.com/236x/d6/27/d9/d627d9cda385317de4812a4f7bd922e9--man--iron-man.jpg';
+    this.imageUrl = '../../../assets/111.jpg';
     this.editFile = true;
     this.removeUpload = false;
     this.signUpForm.patchValue({
-      file: [null]
+      file: ''
     });
   }  
 }
