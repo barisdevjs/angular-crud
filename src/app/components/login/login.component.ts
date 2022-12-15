@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private ms: MessageService,
+    private confirmationService: ConfirmationService,
   ) { }
 
   stateOptions: any[] = [];
@@ -47,20 +48,18 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  async logUser() {
+   logUser() {
      this.userService.getUsers().subscribe({
       next: (data: SignUser[]) => {
         const user =  data.find((a: LogUser) => {
-        return ( a.mail === this.logForm.value.mail ) && ( a.password1 === this.logForm.value.password1);
+        return a.mail === this.logForm.value.mail  && a.password1 === this.logForm.value.password1;
       });
-        if (user) {
-          console.log(user)
-          this.ms.add({
-            severity: 'success', summary: 'User successfully logged in',
-            detail: `Welcome ${user.firstName}`, life: 4000
-          });
-          this.logForm.reset();
-          this.router.navigate(['/home'])
+        if (!!user) {
+          this.ms.add({ severity: 'success', summary: `Welcome ${user.firstName}  ❤ `, life: 3500 })
+          setTimeout(() =>{
+            this.logForm.reset();
+            this.router.navigate(['/home'])
+          },3500)
         } else {
           this.ms.add({ severity: 'error', summary: 'User not found ', life: 4000 })
         }
@@ -86,6 +85,7 @@ export class LoginComponent implements OnInit {
   handleRoute() {
     this.router.navigate(['/signup'])
   }
+
 }
 
 
