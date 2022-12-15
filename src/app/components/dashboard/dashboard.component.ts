@@ -7,7 +7,7 @@ import { UploadService } from "../../services/upload.service";
 import { ExportExcelService } from '../../services/export-excel.service';
 import { NgxCaptureService } from 'ngx-capture';
 import { saveAs } from 'file-saver';
-import { Table } from 'primeng/table'
+import { Table } from 'primeng/table';
 
 
 

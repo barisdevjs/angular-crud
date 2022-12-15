@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { LogUser, SignUser } from '../../types/user-type';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
@@ -18,60 +19,55 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private userService: UserService
-    ) { }
+    private userService: UserService,
+    private ms: MessageService,
+  ) { }
 
   stateOptions: any[] = [];
   value1: string = "off";
   uploadedFiles: any[] = [];
   fileToUpload: any;
-  imageUrl: string = ''
-  val3 :string = ''
+  imageUrl: string = '';
+  val3: string = '';
+  userList: SignUser[] = [];
 
 
-  ngOnInit(): void {
+
+  ngOnInit() {
     this.stateOptions = [{ label: 'SIGN UP', value: 'on' }, { label: 'LOGIN', value: 'off' }];
+    this.userService.getUsers().subscribe({
+      next: (users) => {
+        this.userList = users;
+        this.ms.add({ severity: 'info', summary: `Please continue`, life: 3000 })
+      },
+      error: (error) => {
+        console.log(error);
+        this.ms.add({ severity: 'error', summary: 'Can\'t be ready for now', detail: `${error.message}`, life: 4000 })
+      },
+    })
   }
 
-/*   logUser() {
-    this.http.get<LogUser[]>("http://localhost:5000/signUpUser")
-    .subscribe({
-      next: (data: LogUser[]) => {
-        const user = data.find((a:LogUser) => {
-          return a.mail === this.logForm.value.mail && a.password1 === this.logForm.value.password1
-        });
+  async logUser() {
+     this.userService.getUsers().subscribe({
+      next: (data: SignUser[]) => {
+        const user =  data.find((a: LogUser) => {
+        return ( a.mail === this.logForm.value.mail ) && ( a.password1 === this.logForm.value.password1);
+      });
         if (user) {
-          alert('User successfully logged in');
+          console.log(user)
+          this.ms.add({
+            severity: 'success', summary: 'User successfully logged in',
+            detail: `Welcome ${user.firstName}`, life: 4000
+          });
           this.logForm.reset();
           this.router.navigate(['/home'])
         } else {
-          alert('User not found ');
-        }    
-      },
-      error: (error: any) =>{
-        console.log(error)
-        alert('Something went wrong')
-      }
-    })  
-  } */
-
-  logUser() {
-    this.userService.getUsers().subscribe({
-      next: (data:SignUser[]) => {
-        const user = data.find((a:LogUser) => {
-          return a.mail === this.logForm.value.mail && a.password1 === this.logForm.value.password1
-        });
-        if (user) {
-          alert('User successfully logged in');
-          this.logForm.reset();
-          this.router.navigate(['/home'])
-        } else {
-          alert('User not found ');
-        }    
+          this.ms.add({ severity: 'error', summary: 'User not found ', life: 4000 })
+        }
       },
       error: (error: any) => {
         console.log(error)
-        alert('Something went wrong')
+        this.ms.add({ severity: 'error', summary: 'Something went wrong', detail: `${error.message}`, life: 4000 })
       }
     })
   }
@@ -87,33 +83,10 @@ export class LoginComponent implements OnInit {
     reader.readAsDataURL(this.fileToUpload);
   }
 
-
-  onUpload(event: any) {
-    for (let file of event.files) {
-      this.uploadedFiles.push(file);
-    }
-
-  }
-
-  onBasicUploadAuto(event: any) {
-    console.log(event)
-  }
-
   handleRoute() {
     this.router.navigate(['/signup'])
   }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 /*   bool = true;

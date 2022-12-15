@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from './login.component';
 import { DialogModule } from 'primeng/dialog';
-import {PasswordModule} from 'primeng/password';
+import { PasswordModule } from 'primeng/password';
 
 
 @NgModule({
@@ -10,7 +9,7 @@ import {PasswordModule} from 'primeng/password';
   imports: [
     CommonModule,
     DialogModule,
-    PasswordModule
+    PasswordModule,
   ]
 })
 export class LoginModule { }
