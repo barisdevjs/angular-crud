@@ -43,6 +43,7 @@ import {CardModule} from 'primeng/card';
 import {AvatarModule} from 'primeng/avatar';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import { NgxCaptureModule } from 'ngx-capture';
+import { EmailValidatorDirective } from './directives/email-validator.directive';
 
 
 
@@ -52,7 +53,8 @@ import { NgxCaptureModule } from 'ngx-capture';
     DashboardComponent,
     CalendarComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    EmailValidatorDirective
   ],
   imports: [
     AppRoutingModule,

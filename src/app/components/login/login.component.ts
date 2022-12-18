@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { LogUser, SignUser } from '../../types/user-type';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { emailValidator } from 'src/app/directives/email-validator.directive';
 
 @Component({
   selector: 'app-login',
@@ -13,9 +14,11 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 export class LoginComponent implements OnInit {
 
   logForm = this.fb.group({
-    mail: ['', Validators.required],
-    password1: ['', Validators.required],
+    mail: ['', [Validators.required,emailValidator()]],
+    password1: ['',[ Validators.required, Validators.minLength(3), Validators.maxLength(8), 
+    ]]
   })
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -59,9 +62,9 @@ export class LoginComponent implements OnInit {
           setTimeout(() =>{
             this.logForm.reset();
             this.router.navigate(['/home'])
-          },3500)
+          },3000)
         } else {
-          this.ms.add({ severity: 'error', summary: 'User not found ', life: 4000 })
+          this.ms.add({ severity: 'error', summary: 'Password is incorrect', life: 4000 })
         }
       },
       error: (error: any) => {
@@ -71,20 +74,18 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  handleFileInput(file: FileList) {
-    this.fileToUpload = file.item(0);
-
-    //Show image preview
-    let reader = new FileReader();
-    reader.onload = (event: any) => {
-      this.imageUrl = event.target.result;
-    }
-    reader.readAsDataURL(this.fileToUpload);
-  }
-
   handleRoute() {
     this.router.navigate(['/signup'])
   }
+
+  get mail() {
+    return this.logForm.get('mail');
+  }
+
+  get password1() {
+    return this.logForm.get('password1');
+  }
+
 
 }
 
