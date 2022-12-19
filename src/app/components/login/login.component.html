@@ -20,7 +20,6 @@
                 This field must have at least 3 character.</small>
                 <small class="red" *ngIf="password1?.errors?.['maxlength']">
                 This field must contain atmost 8 characters.</small>
-                {{ password1?.errors | json}}
             </div>
             <div class="field col-12 flex justify-content-center flex-column">
             <button pButton type="reset" label="Reset" class="p-button-info mb-3 mt-3" icon="pi pi-times"

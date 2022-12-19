@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { SignUser } from '../../types/user-type';
 import { MessageService } from 'primeng/api';
+import { emailValidator } from 'src/app/directives/email-validator.directive';
+import { validatePassword } from 'src/app/directives/password-validator.directive';
+
 
 @Component({
   selector: 'app-signup',
@@ -21,9 +24,9 @@ export class SignupComponent implements OnInit {
     file: '',
     firstName: ['' as string, Validators.required],
     lastName: ['' as string, Validators.required],
-    mail: ['' as string, Validators.required],
-    password1: ['' as string, Validators.required],
-    password2: ['' as string, Validators.required],
+    mail: ['' as string,[ Validators.required, emailValidator()]],
+    password1: ['' as string, [ Validators.required, Validators.minLength(3), Validators.maxLength(8)]],
+    password2: ['' as string, [Validators.required, validatePassword()]],
   })
   constructor(
     private fb: FormBuilder,
@@ -115,5 +118,25 @@ export class SignupComponent implements OnInit {
     this.signUpForm.patchValue({
       file: ''
     });
+  }
+
+  get mail() {
+    return this.signUpForm.get('mail');
+  }
+
+  get firstName() {
+    return this.signUpForm.get('firstName');
+  }
+
+  get lastName() {
+    return this.signUpForm.get('lastName');
+  }
+
+  get password1() {
+    return this.signUpForm.get('password1');
+  }
+
+  get password2() {
+    return this.signUpForm.get('password2');
   }
 }

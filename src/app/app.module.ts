@@ -44,6 +44,7 @@ import {AvatarModule} from 'primeng/avatar';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import { NgxCaptureModule } from 'ngx-capture';
 import { EmailValidatorDirective } from './directives/email-validator.directive';
+import { PasswordValidatorDirective } from './directives/password-validator.directive';
 
 
 
@@ -54,7 +55,8 @@ import { EmailValidatorDirective } from './directives/email-validator.directive'
     CalendarComponent,
     LoginComponent,
     SignupComponent,
-    EmailValidatorDirective
+    EmailValidatorDirective,
+    PasswordValidatorDirective
   ],
   imports: [
     AppRoutingModule,

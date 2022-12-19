@@ -29,7 +29,9 @@ export function emailValidator(): ValidatorFn {
     multi: true,
   }],
 })
-export class EmailValidatorDirective  implements Validator {
+
+
+export class EmailValidatorDirective implements Validator {
 
   constructor() { }
 
