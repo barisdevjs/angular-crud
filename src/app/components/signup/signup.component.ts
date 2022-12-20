@@ -5,7 +5,6 @@ import { UserService } from 'src/app/services/user.service';
 import { SignUser } from '../../types/user-type';
 import { MessageService } from 'primeng/api';
 import { emailValidator } from 'src/app/directives/email-validator.directive';
-import { validatePassword } from 'src/app/directives/password-validator.directive';
 
 
 @Component({
@@ -26,7 +25,7 @@ export class SignupComponent implements OnInit {
     lastName: ['' as string, Validators.required],
     mail: ['' as string,[ Validators.required, emailValidator()]],
     password1: ['' as string, [ Validators.required, Validators.minLength(3), Validators.maxLength(8)]],
-    password2: ['' as string, [Validators.required, validatePassword()]],
+    password2: ['' as string, [Validators.required]],
   })
   constructor(
     private fb: FormBuilder,

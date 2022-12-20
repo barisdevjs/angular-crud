@@ -51,9 +51,9 @@
                 This field must contain <br> atmost 8 characters.</small>
 
                 <label for="password2" class="block">Re-type password</label>
-                <input type="password" pInputText formControlName="password2" class="mb-3">
+                <input type="password" pInputText formControlName="password2" class="mb-3" [appPasswordValidator]="'password1'" >
                 <small class="p-error block" *ngIf="password2?.errors?.['required'] && password2?.dirty">Password is required</small>
-                <small class="p-error block" *ngIf="password2?.errors?.['validatePassword']">
+                <small class="p-error block" *ngIf="password2?.errors && (password2?.dirty || password2?.touched)">
                 Passwords doesn't match.</small>
             </div>
         </div>

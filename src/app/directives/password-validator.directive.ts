@@ -1,28 +1,6 @@
-import { Directive } from '@angular/core';
-import { NG_VALIDATORS, AbstractControl, Validator, ValidationErrors, ValidatorFn } from '@angular/forms';
-
-export function validatePassword(): ValidatorFn {
-
-  return (abstractControl: AbstractControl): ValidationErrors | null => {
-    let password = abstractControl.get('password1')?.value;
-    let confirmPassword = abstractControl.get('password2')?.value;
-
-    if (password != confirmPassword) {
-      abstractControl.get('password2')?.setErrors({
-        MatchPassword: true,
-        
-      })
-    } else {
-      abstractControl.get('password2')?.setErrors({
-        MatchPassword: null
-      })
-    }
-
-    console.log(abstractControl.get('password2')?.hasError)
-    return  abstractControl.get('password2')?.getError('MatchPassword')
-  }; 
-
-}
+import { Directive, Input } from '@angular/core';
+import { NG_VALIDATORS, AbstractControl, Validator, ValidationErrors, FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Directive({
   selector: '[appPasswordValidator]',
@@ -34,10 +12,24 @@ export function validatePassword(): ValidatorFn {
 })
 
 export class PasswordValidatorDirective implements Validator {
-  constructor() {}
+  
+  @Input() appPasswordValidator: string ='';
 
-  public validate(control: AbstractControl): ValidationErrors | null {
-    return validatePassword()(control);
+  public validate(control: FormControl) {
+    if (!control || !control.value)  {
+      return null;
+    } 
+
+    const password = control.root.get(this.appPasswordValidator);
+
+    if (password) {
+      const subscription: Subscription = password.valueChanges.subscribe(() => {
+        control.updateValueAndValidity();
+        subscription.unsubscribe();
+      });
+    }
+    
+    return password?.value !== control.value ? { confirmPasswordError: true } : null;
   }
 
 }
