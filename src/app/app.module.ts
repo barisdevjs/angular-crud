@@ -15,6 +15,8 @@ import { UploadService } from './services/upload.service';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { LoginComponent } from './components/login/login.component';
+import { EmailValidatorDirective } from './directives/email-validator.directive';
+import { PasswordValidatorDirective } from './directives/password-validator.directive';
 
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
@@ -39,12 +41,12 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { MessagesModule } from 'primeng/messages';
 import { BadgeModule } from 'primeng/badge';
 import { TooltipModule} from 'primeng/tooltip';
-import {CardModule} from 'primeng/card';
-import {AvatarModule} from 'primeng/avatar';
-import {SelectButtonModule} from 'primeng/selectbutton';
+import { CardModule } from 'primeng/card';
+import { AvatarModule } from 'primeng/avatar';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { ChipModule } from 'primeng/chip';
 import { NgxCaptureModule } from 'ngx-capture';
-import { EmailValidatorDirective } from './directives/email-validator.directive';
-import { PasswordValidatorDirective } from './directives/password-validator.directive';
+
 
 
 
@@ -91,6 +93,7 @@ import { PasswordValidatorDirective } from './directives/password-validator.dire
     CardModule,
     AvatarModule,
     SelectButtonModule,
+    ChipModule,
     RouterModule.forRoot([
       { path: '', component: AppComponent },
     ])

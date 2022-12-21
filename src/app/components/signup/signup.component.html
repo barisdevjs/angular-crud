@@ -29,29 +29,24 @@
                     [disabled]="signUpForm.invalid"></button>
             </div>
             <div class="field col-6">
-                <label for="firstName" >First Name</label>
-                <input type="text" pInputText  formControlName="firstName">
+                <input type="text" pInputText  formControlName="firstName" class="mb-1" placeholder="First Name" >
                 <small class="p-error block" *ngIf="firstName?.errors?.['required'] && firstName?.dirty">First Name is required</small>
 
-                <label for="lastName" class="block">Last Name</label>
-                <input type="text" pInputText  formControlName="lastName">
+                <input type="text" pInputText  formControlName="lastName" class="mb-1" placeholder="Last Name">
                 <small class="p-error block" *ngIf="lastName?.errors?.['required'] && lastName?.dirty">Last Name is required</small>
 
-                <label for="email" class="block">Email</label>
-                <input type="email" pInputText  formControlName="mail">
+                <input type="email" pInputText  formControlName="mail" class="mb-1" placeholder="Email">
                 <small class="p-error block" *ngIf="mail?.errors?.['required'] && mail?.dirty">Mail is required</small>
                 <small class="p-error block" *ngIf="!mail?.errors?.['required'] && mail?.errors?.['emailValidator']">Invalid Format</small>
 
-                <label for="password1" class="block">Password</label>
-                <input type="password" pInputText  formControlName="password1">
+                <input type="password" pInputText  formControlName="password1" class="mb-1" placeholder="Password">
                 <small class="p-error block" *ngIf="password1?.errors?.['required'] && password1?.dirty">Password is required</small>
                 <small class="p-error block" *ngIf="password1?.errors?.['minlength']">
                 Field is < 3 chars.</small>
                 <small class="p-error block" *ngIf="password1?.errors?.['maxlength']">
                 This field must contain <br> atmost 8 characters.</small>
 
-                <label for="password2" class="block">Re-type password</label>
-                <input type="password" pInputText formControlName="password2" class="mb-3" [appPasswordValidator]="'password1'" >
+                <input type="password" pInputText formControlName="password2" class="mb-1" placeholder="Confirm Password" [appPasswordValidator]="'password1'" >
                 <small class="p-error block" *ngIf="password2?.errors?.['required'] && password2?.dirty">Password is required</small>
                 <small class="p-error block" *ngIf="password2?.errors && (password2?.dirty || password2?.touched)">
                 Passwords doesn't match.</small>

@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   items: MenuItem[] = [];
   activeItem: MenuItem = {};
   routes : string[] = ['home', 'calendar', 'edit', 'documentation', 'settings'];
-  
+  imageUrl : string = '../../assets/111.jpg'
 
 
   ngOnInit(): void {
