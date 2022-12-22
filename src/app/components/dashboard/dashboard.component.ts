@@ -8,6 +8,7 @@ import { ExportExcelService } from '../../services/export-excel.service';
 import { NgxCaptureService } from 'ngx-capture';
 import { saveAs } from 'file-saver';
 import { Table } from 'primeng/table';
+import { createId } from 'src/app/utils/id';
 
 
 
@@ -139,7 +140,7 @@ export class DashboardComponent implements OnInit {
         this.messageService.add({ severity: 'success', summary: 'Successful', detail: `${this.employee.name} updated`, life: 3000 });
       }
       else {
-        this.employee.id = this.createId();
+        this.employee.id = createId();
         this.employee.image = this.randomImg()
         this.employeeService.addEmployee(this.employee).subscribe(data => (
           this.employees.push(data)
@@ -164,15 +165,6 @@ export class DashboardComponent implements OnInit {
     }
 
     return index;
-  }
-
-  createId(): string {
-    let id = '';
-    var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (var i = 0; i < 5; i++) {
-      id += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return id;
   }
 
   randomImg(): string {

@@ -40,6 +40,11 @@ export class UserService implements HttpInterceptor {
   signUser(user: SignUser): Observable<SignUser> {
     return this.http.post<SignUser>(this.apiUrl, user, httpOptions)
   }
+
+  editUser(user: SignUser): Observable<SignUser> {
+    const url = `${this.apiUrl}/${user.id}`;
+    return this.http.put<SignUser>(url, user, httpOptions);
+}
   
 
 }

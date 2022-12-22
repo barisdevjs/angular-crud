@@ -32,8 +32,8 @@ export class LoginComponent implements OnInit {
   uploadedFiles: any[] = [];
   fileToUpload: any;
   imageUrl: string = '';
-  val3: string = '';
   userList: SignUser[] = [];
+  user : any = null
 
 
 
@@ -54,11 +54,15 @@ export class LoginComponent implements OnInit {
    logUser() {
      this.userService.getUsers().subscribe({
       next: (data: SignUser[]) => {
-        const user =  data.find((a: LogUser) => {
-        return a.mail === this.logForm.value.mail  && a.password1 === this.logForm.value.password1;
+        this.user =  data.find((a: LogUser) => {
+        return a.mail === this.logForm.value.mail  &&  a.password1 === this.logForm.value.password1;
       });
-        if (!!user) {
-          this.ms.add({ severity: 'success', summary: `Welcome ${user.firstName}  ❤ `, life: 3500 })
+
+        if (!!this.user) {
+          this.user = { ...this.user };
+          this.user.isLogged = true;
+          this.userService.editUser(this.user).subscribe(data => data = this.user)
+          this.ms.add({ severity: 'success', summary: `Welcome ${this.user.firstName}  ❤ `, life: 3500 })
           setTimeout(() =>{
             this.logForm.reset();
             this.router.navigate(['/home'])

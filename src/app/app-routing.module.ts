@@ -4,12 +4,14 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 const routes: Routes = [ 
     { path: '', redirectTo: 'login', pathMatch: 'full'},
     { path: 'login',  component : LoginComponent },
     { path: 'signup',  component : SignupComponent },
     { path: 'home',  component : DashboardComponent },
+    { path: 'profile',  component : ProfileComponent },
     { path: 'calendar', component : CalendarComponent },
     { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];

@@ -5,6 +5,7 @@ import { UserService } from 'src/app/services/user.service';
 import { SignUser } from '../../types/user-type';
 import { MessageService } from 'primeng/api';
 import { emailValidator } from 'src/app/directives/email-validator.directive';
+import { createId } from 'src/app/utils/id';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class SignupComponent implements OnInit {
   imageUrl: any = '../../../assets/111.jpg'
   editFile: boolean = true;
   removeUpload: boolean = false;
+  isLoggedUser : boolean = false;
 
   signUpForm = this.fb.nonNullable.group({
     file: '',
@@ -62,7 +64,7 @@ export class SignupComponent implements OnInit {
   addUser() {
     this.userService.signUser(this.signUpForm.value).subscribe({
       next: (data: SignUser) => {
-        this.userList.push(data);
+        this.userList.push({...data,isLogged: this.isLoggedUser, id :createId()});
         this.ms.add({ severity: 'success', summary: 'You are successfully signed in', life: 3000 })
         this.signUpForm.reset();
         this.handleRoute();
