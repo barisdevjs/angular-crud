@@ -28,6 +28,8 @@ export class SignupComponent implements OnInit {
     mail: ['' as string,[ Validators.required, emailValidator()]],
     password1: ['' as string, [ Validators.required, Validators.minLength(3), Validators.maxLength(8)]],
     password2: ['' as string, [Validators.required]],
+    id:createId(),
+    isLogged : false
   })
   constructor(
     private fb: FormBuilder,
@@ -64,7 +66,7 @@ export class SignupComponent implements OnInit {
   addUser() {
     this.userService.signUser(this.signUpForm.value).subscribe({
       next: (data: SignUser) => {
-        this.userList.push({...data,isLogged: this.isLoggedUser, id :createId()});
+        this.userList.push(data);
         this.ms.add({ severity: 'success', summary: 'You are successfully signed in', life: 3000 })
         this.signUpForm.reset();
         this.handleRoute();

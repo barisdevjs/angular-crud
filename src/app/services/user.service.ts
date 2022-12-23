@@ -2,11 +2,12 @@ import { HttpClient, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } fr
 import { Injectable } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Observable } from 'rxjs';
-import { SignUser } from '../types/user-type';
+import { LogUser, SignUser } from '../types/user-type';
+import { BehaviorSubject } from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({
-      'Content-Type': 'application/json'
+    'Content-Type': 'application/json'
   })
 }
 
@@ -32,6 +33,7 @@ export class UserService implements HttpInterceptor {
   ) { }
 
   private apiUrl = 'http://localhost:5000/signUpUser'
+  private subject = new BehaviorSubject<any>(true);
 
   getUsers(): Observable<SignUser[]> {
     return this.http.get<SignUser[]>(this.apiUrl, httpOptions)
@@ -44,7 +46,15 @@ export class UserService implements HttpInterceptor {
   editUser(user: SignUser): Observable<SignUser> {
     const url = `${this.apiUrl}/${user.id}`;
     return this.http.put<SignUser>(url, user, httpOptions);
-}
-  
+  }
+
+  sendLogStatus(status: boolean) {
+    this.subject.next(status); //all subscribers get the new value
+  }
+
+  getLogStatus() {
+    return this.subject.asObservable();
+  }
+
 
 }

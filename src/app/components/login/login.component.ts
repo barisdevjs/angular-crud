@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
   imageUrl: string = '';
   userList: SignUser[] = [];
   user : any = null
+  isLoggedIn: boolean = false;
 
 
 
@@ -61,7 +62,8 @@ export class LoginComponent implements OnInit {
         if (!!this.user) {
           this.user = { ...this.user };
           this.user.isLogged = true;
-          this.userService.editUser(this.user).subscribe(data => data = this.user)
+          this.userService.editUser(this.user).subscribe(data => data = this.user);
+          this.userService.sendLogStatus(this.user.isLogged);
           this.ms.add({ severity: 'success', summary: `Welcome ${this.user.firstName}  ❤ `, life: 3500 })
           setTimeout(() =>{
             this.logForm.reset();
@@ -92,22 +94,3 @@ export class LoginComponent implements OnInit {
 
 
 }
-
-
-/*   bool = true;
-
-  xx : string = 'SSSS'
-  close() {
-    return !this.bool;
-  }
-
-  profileForm = new FormGroup({
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    address: new FormGroup({
-      street: new FormControl(''),
-      city: new FormControl(''),
-      state: new FormControl(''),
-      zip: new FormControl('')
-    })
-  }); */

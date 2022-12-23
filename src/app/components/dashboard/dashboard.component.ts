@@ -9,6 +9,7 @@ import { NgxCaptureService } from 'ngx-capture';
 import { saveAs } from 'file-saver';
 import { Table } from 'primeng/table';
 import { createId } from 'src/app/utils/id';
+import { tap } from 'rxjs';
 
 
 
@@ -20,7 +21,7 @@ import { createId } from 'src/app/utils/id';
 export class DashboardComponent implements OnInit {
 
   @ViewChild('screen', { static: true }) screen: any;
-  @ViewChild('dt') public table! :Table ;
+  @ViewChild('dt') public table!: Table;
 
   employeeDialog: boolean = false;
   employee: Employee = {}
@@ -119,7 +120,7 @@ export class DashboardComponent implements OnInit {
     this.employeeService.editEmployee(employee).subscribe(data => data = this.employee)
   }
 
-  editEmployeeStatus( employee: Employee) {
+  editEmployeeStatus(employee: Employee) {
     this.employee = { ...employee };
     this.employeeService.editEmployee(employee).subscribe(data => data = this.employee)
   }
@@ -191,13 +192,21 @@ export class DashboardComponent implements OnInit {
   }
 
   saveScreen() {
-    this.captureService.getImage(this.screen.nativeElement, true)
-      .subscribe((img: any) => {
+    this.captureService.getImage(this.screen.nativeElement, true, false)
+      .pipe(
+        tap(img => console.log(img))
+      ).subscribe((img: any) => {
         this.imgBase64 = img
       })
   }
 
   // base 64 to image and download image
+  /*   this.captureService.getImage(this.screen.nativeElement, true)
+  .pipe(
+    tap(img => {
+      console.log(img);
+    })
+  ).subscribe(); */
 
   DataURIToBlob(dataURI: string = this.imgBase64, name: string) {
     saveAs(dataURI, name + '.png')
@@ -206,4 +215,5 @@ export class DashboardComponent implements OnInit {
   reset() {
     this.table.reset();
   }
+
 }
