@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { LogUser, SignUser } from '../../types/user-type';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { emailValidator } from 'src/app/directives/email-validator.directive';
 
 @Component({
@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private ms: MessageService,
-    private confirmationService: ConfirmationService,
   ) { }
 
   stateOptions: any[] = [];
@@ -35,6 +34,7 @@ export class LoginComponent implements OnInit {
   userList: SignUser[] = [];
   user : any = null
   isLoggedIn: boolean = false;
+  userToken : string = '';
 
 
 
@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
     })
   }
 
-   logUser() {
+   async logUser() {
      this.userService.getUsers().subscribe({
       next: (data: SignUser[]) => {
         this.user =  data.find((a: LogUser) => {
@@ -62,7 +62,10 @@ export class LoginComponent implements OnInit {
         if (!!this.user) {
           this.user = { ...this.user };
           this.user.isLogged = true;
-          this.userService.editUser(this.user).subscribe(data => data = this.user);
+          this.userService.editUser(this.user).subscribe({
+            next: data => data = this.user
+          });
+          localStorage.setItem('user', JSON.stringify(this.user.id));
           this.userService.sendLogStatus(this.user.isLogged);
           this.ms.add({ severity: 'success', summary: `Welcome ${this.user.firstName}  ❤ `, life: 3500 })
           setTimeout(() =>{

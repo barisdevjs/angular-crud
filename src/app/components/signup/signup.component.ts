@@ -19,7 +19,6 @@ export class SignupComponent implements OnInit {
   imageUrl: any = '../../../assets/111.jpg'
   editFile: boolean = true;
   removeUpload: boolean = false;
-  isLoggedUser : boolean = false;
 
   signUpForm = this.fb.nonNullable.group({
     file: '',
