@@ -5,6 +5,7 @@ import { UserService } from 'src/app/services/user.service';
 import { LogUser, SignUser } from '../../types/user-type';
 import { MessageService } from 'primeng/api';
 import { emailValidator } from 'src/app/directives/email-validator.directive';
+import { AuthInterceptor } from 'src/app/interceptors/auth.interceptor';
 
 @Component({
   selector: 'app-login',
@@ -52,21 +53,25 @@ export class LoginComponent implements OnInit {
     })
   }
 
-   async logUser() {
+    logUser() {
      this.userService.getUsers().subscribe({
       next: (data: SignUser[]) => {
         this.user =  data.find((a: LogUser) => {
-        return a.mail === this.logForm.value.mail  &&  a.password1 === this.logForm.value.password1;
-      });
-
+          return a.mail === this.logForm.value.mail  &&  a.password1 === this.logForm.value.password1;
+        });
+        
         if (!!this.user) {
           this.user = { ...this.user };
           this.user.isLogged = true;
           this.userService.editUser(this.user).subscribe({
-            next: data => data = this.user
+            next: (data) => {
+              data = this.user
+            }
           });
-          localStorage.setItem('user', JSON.stringify(this.user.id));
-          this.userService.sendLogStatus(this.user.isLogged);
+          this.userService.sendA(this.user);
+          // localStorage.setItem('user', JSON.stringify(this.user.id));
+          AuthInterceptor.accessToken = this.user.id;
+
           this.ms.add({ severity: 'success', summary: `Welcome ${this.user.firstName}  ❤ `, life: 3500 })
           setTimeout(() =>{
             this.logForm.reset();

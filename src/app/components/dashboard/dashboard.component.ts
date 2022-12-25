@@ -80,7 +80,7 @@ export class DashboardComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         for (const employee in employees) {
-          this.employeeService.deleteMultiple(employees[employee].id).subscribe(() => {
+          this.employeeService.deleteMultiple(employees[employee].id as string).subscribe(() => {
             this.employees = this.employees.filter(val => val.id !== employees[employee].id)
           }
           );

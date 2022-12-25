@@ -51,7 +51,7 @@ export class EmployeeService implements HttpInterceptor {
         return this.http.delete<Employee>(url);
     }
 
-    deleteMultiple(id: any) {
+    deleteMultiple(id: string) {
         return this.http.delete(this.apiUrl + '/' + id)
     }
 

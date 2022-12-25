@@ -1,6 +1,5 @@
 import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router'
-import { LogUser } from './types/user-type';
 import { MenuItem } from 'primeng/api';
 import { UserService } from './services/user.service';
 
@@ -15,7 +14,6 @@ export class AppComponent implements OnInit {
   constructor(
     private router: Router,
     private userService: UserService,
-    // private subs: Subscription,
     ) {}
 
   title = 'angular-crud';
@@ -25,7 +23,8 @@ export class AppComponent implements OnInit {
   routes : string[] = ['home', 'calendar', 'edit', 'documentation', 'settings'];
   imageUrl : string = '../../assets/111.jpg'
   isLoggedIn : boolean = false;
-
+  chipName : string = '';
+  res :any;
 
   ngOnInit(): void {
 
@@ -37,8 +36,15 @@ export class AppComponent implements OnInit {
           { label: 'Settings', icon: 'pi pi-fw pi-cog' , routerLink: 'settings'}
         ];
         this.activeItem = this.items[1]
-        this.userService.getLogStatus().subscribe(val => this.isLoggedIn=val);
-
+        this.userService.getA().subscribe({
+          next:(data) => {
+            console.log(data);
+            this.imageUrl = data.file as string;
+            this.chipName = data.firstName + ' ' + data.lastName;
+            this.isLoggedIn = data.isLogged as boolean;
+          },
+          error: (error) => { console.log(error); }
+        })
   }
 
 

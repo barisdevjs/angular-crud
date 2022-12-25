@@ -1,14 +1,13 @@
 import { HttpClient, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { Observable } from 'rxjs';
-import { LogUser, SignUser } from '../types/user-type';
-import { BehaviorSubject } from 'rxjs';
+import { Observable,BehaviorSubject,map } from 'rxjs';
+import { SignUser } from '../types/user-type';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type': 'application/json'
-  })
+    'Content-Type': 'application/json',
+  }),
+  withCredentials: true
 }
 
 @Injectable({
@@ -28,13 +27,12 @@ export class UserService implements HttpInterceptor {
 
   constructor(
     private http: HttpClient,
-    private messageService: MessageService,
-    private confirmationService: ConfirmationService
   ) { }
 
   private apiUrl = 'http://localhost:5000/signUpUser'
-  private subject = new BehaviorSubject<any>(true);
-
+  public a = new BehaviorSubject<SignUser>({})
+  private subject = new BehaviorSubject<any>(true); // change to the null
+ 
   getUsers(): Observable<SignUser[]> {
     return this.http.get<SignUser[]>(this.apiUrl, httpOptions)
   }
@@ -54,6 +52,29 @@ export class UserService implements HttpInterceptor {
 
   getLogStatus() {
     return this.subject.asObservable();
+  }
+
+  sendA(user: SignUser): Observable<SignUser> {
+    this.a.next(user)
+    return this.http.get<SignUser>(this.apiUrl, httpOptions)
+  }
+
+  getA(){
+    return this.a.asObservable()
+  }
+
+  get uValue() : SignUser {
+    return this.a.value
+  }
+
+  isLogged() {
+    let a : boolean = false;
+     this.getA().subscribe({
+      next: (res) => {
+        a = res.isLogged as boolean;
+      }
+    })
+    return a
   }
 
 
