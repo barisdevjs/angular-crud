@@ -2,7 +2,7 @@
     <p-tabMenu  [model]="items" [activeItem]="activeItem"></p-tabMenu>
     <div class="flex" [hidden]="!isLoggedIn">
         <p-chip label="{{chipName}}" [image]="imageUrl" styleClass="mr-2 text-lg"></p-chip>
-        <button pButton type="button" class="p-button-raised p-button-rounded p-button-sm">Log out</button>
+        <button pButton type="button" class="p-button-raised p-button-rounded p-button-sm" (click)="homeLogOut()">Log out</button>
     </div>
 </div>
 <router-outlet></router-outlet> 

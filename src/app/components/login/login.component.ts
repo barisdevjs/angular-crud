@@ -6,6 +6,7 @@ import { LogUser, SignUser } from '../../types/user-type';
 import { MessageService } from 'primeng/api';
 import { emailValidator } from 'src/app/directives/email-validator.directive';
 import { AuthInterceptor } from 'src/app/interceptors/auth.interceptor';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private ms: MessageService,
+    private ss: StorageService,
   ) { }
 
   stateOptions: any[] = [];
@@ -40,6 +42,9 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit() {
+
+    if (this.ss.isLoggedIn()) this.isLoggedIn = true;
+
     this.stateOptions = [{ label: 'SIGN UP', value: 'on' }, { label: 'LOGIN', value: 'off' }];
     this.userService.getUsers().subscribe({
       next: (users) => {
@@ -66,12 +71,9 @@ export class LoginComponent implements OnInit {
           this.userService.editUser(this.user).subscribe({
             next: (data) => {
               data = this.user
+              this.ss.saveUser(data);
             }
           });
-          this.userService.sendA(this.user);
-          // localStorage.setItem('user', JSON.stringify(this.user.id));
-          AuthInterceptor.accessToken = this.user.id;
-
           this.ms.add({ severity: 'success', summary: `Welcome ${this.user.firstName}  ❤ `, life: 3500 })
           setTimeout(() =>{
             this.logForm.reset();
