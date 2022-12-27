@@ -14,7 +14,6 @@ import { LogUser, SignUser } from './types/user-type';
 export class AppComponent implements OnInit {
 
   constructor(
-    private router: Router,
     private userService: UserService,
     private ss: StorageService,
   ) { }
@@ -31,13 +30,13 @@ export class AppComponent implements OnInit {
     
   currentUser : SignUser= {};
 
-  async ngOnInit() {
+   ngOnInit() {
     this.isLoggedIn = this.ss.isLoggedIn()
     if (this.isLoggedIn){ 
-      const currentUser = await this.ss.getUser();
-      console.log(currentUser);
-      this.imageUrl = currentUser.file;
-      this.chipName = currentUser.firstName + ' ' + currentUser.lastName;
+      this.currentUser = this.ss.getUser();
+      console.log(this.currentUser);
+      this.imageUrl = this.currentUser.file as string;
+      this.chipName = this.currentUser.firstName + ' ' + this.currentUser.lastName;
     }
     this.items = [
       { label: 'Home', icon: 'pi pi-fw pi-home', routerLink: 'home' },
@@ -67,7 +66,9 @@ export class AppComponent implements OnInit {
 
   // get users from db
   homeLogOut() {
+    this.currentUser = {... this.currentUser}
     this.currentUser.isLogged = false;
+    console.log(this.currentUser)
     this.userService.editUser(this.currentUser).subscribe({
       next: (data) => {
         data = this.currentUser

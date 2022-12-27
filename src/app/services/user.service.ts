@@ -6,7 +6,7 @@ import { SignUser } from '../types/user-type';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-  })
+  }),
 }
 
 @Injectable({
@@ -20,7 +20,6 @@ export class UserService implements HttpInterceptor {
         'Cache-Control': 'no-cache, no-store, must-revalidate',
         Pragma: 'no-cache'
       },
-      withCredentials:true
     });
     return next.handle(authReq);
   }

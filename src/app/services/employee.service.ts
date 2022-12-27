@@ -1,4 +1,4 @@
-import { HttpClient, HttpHandler, HttpHeaders, HttpRequest, HttpInterceptor } from '@angular/common/http';
+import { HttpClient, HttpHandler, HttpHeaders, HttpRequest, HttpInterceptor, HttpEventType, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Employee } from '../types/employee-type';
 import { Observable } from 'rxjs'
@@ -6,8 +6,14 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 
 const httpOptions = {
     headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-    })
+        "Content-Type" : "application/json;charset=utf-8",
+        "Access-Control-Allow-Origin": "https://randomuser.me/api/?results=30:",
+        "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+        "Access-Control-Allow-Credentials":"true" 
+    }),
+    credentials: 'include'
+
 }
 
 
@@ -16,15 +22,17 @@ const httpOptions = {
 })
 export class EmployeeService implements HttpInterceptor {
 
-    intercept(req: HttpRequest<any>, next: HttpHandler) {
+    intercept(req: HttpRequest<any>, next: HttpHandler):
+        Observable<HttpEvent<any>> {
         const authReq = req.clone({
             setHeaders: {
                 'Cache-Control': 'no-cache, no-store, must-revalidate', 
-                Pragma: 'no-cache'
-            }
+                Pragma: 'no-cache',
+            },
         });
         return next.handle(authReq);
     }
+
 
     public apiUrl = 'http://localhost:5000/employees'
 
