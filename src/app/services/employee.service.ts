@@ -25,10 +25,11 @@ export class EmployeeService implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler):
         Observable<HttpEvent<any>> {
         const authReq = req.clone({
+            withCredentials: true, // must be before the setHeaders obj
             setHeaders: {
                 'Cache-Control': 'no-cache, no-store, must-revalidate', 
                 Pragma: 'no-cache',
-            },
+            }
         });
         return next.handle(authReq);
     }

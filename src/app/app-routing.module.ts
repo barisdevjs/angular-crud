@@ -12,8 +12,8 @@ const routes: Routes = [
     { path: 'login',  component : LoginComponent }, 
     { path: 'signup',  component : SignupComponent },
     { path: 'home',  component : DashboardComponent, canActivate:[AuthGuard] },
-    { path: 'profile',  component : ProfileComponent,  canActivate:[AuthGuard] },
-    { path: 'calendar', component : CalendarComponent,  canActivate:[AuthGuard] },
+    { path: 'profile',  component : ProfileComponent, canActivate:[AuthGuard] },
+    { path: 'calendar', component : CalendarComponent, canActivate:[AuthGuard] },
     { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 

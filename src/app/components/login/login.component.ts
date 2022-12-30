@@ -5,7 +5,6 @@ import { UserService } from 'src/app/services/user.service';
 import { LogUser, SignUser } from '../../types/user-type';
 import { MessageService } from 'primeng/api';
 import { emailValidator } from 'src/app/directives/email-validator.directive';
-import { AuthInterceptor } from 'src/app/interceptors/auth.interceptor';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
