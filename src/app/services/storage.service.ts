@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { SignUser } from '../types/user-type';
 
 const USER_KEY = 'auth-user';
@@ -22,17 +22,14 @@ export class StorageService {
     this.subUser$.next(user);
   }
 
-  public getUser(): SignUser {
-    const user = window.sessionStorage.getItem(USER_KEY);
-    if (user) {
-      this.subUser$.asObservable()
-      return JSON.parse(user)};
-    return {};
+  public getUser(): Observable<SignUser> {
+     return this.subUser$.asObservable();
   }
 
   public removeOnLogOut() : void {
     window.sessionStorage.removeItem(USER_KEY);
     window.sessionStorage.clear();
+    this.subUser$.next({});
   }
 
   public  isLoggedIn(): boolean {

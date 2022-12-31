@@ -11,9 +11,9 @@ export class AuthGuard implements CanActivate {
     private ss:StorageService,
     ) {}
 
-  async canActivate() {
-      let flag:boolean = false;
-     flag = await this.ss.isLoggedIn()
+   canActivate() {
+     let flag:boolean = false;
+     flag =  this.ss.isLoggedIn()
      if ( flag === false ) 
      this.router.navigate(['/login']) 
      return flag

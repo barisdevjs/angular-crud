@@ -75,7 +75,8 @@
               "browserTarget": "angular-crud:build:production"
             },
             "development": {
-              "browserTarget": "angular-crud:build:development"
+              "browserTarget": "angular-crud:build:development",
+              "port": 4000 
             }
           },
           "defaultConfiguration": "development"
