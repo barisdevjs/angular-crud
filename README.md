@@ -28,6 +28,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ### TODOS
 
-- implement the guard
 - calendar add todos and customize 
 - cors 

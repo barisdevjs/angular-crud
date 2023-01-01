@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { SignUser } from '../types/user-type';
 
 const USER_KEY = 'auth-user';
@@ -17,18 +17,17 @@ export class StorageService {
   private subUser$ = new BehaviorSubject<SignUser>({});
 
   public saveUser(user: SignUser) :void {
-    window.sessionStorage.removeItem(USER_KEY);
-    window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
     this.subUser$.next(user);
+    window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
   }
 
-  public getUser(): Observable<SignUser> {
+  public getUser(): any {
      return this.subUser$.asObservable();
   }
 
   public removeOnLogOut() : void {
     window.sessionStorage.removeItem(USER_KEY);
-    window.sessionStorage.clear();
+    this.clean();
     this.subUser$.next({});
   }
 

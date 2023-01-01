@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,  OnInit} from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router'
 import { MenuItem, MessageService } from 'primeng/api';
 import { StorageService } from './services/storage.service';
@@ -41,24 +41,23 @@ export class AppComponent implements OnInit {
 
 
   async ngOnInit() {
-/*     this.ss.getUser()
-    this.isLoggedIn = this.ss.isLoggedIn();
-    console.log(this.isLoggedIn)
-    if (this.isLoggedIn) {
-      this.ss.getUser().subscribe(val => this.currentUser = val);
-      this.imageUrl = this.currentUser.file as string;
-      this.chipName = this.currentUser.firstName + ' ' + this.currentUser.lastName;
-      console.log(this.url)
-    } */
 
-    this.ss.getUser().subscribe(data => {
+    // first time to login and get the data
+    await this.ss.getUser().subscribe((data : SignUser)=> {
       this.currentUser = data;
       this.isLoggedIn = data.isLogged as boolean;
       this.chipName = this.currentUser.firstName + ' ' + this.currentUser.lastName
       this.imageUrl = this.currentUser.file as string;
     })
-    console.log(this.currentUser)
 
+
+    // replication for refresh
+    this.currentUser = JSON.parse(window.sessionStorage.getItem('auth-user') as string);
+    this.chipName = this.currentUser.firstName + ' ' + this.currentUser.lastName
+    this.imageUrl = this.currentUser.file as string;
+    this.isLoggedIn = this.currentUser.isLogged as boolean;
+
+    console.log(this.currentUser)
 
     this.items = [
       { label: 'Home', icon: 'pi pi-fw pi-home', routerLink: 'home' },
@@ -68,15 +67,6 @@ export class AppComponent implements OnInit {
       { label: 'Settings', icon: 'pi pi-fw pi-cog', routerLink: 'settings' }
     ];
     this.activeItem = this.items[1]
-    /*     await this.ss.getUser().subscribe({
-          next: (data:any) => {
-            console.log(data);
-            this.imageUrl = data.file as string;
-            this.chipName = data.firstName + ' ' + data.lastName;
-            this.isLoggedIn = data.isLogged as boolean;
-          },
-          error: (error :any) => { console.log(error); }
-        }) */
   }
 
 
@@ -106,6 +96,7 @@ export class AppComponent implements OnInit {
       await this.router.navigate(['/login'])
     }, 3000)
   }
+
 
 }
 

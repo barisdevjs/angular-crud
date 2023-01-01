@@ -7,12 +7,11 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 const httpOptions = {
     headers: new HttpHeaders({
         "Content-Type" : "application/json;charset=utf-8",
-        "Access-Control-Allow-Origin": "https://randomuser.me/api/?results=30:",
+        "Access-Control-Allow-Origin": "http://localhost:4000",
         "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
         "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
         "Access-Control-Allow-Credentials":"true" 
     }),
-    credentials: 'include'
 
 }
 
@@ -73,8 +72,8 @@ export class EmployeeService implements HttpInterceptor {
         return this.http.post<Employee>(this.apiUrl, employee, httpOptions)
     }
 
-    getRandomImage() {
-        return this.http.get('https://randomuser.me/api/?results=20', httpOptions)
+    getRandomImage() :Observable<Object> {
+        return this.http.get('http://randomuser.me/api/?results=20', httpOptions)
     }
 
 }
