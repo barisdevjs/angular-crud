@@ -57,7 +57,6 @@ export class AppComponent implements OnInit {
     this.imageUrl = this.currentUser.file as string;
     this.isLoggedIn = this.currentUser.isLogged as boolean;
 
-    console.log(this.currentUser)
 
     this.items = [
       { label: 'Home', icon: 'pi pi-fw pi-home', routerLink: 'home' },
@@ -83,7 +82,6 @@ export class AppComponent implements OnInit {
     this.imageUrl = '../../assets/111.jpg'
     this.chipName = '';
     this.url = '';
-    console.log(this.currentUser)
     this.userService.editUser(this.currentUser).subscribe({
       next: (data : SignUser) => {
         data = this.currentUser

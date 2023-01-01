@@ -192,21 +192,15 @@ export class DashboardComponent implements OnInit {
   }
 
   saveScreen() {
-    this.captureService.getImage(this.screen.nativeElement, true, false)
+    this.captureService.getImage(this.screen.nativeElement, true)
       .pipe(
-        tap(img => console.log(img))
-      ).subscribe((img: any) => {
-        this.imgBase64 = img
-      })
+        tap(img => {
+          console.log(img);
+          this.imgBase64 = img
+        })
+      ).subscribe()
   }
 
-  // base 64 to image and download image
-  /*   this.captureService.getImage(this.screen.nativeElement, true)
-  .pipe(
-    tap(img => {
-      console.log(img);
-    })
-  ).subscribe(); */
 
   DataURIToBlob(dataURI: string = this.imgBase64, name: string) {
     saveAs(dataURI, name + '.png')

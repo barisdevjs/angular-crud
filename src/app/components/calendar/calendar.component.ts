@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { CalendarOptions,  defineFullCalendarElement } from '@fullcalendar/web-component';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { INITIAL_EVENTS, createEventId } from 'src/app/utils/calendar-utils';
@@ -6,7 +6,6 @@ import { DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/core';
 import timeGridPlugin from '@fullcalendar/daygrid';
 import listPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/daygrid';
-import Draggable from '@fullcalendar/daygrid';
 import trLocale from '@fullcalendar/core/locales/tr'
 import enLocale from '@fullcalendar/core/locales/en-gb';
 
@@ -22,7 +21,7 @@ export class CalendarComponent implements OnInit {
 
   @ViewChild('external') external!: ElementRef; // edit here
   @ViewChild('calendar') calendarComponent!: CalendarOptions; // edit here
-  constructor() { }
+  constructor(private cdref: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     console.log(this.calendarOptions);
@@ -108,4 +107,7 @@ export class CalendarComponent implements OnInit {
 
   // EVENT IS AN ARRAY OF events
 
+  ngAfterContentChecked() {
+    this.cdref.detectChanges();
+  }
 }

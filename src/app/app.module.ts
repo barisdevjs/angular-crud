@@ -46,7 +46,6 @@ import { AvatarModule } from 'primeng/avatar';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { ChipModule } from 'primeng/chip';
 import { NgxCaptureModule } from 'ngx-capture';
-import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 
 
@@ -109,11 +108,6 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UploadService,
-      multi: true
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
       multi: true
     }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
