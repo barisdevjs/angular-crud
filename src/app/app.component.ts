@@ -52,6 +52,7 @@ export class AppComponent implements OnInit {
 
 
     // replication for refresh
+    if ( this.ss.isLoggedIn())
     this.currentUser = JSON.parse(window.sessionStorage.getItem('auth-user') as string);
     this.chipName = this.currentUser.firstName + ' ' + this.currentUser.lastName
     this.imageUrl = this.currentUser.file as string;
