@@ -1,14 +1,14 @@
 import { Component, ElementRef, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { CalendarOptions,  defineFullCalendarElement } from '@fullcalendar/web-component';
+import { defineFullCalendarElement } from '@fullcalendar/web-component';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { INITIAL_EVENTS, createEventId } from 'src/app/utils/calendar-utils';
-import { DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/core';
 import timeGridPlugin from '@fullcalendar/daygrid';
 import listPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/daygrid';
 import trLocale from '@fullcalendar/core/locales/tr'
 import enLocale from '@fullcalendar/core/locales/en-gb';
-
+import { FullCalendarElement } from '@fullcalendar/web-component';
+import { CalendarOptions,DateSelectArg, EventClickArg, EventApi, EventSourceInput } from '@fullcalendar/core';
 
 defineFullCalendarElement();
 
@@ -20,12 +20,12 @@ defineFullCalendarElement();
 export class CalendarComponent implements OnInit {
 
   @ViewChild('external') external!: ElementRef; // edit here
-  @ViewChild('calendar') calendarComponent!: CalendarOptions; // edit here
-  constructor(private cdref: ChangeDetectorRef) { }
+  @ViewChild('calendar') calendar!: FullCalendarElement;
+  constructor(private cdref: ChangeDetectorRef) { } 
 
   ngOnInit(): void {
     console.log(this.calendarOptions);
-  }
+  } 
 
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin, interactionPlugin,timeGridPlugin, listPlugin],
@@ -45,7 +45,6 @@ export class CalendarComponent implements OnInit {
     droppable : true,
     locales : [ trLocale, enLocale ], // make an selection to switch between Tr and English
     locale: trLocale,
-    eventAdd : this.handleDrag.bind(this), // not working
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this),
@@ -57,8 +56,12 @@ export class CalendarComponent implements OnInit {
   };
 
 
+  
+
+
   currentEvents: EventApi[] = [];
   calendarVisible = true;
+  eventsPromise!: Promise<EventSourceInput>;
   // weekendsVisible = this.calendarOptions.weekends
 
   handleCalendarToggle() {
@@ -71,10 +74,10 @@ export class CalendarComponent implements OnInit {
 
   handleWeekendsToggle() {
     this.calendarOptions.weekends = !this.calendarOptions.weekends
-    console.log(this.calendarOptions.weekends)
   }
 
   handleDateSelect(selectInfo: DateSelectArg) {
+    console.log(selectInfo)
     const title = prompt('Please enter a new title for your event');
     const calendarApi = selectInfo.view.calendar;
 
@@ -92,6 +95,7 @@ export class CalendarComponent implements OnInit {
   }
 
   handleEventClick(clickInfo: EventClickArg) {
+    console.log(clickInfo)
     if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
       clickInfo.event.remove();
     }
@@ -99,6 +103,7 @@ export class CalendarComponent implements OnInit {
 
   handleEvents(events: EventApi[]) {
     this.currentEvents = events;
+    this.cdref.detectChanges();
   }
 
   eventClick(model:any) {
@@ -109,5 +114,9 @@ export class CalendarComponent implements OnInit {
 
   ngAfterContentChecked() {
     this.cdref.detectChanges();
+  }
+
+  eventDragStop(model:Event) {
+    console.log(model);
   }
 }

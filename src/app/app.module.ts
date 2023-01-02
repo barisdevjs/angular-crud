@@ -46,7 +46,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { ChipModule } from 'primeng/chip';
 import { NgxCaptureModule } from 'ngx-capture';
-
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 
 
@@ -94,6 +94,7 @@ import { NgxCaptureModule } from 'ngx-capture';
     AvatarModule,
     SelectButtonModule,
     ChipModule,
+    FullCalendarModule,
     RouterModule.forRoot([
       { path: '', component: AppComponent },
     ])

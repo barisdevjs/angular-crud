@@ -41,11 +41,9 @@
   
     <div class='demo-app-main'>
       <full-calendar
-        #calendar
+        #calendarComponent
         *ngIf='calendarVisible'
         [options]='calendarOptions'
-        [weekends]='calendarOptions.weekends'
-        (eventClick)="eventClick($event)"
       ></full-calendar>
     </div>
   </div>
