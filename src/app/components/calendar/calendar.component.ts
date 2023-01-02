@@ -1,5 +1,4 @@
 import { Component, ElementRef, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { defineFullCalendarElement } from '@fullcalendar/web-component';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { INITIAL_EVENTS, createEventId } from 'src/app/utils/calendar-utils';
 import timeGridPlugin from '@fullcalendar/daygrid';
@@ -7,10 +6,10 @@ import listPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/daygrid';
 import trLocale from '@fullcalendar/core/locales/tr'
 import enLocale from '@fullcalendar/core/locales/en-gb';
-import { FullCalendarElement } from '@fullcalendar/web-component';
-import { CalendarOptions,DateSelectArg, EventClickArg, EventApi, EventSourceInput } from '@fullcalendar/core';
+import { FullCalendarComponent } from '@fullcalendar/angular';
+import { CalendarOptions,DateSelectArg, EventClickArg, EventApi,EventSourceInput } from '@fullcalendar/core';
 
-defineFullCalendarElement();
+
 
 @Component({
   selector: 'app-calendar',
@@ -20,7 +19,7 @@ defineFullCalendarElement();
 export class CalendarComponent implements OnInit {
 
   @ViewChild('external') external!: ElementRef; // edit here
-  @ViewChild('calendar') calendar!: FullCalendarElement;
+  @ViewChild('calendar') calendar!: FullCalendarComponent;
   constructor(private cdref: ChangeDetectorRef) { } 
 
   ngOnInit(): void {
