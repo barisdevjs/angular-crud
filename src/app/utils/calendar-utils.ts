@@ -7,7 +7,10 @@ export const INITIAL_EVENTS: EventInput[] = [
   {
     id: createEventId(),
     title: 'All-day event',
-    start: TODAY_STR
+    start: TODAY_STR,
+/*     borderColor: 'red',
+    backgroundColor: 'blue', */
+    editable:true
   },
   {
     id: createEventId(),
