@@ -8,6 +8,9 @@ import interactionPlugin, { Draggable } from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ConfirmationService } from 'primeng/api';
+
 
 @Component({
   selector: 'app-calendar',
@@ -18,7 +21,16 @@ export class CalendarComponent implements OnInit {
 
   @ViewChild('external') external!: ElementRef; // edit here
   @ViewChild('calendar', { static: true }) calendar!: FullCalendarComponent;
-  constructor(private cdref: ChangeDetectorRef) { }
+  constructor(
+    private cdref: ChangeDetectorRef,
+    private confirmationService: ConfirmationService
+    ) { }
+
+  evDialog : boolean=false;
+  evTitle : string ='';
+  currentEvents: EventApi[] = [];
+  calendarVisible = true;
+  eventsPromise!: Promise<EventSourceInput>;
 
   ngOnInit(): void {
     console.log(this.calendarOptions);
@@ -36,18 +48,17 @@ export class CalendarComponent implements OnInit {
     weekends: true,
     editable: true,
     selectable: true,
-    selectMirror: true,
+    selectMirror: false,
     dayMaxEvents: true,
     height: '80vh',
     droppable: true,
     locales: [trLocale, enLocale], // make an selection to switch between Tr and English
     locale: trLocale,
-    dragScroll:true,
-    
+
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this),
-    eventDragStart: this.handleDrag.bind(this),
+    eventDrop: this.handleDrag.bind(this),
     /* you can update a remote database when these fire:
 eventAdd:
 eventChange:
@@ -55,7 +66,7 @@ eventRemove:
 */
   };
 
-  handleDrag(e:any) {
+  handleDrag(e: any) {
     console.log(e)
     new Draggable(this.external.nativeElement, {
       itemSelector: '.fc-event',
@@ -67,15 +78,10 @@ eventRemove:
     });
   }
 
-  currentEvents: EventApi[] = [];
-  calendarVisible = true;
-  eventsPromise!: Promise<EventSourceInput>;
-  // weekendsVisible = this.calendarOptions.weekends
 
   handleCalendarToggle() {
     this.calendarVisible = !this.calendarVisible;
   }
-
 
   handleWeekendsToggle() {
     this.calendarOptions.weekends = !this.calendarOptions.weekends
@@ -83,20 +89,26 @@ eventRemove:
 
   handleDateSelect(selectInfo: DateSelectArg) {
     console.log(selectInfo)
-    const title = prompt('Please enter a new title for your event');
     const calendarApi = selectInfo.view.calendar;
-
     calendarApi.unselect(); // clear date selection
+    this.evDialog = true;
+/*           calendarApi.addEvent({
+            id: createEventId(),
+            title:this.evTitle,
+            start: selectInfo.startStr,
+            end: selectInfo.endStr,
+            allDay: selectInfo.allDay
+          });
+    calendarApi.unselect(); // clear date selection */
+  }
 
-    if (title) {
-      calendarApi.addEvent({
-        id: createEventId(),
-        title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay
-      });
-    }
+  hideDialog() {
+    this.evTitle = '';
+    this.evDialog = false;
+  }
+
+  save() {
+    this.evDialog = false;
   }
 
   handleEventClick(clickInfo: EventClickArg) {
@@ -115,19 +127,8 @@ eventRemove:
     console.log(model);
   }
 
-  dayRender(ev: any) {
-    ev.el.addEventListener('dblclick', () => {
-      alert('double click!');
-    });
-  }
-
-  // EVENT IS AN ARRAY OF events
-
   ngAfterContentChecked() {
     this.cdref.detectChanges();
   }
 
-  eventDragStop(model: Event) {
-    console.log(model);
-  }
 }

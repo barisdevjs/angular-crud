@@ -1,19 +1,14 @@
 import { HttpClient, HttpHandler, HttpHeaders, HttpRequest, HttpInterceptor, HttpEventType, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Employee } from '../types/employee-type';
-import { Observable, switchMap } from 'rxjs'
+import { Observable } from 'rxjs'
 import { MessageService, ConfirmationService } from 'primeng/api';
 
 const httpOptions = {
     headers: new HttpHeaders({
-        'Content-Type': 'application/json;',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-        'Access-Control-Allow-Methods': 'GET',
-        'Access-Control-Allow-Credentials': 'true'
+      'Content-Type': 'application/json',
     }),
-
-}
+  }
 
 
 @Injectable({

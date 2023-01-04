@@ -113,6 +113,7 @@ export class DashboardComponent implements OnInit {
   editEmployee(employee: Employee) {
     this.employeeDialog = true;
     this.employee = { ...employee };
+    this.employeeService.editEmployee(employee).subscribe(data => data = this.employee)
   }
 
   editEmployeeRating(employee: Employee) {
@@ -191,8 +192,8 @@ export class DashboardComponent implements OnInit {
     this.ete.exportExcel(reportData);
   }
 
-  saveScreen() {
-    this.captureService.getImage(this.screen.nativeElement, true)
+  async saveScreen() {
+    this.captureService.getImage(await this.screen.nativeElement, true)
       .pipe(
         tap(img => {
           console.log(img);
