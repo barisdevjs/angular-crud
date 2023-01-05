@@ -30,9 +30,7 @@ export class CalendarComponent implements OnInit {
   eventsPromise!: Promise<EventSourceInput>;
   submitted:boolean = false;
 
-  ngOnInit(): void {
-    console.log(this.calendarOptions);
-  }
+  ngOnInit(): void {}
 
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin, listPlugin],

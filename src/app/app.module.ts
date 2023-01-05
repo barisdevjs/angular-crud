@@ -47,6 +47,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { ChipModule } from 'primeng/chip';
 import { NgxCaptureModule } from 'ngx-capture';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 
@@ -57,6 +58,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     CalendarComponent,
     LoginComponent,
     SignupComponent,
+    ProfileComponent,
     EmailValidatorDirective,
     PasswordValidatorDirective
   ],

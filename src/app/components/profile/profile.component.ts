@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { UserService } from 'src/app/services/user.service';
+import { SignUser } from 'src/app/types/user-type';
 
 @Component({
   selector: 'app-profile',
@@ -7,9 +10,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private us: UserService,
+  ) { }
 
-  ngOnInit(): void {
+  userList: SignUser[] = [];
+  user: SignUser = {};
+  subscription$: Subscription = new Subscription();
+
+  ngOnInit() {
+    this.subscription$ = this.us.getUsers().subscribe({
+      next: (data: SignUser[]) => {
+        this.userList = data;
+        this.user = data.find((e: SignUser) => e.isLogged === true) as SignUser;
+      },
+      error : (err) => { console.log(err)},
+    })
+  }
+
+  ngOnDestroy() {
+    this.subscription$.unsubscribe();
   }
 
 }
