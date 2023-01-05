@@ -41,10 +41,15 @@
   </div>
 
   <div class='demo-app-main'>
-    <full-calendar #calendarComponent *ngIf='calendarVisible' [options]='calendarOptions'></full-calendar>
+    <full-calendar #calendarComponent *ngIf='calendarVisible' [options]='calendarOptions'>
+      <ng-template #eventContent let-arg>
+        <b>{{ arg.timeText }}</b>
+        <i>{{ arg.event.title }}</i>
+      </ng-template>
+    </full-calendar>
   </div>
 </div>
-<p-dialog [(visible)]="evDialog" [style]="{width: '400px'}" header="Enter your new event" [modal]="true" styleClass="p-fluid">
+<!-- <p-dialog [(visible)]="evDialog" [style]="{width: '400px'}" header="Enter your new event" [modal]="true" styleClass="p-fluid">
   <ng-template pTemplate="content">
     <div class="formgrid grid">
         <div class="field col-12">
@@ -56,8 +61,7 @@
   </ng-template>
   <ng-template pTemplate="footer">
     <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"
-        (click)="save()"></button>
+    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="save()"></button>
 </ng-template>
 </p-dialog>
-<p-confirmDialog [style]="{width: '400px'}"></p-confirmDialog>
+<p-confirmDialog [style]="{width: '400px'}"></p-confirmDialog> -->

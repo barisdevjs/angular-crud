@@ -1,4 +1,4 @@
-import { HttpClient, HttpHandler, HttpHeaders, HttpRequest, HttpInterceptor, HttpEventType, HttpEvent } from '@angular/common/http';
+import { HttpClient, HttpHandler, HttpHeaders, HttpRequest, HttpInterceptor, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Employee } from '../types/employee-type';
 import { Observable } from 'rxjs'

@@ -1,9 +1,7 @@
 import { HttpClient, HttpHandler, HttpHeaders, HttpRequest, HttpInterceptor } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs'
-import { MessageService, ConfirmationService} from 'primeng/api';
 
-// use this Edit Component and compare the files with employee.service 
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -19,7 +17,7 @@ export class UploadService implements HttpInterceptor{
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     const authReq = req.clone({
         setHeaders: {
-            'Cache-Control': 'no-cache, no-store, must-revalidate', ///
+            'Cache-Control': 'no-cache, no-store, must-revalidate', 
             Pragma: 'no-cache'
         }
     });
@@ -30,8 +28,6 @@ export class UploadService implements HttpInterceptor{
 
   constructor(
     private http: HttpClient,
-    private messageService: MessageService,
-    private confirmationService: ConfirmationService
   ) { }
 
   uploadFile(file : any) : Observable<any> {

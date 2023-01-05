@@ -8,8 +8,6 @@ import interactionPlugin, { Draggable } from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
-import { ConfirmPopupModule } from 'primeng/confirmpopup';
-import { ConfirmationService } from 'primeng/api';
 
 
 @Component({
@@ -19,11 +17,10 @@ import { ConfirmationService } from 'primeng/api';
 })
 export class CalendarComponent implements OnInit {
 
-  @ViewChild('external') external!: ElementRef; // edit here
+  @ViewChild('external') external!: ElementRef; 
   @ViewChild('calendar', { static: true }) calendar!: FullCalendarComponent;
   constructor(
     private cdref: ChangeDetectorRef,
-    private confirmationService: ConfirmationService
     ) { }
 
   evDialog : boolean=false;
@@ -31,6 +28,7 @@ export class CalendarComponent implements OnInit {
   currentEvents: EventApi[] = [];
   calendarVisible = true;
   eventsPromise!: Promise<EventSourceInput>;
+  submitted:boolean = false;
 
   ngOnInit(): void {
     console.log(this.calendarOptions);
@@ -88,18 +86,20 @@ eventRemove:
   }
 
   handleDateSelect(selectInfo: DateSelectArg) {
-    console.log(selectInfo)
+    const title = prompt('Please enter a new title for your event');
     const calendarApi = selectInfo.view.calendar;
+
     calendarApi.unselect(); // clear date selection
-    this.evDialog = true;
-/*           calendarApi.addEvent({
-            id: createEventId(),
-            title:this.evTitle,
-            start: selectInfo.startStr,
-            end: selectInfo.endStr,
-            allDay: selectInfo.allDay
-          });
-    calendarApi.unselect(); // clear date selection */
+
+    if (title) {
+      calendarApi.addEvent({
+        id: createEventId(),
+        title,
+        start: selectInfo.startStr,
+        end: selectInfo.endStr,
+        allDay: selectInfo.allDay
+      });
+    }
   }
 
   hideDialog() {
