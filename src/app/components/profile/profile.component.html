@@ -1,9 +1,56 @@
-<p-card  [style]="{'color':'red'}">
+<p-toast></p-toast>
+<p-card class="flex justify-content-center align-items-center shadow-8 border-round-lg">
     <ng-template pTemplate="header">
-        Header content here
+            <div class="flex justify-content-around align-item-between">
+            <h2>Edit Your Profile</h2>
+            <button pButton type="button" label="Get PDF" class="p-button-info xbtn" icon="pi pi-download" (click)="downloadPDF()"
+            iconPos="left">
+        </button>
+    </div>
     </ng-template>
-    Body Content
-    <ng-template pTemplate="footer">
-        Footer content here
-    </ng-template>
+    <form [formGroup]="signUpForm" (ngSubmit)="addUser()" >
+        <div class="formgrid grid" >
+            <div class="field col-6 flex justify-content-center flex-column" >
+                <div class="avatar-upload">
+                    <div class="avatar-edit">
+                      <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" #fileInput (change)="uploadFile($event)"/>
+                      <label for="imageUpload" *ngIf="editFile" [ngClass]="['custom-label', 'upload-image']"></label>
+                      <label *ngIf="removeUpload" [ngClass]="['custom-label', 'remove-image']" (click)="removeUploadedFile()"></label>
+                    </div>
+                    <div class="avatar-preview">
+                      <div id="imagePreview" [style.backgroundImage]="'url('+ imageUrl +')'">
+                      </div>
+                    </div>
+                </div>
+                <button pButton type="reset" label="Reset" class="p-button-info mb-3 mt-3" icon="pi pi-download" (click)="downloadPDF()"
+                    iconPos="left">
+                </button>
+                <button pButton type="submit" label="Save" icon="pi pi-check" iconPos="left" 
+                    [disabled]="signUpForm.invalid"></button>
+            </div>
+            <div class="field col-6" #couponPage >
+                <input type="text" pInputText  formControlName="firstName" [(ngModel)]="user.firstName" class="mb-1" placeholder="First Name" >
+                <small class="p-error block" *ngIf="firstName?.errors?.['required'] && firstName?.dirty">First Name is required</small>
+
+                <input type="text" pInputText  formControlName="lastName" [(ngModel)]="user.lastName" class="mb-1" placeholder="Last Name">
+                <small class="p-error block" *ngIf="lastName?.errors?.['required'] && lastName?.dirty">Last Name is required</small>
+
+                <input type="email" pInputText  formControlName="mail" [(ngModel)]="user.mail" class="mb-1" placeholder="Email">
+                <small class="p-error block" *ngIf="mail?.errors?.['required'] && mail?.dirty">Mail is required</small>
+                <small class="p-error block" *ngIf="!mail?.errors?.['required'] && mail?.errors?.['emailValidator']">Invalid Format</small>
+
+                <input type="password" pInputText  formControlName="password1" [(ngModel)]="user.password1" class="mb-1" placeholder="Password">
+                <small class="p-error block" *ngIf="password1?.errors?.['required'] && password1?.dirty">Password is required</small>
+                <small class="p-error block" *ngIf="password1?.errors?.['minlength']">
+                Field is < 3 chars.</small>
+                <small class="p-error block" *ngIf="password1?.errors?.['maxlength']">
+                This field must contain <br> atmost 8 characters.</small>
+
+                <input type="password" pInputText formControlName="password2" class="mb-1" [(ngModel)]="user.password2" placeholder="Confirm Password" [appPasswordValidator]="'password1'" >
+                <small class="p-error block" *ngIf="password2?.errors?.['required'] && password2?.dirty">Password is required</small>
+                <small class="p-error block" *ngIf="password2?.errors && (password2?.dirty || password2?.touched)">
+                Passwords doesn't match.</small>
+            </div>
+        </div>
+    </form>
 </p-card>
