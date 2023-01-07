@@ -110,7 +110,7 @@
                 <input type="email" pInputText id="email" name="email" [(ngModel)]="employee.email" required autofocus
                     #mailCheck="ngModel"  pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{3}$" />
                 <div *ngIf="mailCheck.errors && (mailCheck.invalid )">
-                    <small class="p-invalid" *ngIf="mailCheck.errors?.['required']">Email is required</small>
+                    <small class="p-invalid" *ngIf="mailCheck.errors?.['required'] && mailCheck.errors?.['touched']">Email is required</small>
                     <small class="p-invalid" *ngIf="mailCheck.errors?.['pattern']">Format is invalid</small>
                 </div>
             </div>

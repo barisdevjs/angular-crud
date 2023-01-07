@@ -1,7 +1,11 @@
 import { EventInput } from "@fullcalendar/core";
+import { add, format } from "date-fns";
 
 let eventGuid = 0;
-const TODAY_STR = new Date().toISOString().replace(/T.*$/, ''); // YYYY-MM-DD of today
+const date = new Date();
+const TODAY_STR =  format(date,  'yyyy-MM-dd')
+const TOMORROW_STR = format(add(date, { days: 1}), 'yyyy-MM-dd' )
+const WEEKAHEAD_STR = format(add(date, { days: 6}), 'yyyy-MM-dd' )
 
 export const INITIAL_EVENTS: EventInput[] = [
   {
@@ -15,14 +19,16 @@ export const INITIAL_EVENTS: EventInput[] = [
   {
     id: createEventId(),
     title: 'Timed event',
-    start: TODAY_STR + 'T10:00:00',
-    end: TODAY_STR + 'T13:00:00'
+    start: TOMORROW_STR + 'T10:00:00',
+    end: TOMORROW_STR + 'T13:00:00',
+    editable:true
   },
   {
     id: createEventId(),
     title: 'Timed event',
-    start: TODAY_STR + 'T12:00:00',
-    end: TODAY_STR + 'T15:00:00'
+    start: WEEKAHEAD_STR + 'T12:00:00',
+    end: WEEKAHEAD_STR + 'T15:00:00',
+    editable:true
   }
 ];
 

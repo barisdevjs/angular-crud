@@ -28,6 +28,7 @@
     "@fullcalendar/timegrid": "^6.0.2",
     "@popperjs/core": "^2.10.2",
     "bootstrap": "^5.2.0",
+    "date-fns": "^2.29.3",
     "exceljs": "^1.12.1",
     "file-saver": "^2.0.5",
     "graceful-fs": "^4.2.10",

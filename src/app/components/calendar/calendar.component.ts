@@ -8,6 +8,7 @@ import interactionPlugin, { Draggable } from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
+import { ConfirmationService } from 'primeng/api';
 
 
 @Component({
@@ -17,20 +18,40 @@ import listPlugin from '@fullcalendar/list';
 })
 export class CalendarComponent implements OnInit {
 
-  @ViewChild('external') external!: ElementRef; 
+  @ViewChild('external') external!: ElementRef;
   @ViewChild('calendar', { static: true }) calendar!: FullCalendarComponent;
   constructor(
     private cdref: ChangeDetectorRef,
-    ) { }
+    public confService: ConfirmationService,
+  ) { }
 
-  evDialog : boolean=false;
-  evTitle : string ='';
+  evDialog: boolean = false;
+  evTitle: string = '';
   currentEvents: EventApi[] = [];
   calendarVisible = true;
   eventsPromise!: Promise<EventSourceInput>;
-  submitted:boolean = false;
+  submitted: boolean = false;
+  open: boolean = false;
 
-  ngOnInit(): void {}
+  ngOnInit(): void { 
+/*     Swal.fire({
+      title: '<strong>HTML <u>example</u></strong>',
+      icon: 'info',
+      html:
+        'You can use <b>bold text</b>, ' +
+        '<a href="//sweetalert2.github.io">links</a> ' +
+        'and other HTML tags',
+      showCloseButton: true,
+      showCancelButton: true,
+      focusConfirm: false,
+      confirmButtonText:
+        '<i class="fa fa-thumbs-up"></i> Great!',
+      confirmButtonAriaLabel: 'Thumbs up, great!',
+      cancelButtonText:
+        '<i class="fa fa-thumbs-down"></i>',
+      cancelButtonAriaLabel: 'Thumbs down'
+    }) */
+  }
 
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin, listPlugin],
@@ -60,6 +81,7 @@ eventAdd:
 eventChange:
 eventRemove:
 */
+
   };
 
   handleDrag(e: any) {
@@ -110,7 +132,6 @@ eventRemove:
   }
 
   handleEventClick(clickInfo: EventClickArg) {
-    console.log(clickInfo)
     if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
       clickInfo.event.remove();
     }
