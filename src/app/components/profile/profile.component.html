@@ -22,34 +22,35 @@
                       </div>
                     </div>
                 </div>
-                <button pButton type="reset" label="Reset" class="p-button-info mb-3 mt-3" icon="pi pi-download" (click)="downloadPDF()"
+                <button pButton type="reset" label="Reset" class="p-button-info mb-3 mt-3" icon="pi pi-times"
                     iconPos="left">
                 </button>
                 <button pButton type="submit" label="Save" icon="pi pi-check" iconPos="left" 
                     [disabled]="signUpForm.invalid"></button>
             </div>
-            <div class="field col-6" #couponPage >
+            <div class="field col-6" #datas >
                 <input type="text" pInputText  formControlName="firstName" [(ngModel)]="user.firstName" class="mb-1" placeholder="First Name" >
                 <small class="p-error block" *ngIf="firstName?.errors?.['required'] && firstName?.dirty">First Name is required</small>
 
                 <input type="text" pInputText  formControlName="lastName" [(ngModel)]="user.lastName" class="mb-1" placeholder="Last Name">
                 <small class="p-error block" *ngIf="lastName?.errors?.['required'] && lastName?.dirty">Last Name is required</small>
 
-                <input type="email" pInputText  formControlName="mail" [(ngModel)]="user.mail" class="mb-1" placeholder="Email">
+                <input type="email" pInputText  formControlName="mail" [(ngModel)]="user.mail" class="mb-1"  placeholder="Email">
                 <small class="p-error block" *ngIf="mail?.errors?.['required'] && mail?.dirty">Mail is required</small>
                 <small class="p-error block" *ngIf="!mail?.errors?.['required'] && mail?.errors?.['emailValidator']">Invalid Format</small>
 
-                <input type="password" pInputText  formControlName="password1" [(ngModel)]="user.password1" class="mb-1" placeholder="Password">
+                <input [type]="showPass ? 'text' : 'password'" pInputText  formControlName="password1" [(ngModel)]="user.password1" class="mb-1"
+                 placeholder="Password" (dblclick)="show()" pTooltip="Double click to show password">
                 <small class="p-error block" *ngIf="password1?.errors?.['required'] && password1?.dirty">Password is required</small>
                 <small class="p-error block" *ngIf="password1?.errors?.['minlength']">
                 Field is < 3 chars.</small>
                 <small class="p-error block" *ngIf="password1?.errors?.['maxlength']">
                 This field must contain <br> atmost 8 characters.</small>
-
+                
                 <input type="password" pInputText formControlName="password2" class="mb-1" [(ngModel)]="user.password2" placeholder="Confirm Password" [appPasswordValidator]="'password1'" >
                 <small class="p-error block" *ngIf="password2?.errors?.['required'] && password2?.dirty">Password is required</small>
                 <small class="p-error block" *ngIf="password2?.errors && (password2?.dirty || password2?.touched)">
-                Passwords doesn't match.</small>
+                    Passwords doesn't match.</small>
             </div>
         </div>
     </form>

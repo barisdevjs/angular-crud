@@ -1,6 +1,6 @@
 import { Observable, Subscription } from 'rxjs';
 import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators,FormControl  } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { SignUser } from '../../types/user-type';
@@ -8,7 +8,7 @@ import { MessageService } from 'primeng/api';
 import { emailValidator } from 'src/app/directives/email-validator.directive';
 import { createId } from 'src/app/utils/id';
 import { jsPDF } from "jspdf";
-import html2canvas from 'html2canvas';
+import {PasswordModule} from 'primeng/password';
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +16,7 @@ import html2canvas from 'html2canvas';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  @ViewChild("couponPage", { static: true }) couponPage!: ElementRef;
+  @ViewChild("datas", { static: true }) datas!: ElementRef;
   @ViewChild('fileInput') el!: ElementRef;
   imageUrl: any = '../../../assets/111.jpg'
   editFile: boolean = true;
@@ -42,6 +42,8 @@ export class ProfileComponent implements OnInit {
     isLogged : false
   })
 
+    showPass:boolean = false;
+
     stateOptions: any[] = [];
     value1: string = "off";
     uploadedFiles: any[] = [];
@@ -49,7 +51,6 @@ export class ProfileComponent implements OnInit {
     userList: SignUser[] = [];
 
 
-  // userList: SignUser[] = [];
   user: SignUser = {};
   subscription$: Subscription = new Subscription();
 
@@ -58,7 +59,6 @@ export class ProfileComponent implements OnInit {
       next: (data: SignUser[]) => {
         this.userList = data;
         this.user = data.find((e: SignUser) => e.isLogged === true) as SignUser;
-        console.log(this.user)
         this.imageUrl = this.user.file
       },
       error : (err) => { console.log(err)},
@@ -66,7 +66,9 @@ export class ProfileComponent implements OnInit {
 
   }
 
-
+  show(){
+    this.showPass = !this.showPass
+  }
 
   addUser() {
     this.us.signUser(this.signUpForm.value).subscribe({
@@ -149,10 +151,10 @@ export class ProfileComponent implements OnInit {
   }
 
   downloadPDF(){
-    const DATA = this.couponPage.nativeElement;
+    const DATA = this.datas.nativeElement;
     const doc: jsPDF = new jsPDF("p", "mm", "a4");
       setTimeout(async () => {
-        await doc.html(DATA.innerHTML, {
+        await doc.html(DATA, {
           callback: function (doc) {
             doc.save("coupon.pdf");
           }
