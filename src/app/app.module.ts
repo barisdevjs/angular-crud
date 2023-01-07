@@ -49,6 +49,7 @@ import { NgxCaptureModule } from 'ngx-capture';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { ProfileComponent } from './components/profile/profile.component';
 
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 
 @NgModule({
@@ -97,6 +98,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     SelectButtonModule,
     ChipModule,
     FullCalendarModule,
+    SweetAlert2Module.forRoot(),
     RouterModule.forRoot([
       { path: '', component: AppComponent },
     ])

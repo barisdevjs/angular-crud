@@ -9,6 +9,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import { ConfirmationService } from 'primeng/api';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 
 @Component({
@@ -33,24 +34,7 @@ export class CalendarComponent implements OnInit {
   submitted: boolean = false;
   open: boolean = false;
 
-  ngOnInit(): void { 
-/*     Swal.fire({
-      title: '<strong>HTML <u>example</u></strong>',
-      icon: 'info',
-      html:
-        'You can use <b>bold text</b>, ' +
-        '<a href="//sweetalert2.github.io">links</a> ' +
-        'and other HTML tags',
-      showCloseButton: true,
-      showCancelButton: true,
-      focusConfirm: false,
-      confirmButtonText:
-        '<i class="fa fa-thumbs-up"></i> Great!',
-      confirmButtonAriaLabel: 'Thumbs up, great!',
-      cancelButtonText:
-        '<i class="fa fa-thumbs-down"></i>',
-      cancelButtonAriaLabel: 'Thumbs down'
-    }) */
+  ngOnInit(): void {
   }
 
   calendarOptions: CalendarOptions = {
@@ -132,9 +116,30 @@ eventRemove:
   }
 
   handleEventClick(clickInfo: EventClickArg) {
-    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-      clickInfo.event.remove();
-    }
+    /*     if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+          clickInfo.event.remove();
+        } */
+
+    Swal.fire({
+      title: 'Are you sure?',
+      text: `Are you sure you want to delete the '${clickInfo.event.title}'`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      width: '20rem',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        clickInfo.event.remove();
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      }
+    })
+
   }
 
   handleEvents(events: EventApi[]) {
