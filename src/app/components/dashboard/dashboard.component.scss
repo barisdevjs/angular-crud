@@ -9,10 +9,6 @@
     width: 10rem;
 }
 
-:host ::ng-deep .p-dropdown {
-    width: 10rem;
-}
-
 :host ::ng-deep .p-toolbar {
     margin: 0;
     padding: .3rem;
@@ -29,4 +25,6 @@
         padding-bottom: .5rem;
         padding-top: .5rem;
     }
+
 }
+

@@ -9,8 +9,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import { ConfirmationService } from 'primeng/api';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
-
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-calendar',
@@ -89,12 +88,22 @@ eventRemove:
     this.calendarOptions.weekends = !this.calendarOptions.weekends
   }
 
-  handleDateSelect(selectInfo: DateSelectArg) {
-    const title = prompt('Please enter a new title for your event');
-    const calendarApi = selectInfo.view.calendar;
+  async handleDateSelect(selectInfo: DateSelectArg) {
 
+    const calendarApi = selectInfo.view.calendar;
     calendarApi.unselect(); // clear date selection
 
+    const { value: title } = await Swal.fire({
+      input: 'text',
+      inputLabel: 'Your event',
+      inputPlaceholder: 'Type it here...',
+      inputAttributes: {
+        'aria-label': 'Type your message here'
+      },
+      showCancelButton: true
+    })
+    let ids =''
+    
     if (title) {
       calendarApi.addEvent({
         id: createEventId(),
@@ -104,6 +113,8 @@ eventRemove:
         allDay: selectInfo.allDay
       });
     }
+
+    console.log(calendarApi.getEvents())
   }
 
   hideDialog() {

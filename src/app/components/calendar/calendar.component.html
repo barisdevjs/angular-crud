@@ -3,6 +3,7 @@
     <div class='demo-app-sidebar-section'>
       <h2>Instructions</h2>
       <ul>
+        <li>These events are not saved in DB. So refreshing the page will not work.</li>
         <li>Select dates and you will be prompted to create a new event</li>
         <li>Drag, drop, and resize events</li>
         <li>Click an event to delete it</li>
@@ -13,11 +14,11 @@
         <input type='checkbox' [checked]='calendarVisible' (change)='handleCalendarToggle()' />
         Toggle whole calendar
       </label>
-      <br>
+<!--       <br>
       <label>
         <input type="checkbox" [checked]="calendarOptions.weekends" (change)='handleWeekendsToggle()' />
         Toggle weekends
-      </label>
+      </label> -->
     </div>
     <div class='demo-app-sidebar-section'>
       <h2>All Events ({{currentEvents.length}})</h2>
@@ -36,7 +37,6 @@
       <div class='fc-event box'>My Event 2</div>
       <div class='fc-event box'>My Event 3</div>
       <div class='fc-event box'>My Event 4</div>
-      <div class='fc-event box'>My Event 5</div>
     </div>
   </div>
 
