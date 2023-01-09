@@ -59,6 +59,7 @@ export class ProfileComponent implements OnInit {
       next: (data: SignUser[]) => {
         this.userList = data;
         this.user = data.find((e: SignUser) => e.isLogged === true) as SignUser;
+        // console.log(this.user)
         this.imageUrl = this.user.file
       },
       error : (err) => { console.log(err)},
@@ -162,11 +163,11 @@ export class ProfileComponent implements OnInit {
       },100)
   }
 
-
+  
   ngOnDestroy() {
     this.subscription$.unsubscribe();
   }
-
+  
   ngAfterContentChecked() {
     this.cd.detectChanges();
   }

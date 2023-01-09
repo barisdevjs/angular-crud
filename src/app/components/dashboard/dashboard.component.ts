@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
   selectedEmployees: Employee[] = [];
   submitted: boolean = false;
   statuses = statusArr
-  uploadedFiles: object[] = userImages
+  uploadedFiles: object[] = [];
   dataForExcel: Employee[] = [];
   imgBase64: any = '';
 
@@ -44,12 +44,9 @@ export class DashboardComponent implements OnInit {
     private captureService: NgxCaptureService,
   ) { }
 
-  ngOnInit() {
-    this.employeeService.getEmployees().subscribe(data => this.employees = data);
-    this.getImg();
-    setTimeout(() => {
-      this.saveScreen()
-    }, 2500)
+   async ngOnInit() {
+     this.employeeService.getEmployees().subscribe(data => this.employees = data);
+     await this.saveScreen()
   }
 
   getImg() {

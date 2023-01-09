@@ -68,7 +68,7 @@ export class EmployeeService implements HttpInterceptor {
     }
 
     getRandomImage() :Observable<Object> {
-        return this.http.get('http://randomuser.me/api/?results=20', httpOptions)
+        return this.http.get('https://randomuser.me/api/?results=20', httpOptions)
     }
 
 }
