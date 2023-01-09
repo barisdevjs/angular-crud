@@ -3,14 +3,15 @@
     justify-content: center !important;
     align-items: center !important;
     height:89vh; 
-    background-image: linear-gradient(to left, lightblue, darkblue)
-}
-
-:host > p-card {
+    background-image: linear-gradient(to left, lightblue, darkblue);
+  }
+  
+  :host > p-card {
+    box-sizing: border-box !important;
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
-    width: 40vw;
+    width: 33vw;
 }
 
 
@@ -79,8 +80,10 @@
       }
       
       .avatar-upload .avatar-preview {
-        width: 200px;
-        height: 200px;
+        width: 12vw;
+        height: 12vw;
+        max-width: 200px;
+        max-height: 200px;
         position: relative;
         border-radius: 100%;
         overflow: hidden;
@@ -140,6 +143,11 @@
       .xbtn {
         height:2.5rem;
         margin-top: 1rem;
+      }
+
+      .xx {
+        width : 90%;
+        box-sizing: border-box;
       }
 
  }

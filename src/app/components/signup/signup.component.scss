@@ -80,8 +80,10 @@
       }
       
       .avatar-upload .avatar-preview {
-        width: 200px;
-        height: 200px;
+        width: 14vw;
+        height: 14vw;
+        max-width: 200px;
+        max-height: 200px;
         position: relative;
         border-radius: 100%;
         overflow: hidden;
@@ -132,5 +134,10 @@
       
       .custom-control-label {
         cursor: pointer;
+      }
+
+      .xx > .p-inputtext {
+        width: 90%;
+        box-sizing: border-box;
       }
   }
