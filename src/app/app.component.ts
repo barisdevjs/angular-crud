@@ -63,7 +63,6 @@ export class AppComponent implements OnInit {
       { label: 'Home', icon: 'pi pi-fw pi-home', routerLink: 'home' },
       { label: 'Calendar', icon: 'pi pi-fw pi-calendar', routerLink: 'calendar' },
       { label: 'Profile', icon: 'pi pi-fw pi-pencil', routerLink: 'profile' },
-      { label: 'Documentation', icon: 'pi pi-fw pi-file', routerLink: 'documentation' }
     ];
     this.activeItem = this.items[1]
   }
@@ -94,7 +93,6 @@ export class AppComponent implements OnInit {
       await this.router.navigate(['/login'])
     }, 3000)
   }
-
 
 }
 

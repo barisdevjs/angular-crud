@@ -10,6 +10,10 @@ Run `ng serve -o` for a dev server. Navigate to `http://localhost:4000/`. The ap
 
 Run `npm run server`  for a JSON server. It will active at `http://localhost:5000/`
 
+## Documentation
+
+Run `compodoc -s -o` at the root of your project.It will automatically opened in an new tab at `http://127.0.0.1:8080/` 
+
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.

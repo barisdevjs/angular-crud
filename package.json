@@ -10,7 +10,7 @@
     "server": "json-server --watch db.json --port 5000",
     "compodoc:build": "compodoc -p tsconfig.doc.json",
     "compodoc:build-and-serve": "compodoc -p tsconfig.doc.json -s",
-    "compodoc:serve": "compodoc -s"
+    "compodoc:serve": "compodoc -s -o"
   },
   "private": true,
   "dependencies": {
