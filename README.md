@@ -41,6 +41,12 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 ![alt text](https://github.com/barisdevjs/angular-crud/blob/main/src/screenshots/SearchResult.png)
 
 
+## Features
+| Sign up & login page | Protected routes | downloading PDF | Dowloading JPEG file | Screensaving | Deploy table data to the Excel file |
+| Fully functioning with JSON server | Able to do CRUD Operations | Documentation | Full Calendar Usage | Editable User Profile | 
+
+---
+
 
 
 
