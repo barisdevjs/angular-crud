@@ -14,17 +14,3 @@
     padding: .3rem;
 }
 
-:host ::ng-deep .mytable {
-
-    table {
-        height: 72vh;
-    }
-
-    tr>td {
-        margin: auto;
-        padding-bottom: .5rem;
-        padding-top: .5rem;
-    }
-
-}
-

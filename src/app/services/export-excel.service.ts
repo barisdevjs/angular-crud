@@ -44,7 +44,7 @@ export class ExportExcelService {
     // Date
     worksheet.mergeCells('D4:G6');
     let d = new Date();
-    let date = d.getDate() + '-' + d.getMonth() + '-' + d.getFullYear();
+    let date = d.getDate() + '-' + (d.getMonth() + 1) + '-' + d.getFullYear();
     let dateCell = worksheet.getCell('D4');
     dateCell.value = date;
     dateCell.font = {

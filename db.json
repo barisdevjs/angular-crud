@@ -15,7 +15,7 @@
       "email": "Shanna@melissa.tv",
       "category": "Full-Stack",
       "wage": 3000,
-      "rating": 3,
+      "rating": 2,
       "id": "QvKZm",
       "status": "Sickness",
       "image": "https://randomuser.me/api/portraits/thumb/women/49.jpg"
@@ -25,7 +25,7 @@
       "email": "anastasia.net",
       "category": "FrontEnd",
       "wage": 2323,
-      "rating": 4,
+      "rating": 3,
       "id": "ePN2as",
       "status": "Other",
       "image": "https://randomuser.me/api/portraits/thumb/men/12.jpg"
@@ -131,7 +131,7 @@
       "password1": "Cmail.1",
       "password2": "Cmail.1",
       "id": "k7mkk",
-      "isLogged": false
+      "isLogged": true
     }
   ]
 }

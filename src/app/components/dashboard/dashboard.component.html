@@ -26,8 +26,8 @@
     </p-toolbar>
     <div #screen class="mytable">
         <p-table #dt [value]="employees" [rows]="5" [paginator]="true" selectionMode="single"
-            [globalFilterFields]="['categorty','name', 'wage']" responsiveLayout="scroll"
-            [(selection)]="selectedEmployees" [rowHover]="true" dataKey="id"
+            [globalFilterFields]="['categorty','name', 'wage']"  [ngClass]="getScreenWidth > 1366 ? 'p-datatable-lg' : 'p-datatable-sm'"
+            [(selection)]="selectedEmployees" [rowHover]="true" dataKey="id" 
             currentPageReportTemplate="Showing {first} to {last} of {{employees.length}} entries"
             [showCurrentPageReport]="true">
             <ng-template pTemplate="header">

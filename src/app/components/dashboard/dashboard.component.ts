@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { EmployeeService } from "../../services/employee.service";
 import { MessageService, ConfirmationService } from "primeng/api";
 import { Employee } from 'src/app/types/employee-type';
-import { statusArr, userImages } from "../../../assets/variables";
+import { statusArr } from "../../../assets/variables";
 import { UploadService } from "../../services/upload.service";
 import { ExportExcelService } from '../../services/export-excel.service';
 import { NgxCaptureService } from 'ngx-capture';
@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
   uploadedFiles: object[] = [];
   dataForExcel: Employee[] = [];
   imgBase64: any = '';
-
+  getScreenWidth: any;
 
 
   constructor(
@@ -44,9 +44,17 @@ export class DashboardComponent implements OnInit {
     private captureService: NgxCaptureService,
   ) { }
 
-   async ngOnInit() {
+     ngOnInit() {
      this.employeeService.getEmployees().subscribe(data => this.employees = data);
-     await this.saveScreen()
+     setTimeout(() => {
+      this.saveScreen()
+     },1000)
+     this.getScreenWidth = window.innerWidth;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() {
+    this.getScreenWidth = window.innerWidth;
   }
 
   getImg() {
@@ -201,6 +209,7 @@ export class DashboardComponent implements OnInit {
 
 
   DataURIToBlob(dataURI: string = this.imgBase64, name: string) {
+    this.saveScreen();
     saveAs(dataURI, name + '.png')
   }
 
