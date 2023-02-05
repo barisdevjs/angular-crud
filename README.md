@@ -22,6 +22,18 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
+## Features
+| Sign up & login page | Protected routes | downloading PDF | Dowloading JPEG file | Screensaving | Deploy table data to the Excel file |
+| Fully functioning with JSON server | Able to do CRUD Operations | Documentation | Full Calendar Usage | Editable User Profile | 
+
+## Technologies and Packages
+
+- rxjs, primeNg, Json Server, Observables, 
+- Angular 14 => Reactive forms, Http Methods, Interceptors ,Host Listener
+- emailvalidator, email checker and password comparer
+- Sweetalert2, Full Calendar, Exceljs, FileSaver, date-fns
+- jspdf, ngx-capture 
+
 ## ScreenShots
 
 ![alt text](https://github.com/barisdevjs/angular-crud/blob/main/src/screenshots/Compodoc1.png)
@@ -41,11 +53,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 ![alt text](https://github.com/barisdevjs/angular-crud/blob/main/src/screenshots/SearchResult.png)
 
 
-## Features
-| Sign up & login page | Protected routes | downloading PDF | Dowloading JPEG file | Screensaving | Deploy table data to the Excel file |
-| Fully functioning with JSON server | Able to do CRUD Operations | Documentation | Full Calendar Usage | Editable User Profile | 
 
----
 
 
 
