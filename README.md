@@ -38,7 +38,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ![alt text](https://github.com/barisdevjs/angular-crud/blob/main/src/screenshots/FullCalendar.png)
 
-![alt text](https://github.com/barisdevjs/angular-crud/blob/main/src/screenshots/Search Results.png)
+![alt text](https://github.com/barisdevjs/angular-crud/blob/main/src/screenshots/SearchResult.png)
 
 
 
