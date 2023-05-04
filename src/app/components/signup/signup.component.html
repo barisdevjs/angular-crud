@@ -8,9 +8,6 @@
     <form [formGroup]="signUpForm" (ngSubmit)="addUser()">
         <div class="formgrid grid" >
             <div class="field col-6 flex justify-content-center flex-column">
-                <!-- <p-avatar image="../../../assets/111.jpg" shape="circle" size="xlarge" 
-                    [style]="{width:'150px',height:'150px', margin: '20px'}" styleClass="align-self-start">
-                </p-avatar> -->
                 <div class="avatar-upload">
                     <div class="avatar-edit">
                       <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" #fileInput (change)="uploadFile($event)" />

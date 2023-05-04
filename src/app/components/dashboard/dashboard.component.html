@@ -102,8 +102,8 @@
                 <label for="name">Name</label>
                 <input type="text" pInputText id="name" name="name" [(ngModel)]="employee.name" required autofocus
                     minlength="3" maxlength="16" #nameCheck='ngModel' />
-                <small class="p-invalid" *ngIf="nameCheck.getError('minlength')">Too short</small>
-                <small class="p-invalid" *ngIf="nameCheck.getError('maxlength')">Too long</small>
+                <small class="p-invalid" *ngIf="nameCheck.errors?.['minlength']">Too short</small>
+                <small class="p-invalid" *ngIf="nameCheck.errors?.['maxlength']">Too long</small>
             </div>
             <div class="field col-7">
                 <label for="email">Email</label>
@@ -215,23 +215,3 @@
 </p-dialog>
 
 <p-confirmDialog [style]="{width: '400px'}"></p-confirmDialog>
-
-<!-- use this in the other components -->
-<!-- <p-fileUpload name="myfile[]" [customUpload]="true"  (uploadHandler)="fileSelected($event)" uploadLabel="Process Files" >
-    <ng-template let-file pTemplate="file">
-        <div class="p-fileupload-row ng-star-inserted">
-            <div class="p-fileupload-filename">
-                {{ file.name }}
-            </div>
-            <div>
-                {{ (file.size / 1024).toFixed(2) }} KB
-            </div>
-            <div>
-                <button type="button" icon="pi pi-times" class="p-button p-component p-button-icon-only">
-                    <span class="p-button-icon pi pi-times" aria-hidden="true">
-                    </span><span aria-hidden="true" class="p-button-label">&nbsp;</span>
-                </button>
-            </div>
-        </div>
-    </ng-template>
-    </p-fileUpload> -->

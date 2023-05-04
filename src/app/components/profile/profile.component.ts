@@ -1,6 +1,6 @@
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, Validators,FormControl  } from '@angular/forms';
+import { FormBuilder, Validators  } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { SignUser } from '../../types/user-type';
@@ -8,7 +8,6 @@ import { MessageService } from 'primeng/api';
 import { emailValidator } from 'src/app/directives/email-validator.directive';
 import { createId } from 'src/app/utils/id';
 import { jsPDF } from "jspdf";
-import {PasswordModule} from 'primeng/password';
 
 @Component({
   selector: 'app-profile',
@@ -122,7 +121,6 @@ export class ProfileComponent implements OnInit {
   }
 
   removeUploadedFile() {
-    let newFileList = Array.from(this.el.nativeElement.files);
     this.imageUrl = '../../../assets/111.jpg';
     this.editFile = true;
     this.removeUpload = false;

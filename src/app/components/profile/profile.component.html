@@ -40,7 +40,7 @@
                 <small class="p-error block" *ngIf="!mail?.errors?.['required'] && mail?.errors?.['emailValidator']">Invalid Format</small>
 
                 <input [type]="showPass ? 'text' : 'password'" pInputText  formControlName="password1" [(ngModel)]="user.password1" class="mb-1 xx"
-                 placeholder="Password" (dblclick)="show()" pTooltip="Double click to show password">
+                 placeholder="Password" (dblclick)="show()" pTooltip="Double click to {{showPass ? 'hide' : 'show'}}  password">
                 <small class="p-error block" *ngIf="password1?.errors?.['required'] && password1?.dirty">Password is required</small>
                 <small class="p-error block" *ngIf="password1?.errors?.['minlength']">
                 Field is < 3 chars.</small>

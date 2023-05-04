@@ -113,7 +113,6 @@ export class SignupComponent implements OnInit {
   }
 
   removeUploadedFile() {
-    let newFileList = Array.from(this.el.nativeElement.files);
     this.imageUrl = '../../../assets/111.jpg';
     this.editFile = true;
     this.removeUpload = false;

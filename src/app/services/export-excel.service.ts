@@ -105,7 +105,7 @@ export class ExportExcelService {
 
       let rating = row.getCell(5);
       let color = 'FF99FF99';
-      let rating_val = rating.value || 0;
+      let rating_val = Number(rating.value) || 0;
       // Conditional fill color
       if (rating_val > 4) {
         color = 'FF9999';

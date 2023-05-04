@@ -1,5 +1,5 @@
 import { Directive, Input } from '@angular/core';
-import { NG_VALIDATORS, AbstractControl, Validator, ValidationErrors, FormControl } from '@angular/forms';
+import { NG_VALIDATORS,  Validator, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 @Directive({

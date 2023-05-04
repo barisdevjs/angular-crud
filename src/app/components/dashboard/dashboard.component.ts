@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { EmployeeService } from "../../services/employee.service";
 import { MessageService, ConfirmationService } from "primeng/api";
 import { Employee } from 'src/app/types/employee-type';
@@ -9,7 +9,7 @@ import { NgxCaptureService } from 'ngx-capture';
 import { saveAs } from 'file-saver';
 import { Table } from 'primeng/table';
 import { createId } from 'src/app/utils/id';
-import { tap } from 'rxjs';
+import { combineLatest, delay, filter, fromEvent, interval, map, of, switchMap, take, takeUntil, tap, timer, withLatestFrom } from 'rxjs';
 
 
 
@@ -18,7 +18,7 @@ import { tap } from 'rxjs';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit  {
 
   @ViewChild('screen', { static: true }) screen: any;
   @ViewChild('dt') public table!: Table;
@@ -44,13 +44,15 @@ export class DashboardComponent implements OnInit {
     private captureService: NgxCaptureService,
   ) { }
 
-     ngOnInit() {
+  ngOnInit() {
      this.employeeService.getEmployees().subscribe(data => this.employees = data);
-     setTimeout(() => {
-      this.saveScreen()
-     },1000)
+     window.onload = () => {
+      this.saveScreen();
+    };
      this.getScreenWidth = window.innerWidth;
   }
+
+
 
   @HostListener('window:resize', ['$event'])
   onWindowResize() {
@@ -201,12 +203,11 @@ export class DashboardComponent implements OnInit {
     this.captureService.getImage(await this.screen.nativeElement, true)
       .pipe(
         tap(img => {
-          console.log(img);
           this.imgBase64 = img
         })
       ).subscribe()
   }
-
+  
 
   DataURIToBlob(dataURI: string = this.imgBase64, name: string) {
     this.saveScreen();
