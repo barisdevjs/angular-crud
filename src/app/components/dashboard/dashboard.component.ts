@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit  {
   statuses = statusArr
   uploadedFiles: object[] = [];
   dataForExcel: Employee[] = [];
-  imgBase64: any = '';
+  imgBase64: string = '';
   getScreenWidth: any;
 
 
@@ -204,15 +204,18 @@ export class DashboardComponent implements OnInit  {
       .pipe(
         tap(img => {
           this.imgBase64 = img
+          console.log(img);
         })
       ).subscribe()
   }
   
 
-  DataURIToBlob(dataURI: string = this.imgBase64, name: string) {
-    this.saveScreen();
-    saveAs(dataURI, name + '.png')
+  async DataURIToBlob(name: string) {
+    await this.saveScreen();
+    saveAs(this.imgBase64, name + '.png');
   }
+  
+  
 
   reset() {
     this.table.reset();
